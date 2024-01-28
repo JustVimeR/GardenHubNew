@@ -15,20 +15,21 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Data.Repos
+namespace Data.Repos.Concrete
 {
     public class Repository<T> : IRepository<T> where T : EntityBase
     {
         protected readonly ApplicationDbContext dataContext;
         protected readonly DbSet<T> dbSet;
-        
+
         protected virtual IQueryable<T> PrepareDbSet()
         {
             IEnumerable<Type> classes = typeof(T).Assembly.GetTypes().Where(x => x.FullName.StartsWith("Models.DbEntities.")).ToList();
-     
+
             var props = typeof(T).GetProperties().Select(x => x).ToList();
-            
-            foreach (var prop in props) {
+
+            foreach (var prop in props)
+            {
                 if (classes.Contains(prop.PropertyType))
                 {
                     dbSet.Include(prop.Name).Load();
@@ -37,7 +38,7 @@ namespace Data.Repos
                     {
                         if (classes.Contains(prop2.PropertyType))
                         {
-                            dbSet.Include(prop.Name+'.'+prop2.Name).Load();
+                            dbSet.Include(prop.Name + '.' + prop2.Name).Load();
                         }
 
                         var genericArgs2 = prop2.PropertyType.GetGenericArguments();
@@ -48,13 +49,13 @@ namespace Data.Repos
 
                     }
                 }
-                
+
                 var genericArgs = prop.PropertyType.GetGenericArguments();
                 if (genericArgs.Length > 0 && classes.Contains(genericArgs[0]))
                 {
                     dbSet.Include(prop.Name).Load();
                 }
-                
+
             }
             var a = dbSet.ToList();
             return dbSet;
@@ -66,7 +67,7 @@ namespace Data.Repos
             dbSet = dataContext.Set<T>();
         }
 
-        public virtual T? GetFirstOrDefault(Expression<Func<T, bool>>? predicate = null)
+        public virtual T GetFirstOrDefault(Expression<Func<T, bool>> predicate = null)
         {
             var preparedDbSet = PrepareDbSet();
 
@@ -76,7 +77,7 @@ namespace Data.Repos
             return preparedDbSet.FirstOrDefault(predicate);
         }
 
-        public virtual Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null)
+        public virtual Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate = null)
         {
             var preparedDbSet = PrepareDbSet();
 
@@ -86,7 +87,7 @@ namespace Data.Repos
             return preparedDbSet.FirstOrDefaultAsync(predicate);
         }
 
-        public virtual IQueryable<T> GetWhere(Expression<Func<T, bool>>? predicate)
+        public virtual IQueryable<T> GetWhere(Expression<Func<T, bool>> predicate)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
@@ -94,7 +95,7 @@ namespace Data.Repos
             return PrepareDbSet().Where(predicate);
         }
 
-        public virtual IPagedList<T> GetWhere(Expression<Func<T, bool>>? predicate, PaginationFilter paginationFilter, SortFilter sortFilter)
+        public virtual IPagedList<T> GetWhere(Expression<Func<T, bool>> predicate, PaginationFilter paginationFilter, SortFilter sortFilter)
         {
             if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
@@ -183,7 +184,7 @@ namespace Data.Repos
 
                 dbSet.Add(entity);
             }
-                    
+
         }
 
         public virtual void Put(T entity)
@@ -211,7 +212,7 @@ namespace Data.Repos
 
             foreach (var entity in entities)
             {
-                var entry = dataContext.Entry<T>(entity);
+                var entry = dataContext.Entry(entity);
                 entry.State = EntityState.Deleted;
                 dbSet.Remove(entity);
             }

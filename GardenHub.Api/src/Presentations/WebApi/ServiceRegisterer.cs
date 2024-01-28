@@ -1,9 +1,10 @@
 using Core.Services;
+using Core.Services.Concrete;
+using Core.Services.Concrete.Logging;
 using Core.Services.Interfaces;
-using Core.Services.Logging;
 using Data.Contexts;
 using Data.IdentityModels;
-using Data.Repos;
+using Data.Repos.Concrete;
 using Data.Repos.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -201,8 +202,6 @@ namespace WebApi
 
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IFeedbackService, FeedbackService>();
-
-            services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
 
             return services;
         }

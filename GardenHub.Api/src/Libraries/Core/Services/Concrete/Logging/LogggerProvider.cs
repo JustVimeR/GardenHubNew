@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Services.Logging;
+namespace Core.Services.Concrete.Logging;
 
 public class LoggerProvider<T> : ILoggerProvider<T>
 {

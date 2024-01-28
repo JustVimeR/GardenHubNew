@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using Models.DbEntities;
 using System.Linq;
 
-namespace Data.Repos
+namespace Data.Repos.Concrete
 {
     public class UserProfileRepository : Repository<UserProfile>, IUserProfileRepository
     {
         public UserProfileRepository(ApplicationDbContext dataContext) : base(dataContext)
         {
-            
+
         }
     }
 }

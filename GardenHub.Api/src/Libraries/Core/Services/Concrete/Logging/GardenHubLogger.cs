@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace Core.Services.Logging;
+namespace Core.Services.Concrete.Logging;
 
 public class GardenHubLogger<T> : IGardenHubLogger<T>
 {

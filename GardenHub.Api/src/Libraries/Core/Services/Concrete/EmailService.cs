@@ -10,7 +10,7 @@ using Core.Exceptions;
 using Microsoft.Extensions.Options;
 using Core.Services.Interfaces;
 
-namespace Core.Services;
+namespace Core.Services.Concrete;
 
 public class EmailService : IEmailService
 {

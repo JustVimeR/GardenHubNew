@@ -3,7 +3,7 @@ using Data.IdentityModels;
 using Models.DbEntities;
 using WebApi.Helpers;
 
-namespace HomeGaden.TESTS
+namespace GardenHub.Tests
 {
     public class MapperTest
     {
