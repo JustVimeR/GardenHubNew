@@ -1,0 +1,21 @@
+
+<section class="order_wrapper">
+    <div class="container">
+        <div>
+            <button class="details_btn" (click)="createOrder()">Додати проект</button>
+        </div>
+        <div class="list_wrapper">
+            <app-order 
+                *ngFor="let order of fakeOrders" 
+                [order]="order"
+                (heartToggle)="toggleHeart($event)"
+                (viewDetails)="viewOrderDetails($event)"
+            ></app-order>
+        </div>
+    </div>
+    <div class="button_wrapper">
+        <button class="btn-confirm" >Переглянути профіль</button>
+        <button type="submit" class="btn-confirm" >Зберегти зміни</button>
+    </div>
+</section>
+

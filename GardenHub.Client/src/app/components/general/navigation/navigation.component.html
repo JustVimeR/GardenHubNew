@@ -1,0 +1,22 @@
+<div class="slim-header with-sidebar">
+    <div class="container-fluid">
+      <div class="slim-header-left">
+        <h2 class="slim-logo"><a href="../../../../index.html">Swiftly</a></h2>
+        <a href="" id="slimSidebarMenu" class="slim-sidebar-menu" (click)="handleMenu()"><span></span></a>
+      </div>
+      <div class="slim-header-right">
+        <div class="dropdown dropdown-c">
+          <a href="#" class="logged-user" data-toggle="dropdown">
+            <img  class="pr-menu-btn" src="http://via.placeholder.com/500x500" alt="">
+            <span class="pr-menu-btn">User</span>
+            <i class="fa fa-angle-down pr-menu-btn"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right pr-menu" [class.show]="showProfileMenu">
+            <nav class="nav pr-menu">
+              <a href="" class="nav-link pr-menu logout"><i class="icon ion-forward logout pr-menu"></i> Sign Out</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,129 @@
+
+
+.order_wrapper{
+    margin-top: 75px;
+    min-height: 950px;
+    padding: 45px 59px;
+ 
+}
+
+.order_text{
+    margin-left: 10px;
+    color: #000;
+    font-size: 30px;
+    font-weight: 500;
+}
+    
+.order_header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 285px;
+    margin-bottom: 39px;
+}
+
+.order{
+    margin-bottom: 25px;
+    display: flex;
+    width: 646px;
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    border-radius: 20px;
+    border: 1px solid #D8D8D8;
+
+    .order-title_wrapper{
+        display: flex;
+        justify-content: space-between;
+        align-items:baseline;
+        
+        .order_title{
+            width: 530px;
+            color: #000;
+            font-size: 23px;
+            font-weight: 500;
+        }
+
+        .order_status{
+            color: #83DF89;
+            font-size: 18px;
+            font-weight: 400;
+        }
+    }
+
+    
+
+    .order_subtitle{
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        color: #000;
+        font-size: 18px;
+        font-weight: 400;
+
+        span{
+            margin-left: 9px;
+        }
+    }
+
+    .order_price{
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        color: #000;
+        font-size: 18px;
+        font-weight: 400;
+            span{
+            margin-left: 9px;
+        }
+    }
+
+    .type-of-work_list{
+        display: flex;
+        flex-wrap: wrap;
+        align-items:center;
+
+        .type-of-work{
+            display: flex;
+            padding: 8px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 15px;
+            background: #E7E7E7;
+            color: #A5A5A5;
+            font-size: 18px;
+            font-weight: 400;
+            margin: 0 10px 10px 0 ;
+        }
+    }
+
+    .order_footer{
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+
+        .details_btn{
+            display: flex;
+            width: 188px;
+            height: 41px;
+            padding: 21px 20px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background-color:#FFF;
+            color: #83DF89;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 18px;
+            border: 3px solid #83DF89;
+        }
+
+        .heart_btn{
+            margin-left: 400px;
+            width: 28px;
+            height: 28px;
+        }
+    }
+}

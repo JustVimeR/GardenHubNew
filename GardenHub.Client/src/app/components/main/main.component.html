@@ -1,0 +1,110 @@
+<div class="nav-pannel">
+  <div class="nav-pannel-left">
+    <div class="nav-pannel-menu-btn" (click)="handleMenu()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="9" height="35" viewBox="0 0 9 35" fill="none">
+        <circle cx="4.5" cy="4.5" r="4.5" fill="black"/>
+        <circle cx="4.5" cy="17.5" r="4.5" fill="black"/>
+        <circle cx="4.5" cy="30.5" r="4.5" fill="black"/>
+        </svg>
+    </div>
+    <div><a class="nav-pannel-logo" href="../../../../index.html">GARDENHUB</a></div>  
+  </div>
+    <div class="switcher">
+      <button 
+        class="switcher-btn" 
+        [class.active]="activeTab === 'gardener'" 
+        (click)="setActiveTab('gardener')">Садівник</button>
+      <button 
+        class="switcher-btn" 
+        [class.active]="activeTab === 'housekeeper'" 
+        (click)="setActiveTab('housekeeper')">Домовласник</button>
+    </div>
+</div>
+<div class="base-box">
+    <div class="slim-sidebar ps ps--theme_default" 
+          [class.hide]="statusMenu">
+      <ul class="nav nav-sidebar">
+        <li class="sidebar-nav-item">
+          <p class="sidebar-nav-role">Садівник</p>
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+            ><span>Ім’я користувача</span></a>
+        </li>
+        <li class="sidebar-nav-item">
+          <hr class="direct"/>
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+             [routerLink]="['/api/main']">Головна</a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="activeTab === 'housekeeper'">
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+             [routerLink]="['/api/create-order']">Створити замовлення</a>
+        </li>
+        <li class="sidebar-nav-item" *ngIf="activeTab === 'housekeeper'">
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+             [routerLink]="['/api/notification']">Сповіщення</a>
+        </li>
+        <!-- <li class="sidebar-nav-item">
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+            >Знайти замовлення</a>
+        </li> -->
+        <li class="sidebar-nav-item">
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+          [routerLink]="['/api/orders']">Мої замовлення</a>
+        </li>
+        <!-- <li class="sidebar-nav-item">
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+            >Чати</a>
+        </li> -->
+        <li class="sidebar-nav-item" *ngIf="activeTab === 'gardener'">
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+          [routerLink]="['/api/profile']">Мій профіль</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+          [routerLink]="['/api/profilesettings']">Налаштування профілю</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <hr class="direct"/>
+          <nav class="nav pr-menu">
+            <a href="" class="nav-link pr-menu logout sidebar-nav-link sidebar-nav-link-bold"><i class="icon ion-forward logout pr-menu"></i>Вихід</a>
+          </nav>
+        </li>
+      </ul>
+      <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+      </div>
+      <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+      </div>
+    </div>
+    <div class="w-100">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <footer class="footer_wrapper">
+      <div class="container">
+        <div class="row">
+
+          <div class="col help_wrapper">
+            <div class="header">Допомога</div>
+            <div class="subheader">Політика конфіденційності</div>
+            <div class="subheader">Питання та відповіді</div>
+          </div>
+
+          <div class="col about_wrapper">
+            <div class="header">Про нас</div>
+            <div class="subheader">support@gardenhub.ua</div>
+            <div class="subheader">Контакти</div>
+          </div>
+
+          <div class="col social_wrapper">
+              <img src="../../../assets/instagram.png" alt="instagram" class="social-icon">
+              <img src="../../../assets/telegram.png" alt="telegram" class="social-icon">
+              <img src="../../../assets/facebook.png" alt="facebook" class="social-icon_lust">
+          </div>
+
+        </div>
+      </div>
+  </footer>
+  <!-- <app-global-right-side-modal *ngIf="show$ | async">
+  </app-global-right-side-modal> -->
+  

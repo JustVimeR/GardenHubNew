@@ -1,0 +1,14 @@
+
+<section class="order_wrapper">
+    <div class="container">
+        <div class="list_wrapper">
+            <app-order 
+                *ngFor="let order of fakeOrders" 
+                [order]="order"
+                (heartToggle)="toggleHeart($event)"
+                (viewDetails)="viewOrderDetails($event)"
+            ></app-order>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,31 @@
+<div class="order">
+    <div class="order-title_wrapper">
+        <div class="order_title">{{order.title}}</div>
+        <div class="order_status">{{order.orderStatus}}</div>
+    </div>
+    <div class="order_subtitle">
+        <img src="../../../assets/point.png" alt="point" class="order_point">
+        <span>{{order.location}}</span>
+    </div>
+    <div class="order_price">
+        <img src="../../../assets/moneygrn.png" alt="point" class="order_point">
+        <span>{{order.price}}</span>
+    </div>
+    <div class="type-of-work_list" >
+        <div class="type-of-work" *ngFor="let type of order.typeOfWork">{{type}}</div>
+    </div>
+    <div class="order_footer">
+        <button class="details_btn" (click)="viewOrderDetails()">Детальніше</button>
+        <img src="../../../assets/hearticon.png" 
+            alt="heart" 
+            class="heart_btn" 
+            (click)="toggleHeart()" 
+            *ngIf="!order.isHeartClicked">
+
+        <img src="../../../assets/hearticonred.png" 
+            alt="heart" 
+            class="heart_btn" 
+            (click)="toggleHeart()" 
+            *ngIf="order.isHeartClicked">
+    </div>
+</div>

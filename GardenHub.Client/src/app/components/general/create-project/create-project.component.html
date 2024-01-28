@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="service_wrapper">
+        <div class="service_header" *ngIf="activeRole === 'housekeeper'">Нове замовлення</div>
+        <div class="service_header" *ngIf="activeRole === 'gardener'">Новий проект</div>
+        <div class="header-input_wrapper">
+            <div  class="header-title">Заголовок</div>
+            <input type="text" class="header-input" placeholder="Введіть заголовок, який коротко описує суть завдання...">
+        </div>
+        <div class="service_category-header">Нове замовлення</div>
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
+
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="service-child_wrapper">
+          <button mat-icon-button disabled></button>
+          <input 
+            class='service-name-checkbox' 
+            type="checkbox" 
+            [id]="node.name" 
+            [(ngModel)]="node.selected"
+            (change)="updateTypeOfWork(node.name, node.selected)"
+          >
+          <label class="service-child-name" for="{{node.name}}">{{node.name}}</label>
+        </mat-tree-node>
+      
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
+                        class="service-title"
+                     [ngClass]="{'service-title-active': treeControl.isExpanded(node)}">
+        <button mat-icon-button matTreeNodeToggle
+                [attr.aria-label]="'Toggle ' + node.name">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        {{node.name}}
+      </mat-tree-node>
+      </mat-tree>
+
+      <section class="choosed-services_wrapper">
+        <div class="choosed-services_header">
+          Вибрані послуги
+        </div>
+        <div class="type-of-work_list" >
+          <div class="type-of-work" *ngFor="let type of typeOfWork">{{type}}</div>
+      </div>
+      </section>
+
+        <div class="location-input_wrapper">
+            <div  class="location-title">Локація</div>
+            <input type="text" class="location-input" placeholder="Введіть локацію...">
+        </div>
+
+        <div class="project-price-input_wrapper">
+            <div  class="project-price-title">Вартість проекту</div>
+            <input type="text" class="project-price-input" placeholder="Введіть вартість у грн...">
+        </div>
+
+        <div class="textarea_wrapper">
+            <div class="textarea_title">Опис</div>
+            <textarea class="textarea_desrc" placeholder="Опишіть детальніше ваш проект..."></textarea>
+        </div>
+
+        <div class="photo-input_wrapper">
+            <div  class="photo-title">Фото</div>
+            <input type="file" id="fileInput" style="display: none;" multiple (change)="onFileSelected($event)" />
+            <button class="photo-input" (click)="triggerInput()">Додати фото</button>
+            <div class="photo-input-count" *ngIf="selectedFilesCount > 0">
+                Вибрано файлів: {{ selectedFilesCount }}
+            </div>
+        </div>
+      <div class='service-btn_wrapper'>
+        <button class="service-btn">Створити замовлення</button>
+      </div>
+    </div>
+  </div>
+  

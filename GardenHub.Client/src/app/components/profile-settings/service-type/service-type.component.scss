@@ -1,0 +1,91 @@
+.service_wrapper{
+    margin-top: 24px;
+    min-height: 1700px;
+}
+
+.service-title{
+    width: 1270px;
+    height: 67px;
+    border-radius: 10px;
+    color: #000;
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.service-title-active{
+    background: #83DF89;
+}
+
+.service-name-checkbox{
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 40%;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #83DF89;
+}
+
+.service-child-name{
+    color: #000;
+    font-size: 23px;
+    font-weight: 400;
+}
+
+.service-child_wrapper{
+    margin: 20px 0;
+}
+
+.choosed-services_wrapper{
+    .choosed-services_header{
+        margin: 60px 0 16px 0;
+        color: #000;
+        font-size: 30px;
+        font-weight: 500;
+    }
+
+    .type-of-work_list{
+        display: flex;
+        flex-wrap: wrap;
+        align-items:center;
+
+        .type-of-work{
+            display: flex;
+            padding: 8px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 15px;
+            background: #E7E7E7;
+            color: #A5A5A5;
+            font-size: 18px;
+            font-weight: 400;
+            margin: 0 10px 10px 0 ;
+        }
+    }
+}
+
+.service-btn_wrapper{
+    margin-top: 130px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+
+    .service-btn{
+        display: flex;
+        width: 309px;
+        padding: 20px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 18px;
+        border: 3px solid #83DF89;
+        background: #83DF89;
+        color: #000;
+
+        font-size: 25px;
+        font-weight: 600;
+    }
+}

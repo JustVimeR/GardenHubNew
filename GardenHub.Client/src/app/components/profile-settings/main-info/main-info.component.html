@@ -1,0 +1,164 @@
+<div class="main-page_wrapper">
+    <div class="container">
+        <div class="main-page_info_wrapper">
+        <div class="user-photo_wrapper">
+            <img src="../../../../assets/usernonephoto.png" alt="photo" class="user-photo">
+            <button class="user-photo-change_btn">
+                Змінити
+            </button>
+
+        </div>
+        <form class="form-wrapper" (ngSubmit)="userProfile(user)" [formGroup]="user">
+            <div class="form-group">
+                <div class="input_header">Ім’я</div>
+                <input type="text"
+                       class="form-control"
+                       placeholder="Введи ім'я"
+                       formControlName="firstName"
+                >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="(user.get('firstName')?.hasError('minlength')) && user.get('firstName')?.touched">
+                  Введіть коректне ім'я
+                </div>
+                <div
+                  class=" invalid-feedback d-block"
+                  *ngIf="user.get('firstName')?.hasError('required') && user.get('firstName')?.touched">
+                  Ім'я є обов'язковим для заповнення
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input_header">Прізвище</div>
+                <input type="text"
+                       class="form-control"
+                       placeholder="Введи прізвище"
+                       formControlName="lastName"
+                >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="(user.get('lastName')?.hasError('minlength')) && user.get('lastName')?.touched">
+                  Введіть коректне прізвище
+                </div>
+                <div
+                  class=" invalid-feedback d-block"
+                  *ngIf="user.get('lastName')?.hasError('required') && user.get('lastName')?.touched">
+                  Прізвище є обов'язковим для заповнення
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input_header">Ім’я користувача</div>
+                <input type="text"
+                       class="form-control"
+                       placeholder="Введи username"
+                       formControlName="userName"
+                >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="(user.get('userName')?.hasError('minlength')) && user.get('userName')?.touched">
+                  Введіть коректний username
+                </div>
+                <div
+                  class=" invalid-feedback d-block"
+                  *ngIf="user.get('userName')?.hasError('required') && user.get('userName')?.touched">
+                  Username є обов'язковим для заповнення
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input_header">Email</div>
+                <input type="email"
+                       class="form-control"
+                       placeholder="Введи email"
+                       formControlName="email"     
+                >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="(user.get('email')?.hasError('minlength')) && user.get('email')?.touched">
+                  Введіть коректний email
+                </div>
+                <div
+                  class=" invalid-feedback d-block"
+                  *ngIf="user.get('email')?.hasError('required') && user.get('email')?.touched">
+                  Email є обов'язковим для заповнення
+                </div>
+              </div>
+
+            <div class="form-group">
+                <div class="input_header">Номер телефону</div>
+                <input type="text"
+                       class="form-control"
+                       placeholder="Введи телефон"
+                       formControlName="phone"
+                       phoneMask
+                >
+                <div
+                  class="invalid-feedback d-block"
+                  *ngIf="(user.get('phone')?.hasError('minlength')) && user.get('phone')?.touched">
+                  Введіть коректрий номер телефону, формат 380XXXXXXXXX
+                </div>
+                <div
+                  class=" invalid-feedback d-block"
+                  *ngIf="user.get('phone')?.hasError('required') && user.get('phone')?.touched">
+                  Телефон є обов'язковим для заповнення
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="input_header">Дата народження:</div>
+                <mat-form-field appearance="fill">
+                  <mat-label>Виберіть дату</mat-label>
+                  <input matInput [matDatepicker]="picker" class="datepicker-input">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div class="form-group" *ngIf="activeRole === 'gardener'">
+             <div class="input_header">Міста обслуговування:</div>
+              <mat-form-field class="example-chip-list">
+                <mat-label>Міста обслуговування</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Вибір міста">
+                  <mat-chip-row *ngFor="let city of cities" (removed)="removeCity(city)">
+                    {{city}}
+                    <button matChipRemove [attr.aria-label]="'remove ' + city">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                </mat-chip-grid>
+                <input placeholder="Додати місто..." #fruitInput [formControl]="cityCtrl"
+                  [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="addCity($event)"/>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedCity($event)">
+                  <mat-option *ngFor="let city of filteredCities | async" [value]="city">
+                    {{city}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+                </div>
+              <hr *ngIf="activeRole === 'gardener'"/>
+
+              <div class="form-group" *ngIf="activeRole === 'gardener'">
+                <div class="input_header">Про себе:</div>
+                <textarea 
+                  id="comment" 
+                  rows="4" 
+                  class="form-control" 
+                  placeholder="Введіть ваш коментар тут..." 
+                  style="width: 819px; height: 412px;  resize: none;" 
+                  formControlName="commentText">
+                </textarea>
+                <div
+                  class=" invalid-feedback d-block"
+                  *ngIf="user.get('commentText')?.hasError('required') && user.get('commentText')?.touched">
+                  Коментар не може бути порожнім
+                </div>
+              </div>
+            <button type="submit" class="btn-comfirm" >Зберегти зміни</button>
+            <button type="submit" class="btn-lookprofile"  *ngIf="activeRole === 'gardener'">Переглянути профіль</button>
+          </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,158 @@
+
+
+.container{
+    max-width: 1350px;
+}
+
+.profile_header{
+    margin-top: 61px;
+    display: flex;
+    justify-content: space-between;
+
+    .profile_info{
+        width: 980px;
+
+        .profile_username{
+            color: #000;
+            font-size: 40px;
+            font-weight: 600;
+        }
+
+        .profile_fullname{
+            margin-top: 31px;
+            color: #000;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .profile_location{
+            display: flex;
+            justify-content: start;
+            align-items:center;
+            color: #000;
+            font-size: 18px;
+            font-weight: 400;
+            margin-top: 22px;
+
+            span{
+                margin-left: 9px;
+            }
+        }
+
+        
+    .type-of-work_list{
+        margin-top: 36px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items:center;
+
+        .type-of-work{
+            display: flex;
+            padding: 8px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 15px;
+            background: #E7E7E7;
+            color: #A5A5A5;
+            font-size: 18px;
+            font-weight: 400;
+            margin: 0 10px 10px 0 ;
+        }
+    }
+    
+    }
+}
+
+.portfolio_wrapper{
+    margin-top: 97px;
+
+    .portfolio_header{
+        display: block;
+        width: 300px;
+        text-align: center;
+        margin: 0 auto;
+        color: #000;
+        font-size: 40px;
+        font-weight: 600;
+    }
+
+    .list_wrapper{
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items:baseline;
+    }
+}
+
+.reviews_wrapper{
+    margin-top: 50px;
+    margin-bottom: 67px;
+
+    .reviews_header{
+        display: block;
+        width: 300px;
+        text-align: center;
+        margin: 0 auto;
+        color: #000;
+        font-size: 40px;
+        font-weight: 600;
+        margin-bottom: 101px;
+    }
+
+    .comments_wrapper{
+        display: inline-flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 72px;
+        margin-bottom: 67px;
+        width: 1333px;
+
+        .comment_username{
+
+            .username{
+                color: #000;
+                font-size: 22px;
+                font-weight: 400;
+            }
+        }
+
+        .comment_text_wrapper{
+            width: 970px;
+
+            .comment_text{
+                color: #000;
+                font-size: 22px;
+                font-weight: 400;
+                line-height: normal;
+            }
+
+            .comment_review_route{
+                margin-top: 21px;
+                color: #000;
+                font-size: 22px;
+                font-weight: 400;
+                line-height: normal;
+
+                span{
+                    color: #83DF89;
+                    font-size: 22px;
+                    font-weight: 400;
+                    line-height: normal;
+                    text-decoration-line: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .comment_data_wrapper{
+            color: #000;
+            font-size: 22px;
+            font-weight: 400;
+        }
+    }
+}
+
+.star_yellow{
+    color: yellow;
+}

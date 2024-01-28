@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="login__wrapper">
+    <div class="login__window">
+      <h1 class="header">Вхід</h1>
+      <div class="subheader">Введіть свої дані для входу</div>
+      <form (ngSubmit)="login(user)" [formGroup]="user">
+        <div class="form-group">
+          <input type="text"
+                 class="form-control email"
+                 placeholder="Введи електронну адресу"
+                 formControlName="email"
+                 emailMask
+          >
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="(user.get('email')?.hasError('minlength')) && user.get('email')?.touched">
+            Введіть коректний e-mail
+          </div>
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="user.get('email')?.hasError('required') && user.get('email')?.touched">
+            E-mail є обов'язковим для заповнення
+          </div>
+        </div>
+        <div class="form-group mg-b-50">
+          <input type="password"
+                 formControlName="password"
+                 class="form-control password"
+                 placeholder="Введи пароль">
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="user.get('password')?.hasError('required') && user.get('password')?.touched">
+            Пароль є обов'язковим для заповнення
+          </div>
+          <div
+            class="invalid-feedback d-block"
+            *ngIf="globalError">
+            {{globalError}}
+          </div>
+          <div class="save-reset">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label save-password" for="flexCheckDefault">
+                Запам'ятати мене
+              </label>
+            </div>
+            <div class="reset-password" (click)="goToResetPassword()">Забули пароль?</div>
+          </div>
+        </div><!-- form-group-window -->
+        <button type="submit" class="btn-login">Увійти</button>
+        </form>
+        <p class="register-route">Немає облікового запису? <a href="" (click)="goToSignUp($event)"><b>Зареєструватися</b></a></p>
+        <div class="lined-text">
+          <span>або продовжити за допомогою</span>
+        </div>
+        <div class="google-auth">
+          <img src="../../../../assets/GooglePicture.png" alt="google" class="google-img">
+          <div class="google-text">Google</div>
+        </div>
+    </div>
+  </div>
+</div>
+
+  

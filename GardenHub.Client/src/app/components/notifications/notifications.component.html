@@ -1,0 +1,19 @@
+<section class = 'notifications_wrapper'>
+    <div class="container">
+        <div class="notifications_header">Сповіщення</div>
+        <div class="notifications-subheader_wrapper">
+            <div class="notifications-subheader">Замовлення</div>
+            <div class="notifications-subheader">Кандидат</div>
+        </div>
+        <div class="notifications-orders-list_wrapper">
+            <div class="notifications-orders_wrapper" *ngFor="let order of fakeNotifications">
+                <div class="notifications-orders_header">{{order.title}}</div>
+                <div class="notifications-orders_user">{{order.username}}</div>
+                <div class="notifications-btn_wrapper">
+                    <button class="btn_decline">Відхилити</button>
+                    <button class="btn_accept">Підтвердити</button>        
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

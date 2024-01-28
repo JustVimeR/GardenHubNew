@@ -1,0 +1,75 @@
+<div class="profile_wrapper">
+    <div class="container">
+        <div class="profile_header">
+            <div class="profile_photo_wrapper">
+                <img src="../../../assets/profilephoto.png" alt="userhoto" class="profile_photo">
+            </div>
+            <div class="profile_info">
+                <div class="profile_username">
+                    emilliartp
+                </div>
+                <div class="profile_fullname">
+                    Емілія Артеменко
+                </div>
+                <div class="profile_location">
+                    <img src="../../../assets/point.png" alt="point" class="order_point">
+                    <span>Київ, Обухів, Вишгород, Житомир</span>
+                </div>
+                <div class="type-of-work_list" >
+                    <div class="type-of-work">Догляд за газоном</div>
+                    <div class="type-of-work">Догляд за рослинами</div>
+                    <div class="type-of-work">Діагностика хвороб</div>
+                    <div class="type-of-work">Лікування хвороб</div>
+                    <div class="type-of-work">Догляд за газоном</div>
+                    <div class="type-of-work">Догляд за рослинами</div>
+                    <div class="type-of-work">Діагностика хвороб</div>
+                    <div class="type-of-work">Лікування хвороб</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="portfolio_wrapper">
+            <div class="portfolio_header">
+                Портфоліо
+                <hr/>
+            </div>
+            <div class="list_wrapper">
+                <app-order 
+                    *ngFor="let order of fakeOrders" 
+                    [order]="order"
+                    (heartToggle)="toggleHeart($event)"
+                ></app-order>
+            </div>
+        </div>
+
+        <div class="reviews_wrapper">
+            <div class="reviews_header">
+                Відгуки
+                <hr/>
+            </div>
+            <div class="comments_wrapper" *ngFor="let comment of fakeReviews">
+                <div class="comment_username">
+                    <div class="username">{{comment.username}}</div>
+                    <div class="rate">
+                        <ion-icon class='star_yellow' name="star" *ngFor="let star of [].constructor(comment.rate); let i = index"></ion-icon>
+                        
+                        <ion-icon name="star-outline" *ngFor="let outline of [].constructor(5 - comment.rate); let i = index"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="comment_text_wrapper">
+                    <div class="comment_text">
+                        {{comment.text}}
+                    </div>   
+                    <div class="comment_review_route">
+                        Відгук по замовленню: <span>{{comment.reviewRoute}}</span>
+                    </div>
+                </div>
+
+                <div class="comment_data_wrapper">
+                    {{comment.data}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

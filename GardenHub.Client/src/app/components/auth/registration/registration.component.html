@@ -1,0 +1,110 @@
+<div class="container">
+    <div class="login__wrapper">
+      <div class="login__window">
+        <h1 class="header">Реєстрація</h1>
+        <div class="subheader">Створіть свій обліковий запис</div>
+        
+        <form class="form-wrapper" (ngSubmit)="registration(user)" [formGroup]="user">
+            <div class="form-group input-with-icon">
+              <div class="input-container-2">
+                <input type="text"
+                       class="form-control"
+                       placeholder="*Введи і'мя"
+                       formControlName="firstName"
+                >
+              </div>
+                <div class="icon-container" 
+                *ngIf="(user.get('firstName')?.hasError('minlength') || user.get('firstName')?.hasError('required')) && user.get('firstName')?.touched">
+               <svg class="info-icon" viewBox="0 0 24 24" width="25" height="25">
+                   <circle cx="12" cy="12" r="11" fill="none" />
+                   <line x1="12" y1="6" x2="12" y2="8" />
+                   <line x1="12" y1="10" x2="12" y2="18" />
+               </svg>
+               <span class="tooltip-text">{{ getFirstNameErrorMessage() }}</span>
+           </div>
+              </div>
+              <div class="form-group input-with-icon">
+                <div class="input-container-2">
+                <input type="text"
+                       class="form-control"
+                       placeholder="*Введи прізвище"
+                       formControlName="lastName"
+                >
+                </div>
+                <div class="icon-container" 
+                *ngIf="(user.get('lastName')?.hasError('minlength') || user.get('lastName')?.hasError('required')) && user.get('lastName')?.touched">
+                <svg class="info-icon" viewBox="0 0 24 24" width="25" height="25">
+                    <circle cx="12" cy="12" r="11" fill="none" />
+                    <line x1="12" y1="6" x2="12" y2="8" />
+                    <line x1="12" y1="10" x2="12" y2="18" />
+                </svg>
+                <span class="tooltip-text">{{ getLastNameErrorMessage() }}</span>
+                </div>
+              </div>
+            <div class="form-group input-with-icon">
+              <div class="input-container-2">
+              <input type="email"
+                     class="form-control"
+                     placeholder="*Введи email"
+                     formControlName="email"
+                     emailMask
+              >
+              </div>
+              <div class="icon-container" 
+                *ngIf="(user.get('email')?.hasError('minlength') || user.get('email')?.hasError('required')) && user.get('email')?.touched">
+                  <svg class="info-icon" viewBox="0 0 24 24" width="25" height="25">
+                    <circle cx="12" cy="12" r="11" fill="none" />
+                    <line x1="12" y1="6" x2="12" y2="8" />
+                    <line x1="12" y1="10" x2="12" y2="18" />
+                  </svg>
+                  <span class="tooltip-text">{{ getEmailErrorMessage() }}</span>
+              </div>
+            </div>
+
+            <div class="form-group input-with-icon">
+              <div class="input-container-2">
+              <input type="text"
+                     class="form-control"
+                     placeholder="*username"
+                     formControlName="userName"
+              >
+              </div>
+              <div class="icon-container" 
+              *ngIf="user.get('userName')?.hasError('minlength') || user.get('userName')?.hasError('required')" 
+              [title]="getUserNameErrorMessage()">
+                  <svg class="info-icon" viewBox="0 0 24 24" width="25" height="25">
+                      <circle cx="12" cy="12" r="11" fill="none" />
+                      <line x1="12" y1="6" x2="12" y2="8" />
+                      <line x1="12" y1="10" x2="12" y2="18" />
+                  </svg>
+                  <span class="tooltip-text">{{ getUserNameErrorMessage() }}</span>
+              </div>
+            </div>
+
+            <div class="form-group input-with-icon">
+              <div class="input-container-2">
+              <input type="password"
+                formControlName="password"
+                class="form-control"
+                placeholder="*Придумай пароль"
+                (ngModelChange)="updateConfirmPassword($event)">
+                </div>
+                <div class="icon-container" 
+                *ngIf="(user.get('password')?.hasError('pattern') || user.get('password')?.hasError('minlength') || user.get('password')?.hasError('required')) && user.get('password')?.touched">
+                    <svg class="info-icon" viewBox="0 0 24 24" width="25" height="25">
+                      <circle cx="12" cy="12" r="11" fill="none" stroke="red" />
+                      <line x1="12" y1="6" x2="12" y2="8" stroke="red" />
+                      <line x1="12" y1="10" x2="12" y2="18" stroke="red" />
+                    </svg>
+                  <span class="tooltip-text">{{ getPasswordErrorMessage() }}</span>
+                </div>
+            </div>
+            <button type="submit" class="btn-login" >Зареєструватись</button>
+          </form>
+         
+          <p class="login-router">Вже є обліковий запис? <a href="" (click)="goToSignIn($event)"><b>Увійти</b></a></p>
+        </div>
+    </div>
+  </div>
+
+  

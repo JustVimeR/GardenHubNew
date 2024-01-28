@@ -1,0 +1,261 @@
+.nav-sidebar{
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-nav-link{
+  margin-top: 10px;
+  text-decoration: none;
+  color: #000;
+  font-size: 27px;
+  font-weight: 400;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  span{
+    color: #000;
+    font-size: 27px;
+    font-weight: 600;
+  }
+
+}
+
+.sidebar-nav-link-bold{
+  padding: 0;
+  margin: 0;
+  color: #000;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.sidebar-nav-role{
+  color: #000;
+  font-size: 27px;
+  font-weight: 400;
+  margin-bottom: -10px;
+}
+
+.direct{
+  margin: 10px 0;
+}
+
+.base-box {
+  display: flex;
+}
+
+.slim-sidebar {
+  margin-top: 80px;
+  width: 422px;
+  min-height: 374px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #B9B9B9;
+  background: rgba(255, 255, 255, 0.88);
+  position: fixed; 
+  top: 0;           
+  left: 0;        
+  z-index: 1000;  
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out; 
+}
+
+.slim-sidebar.hide {
+  transform: translateX(0);
+}
+
+:host ::ng-deep .slim-mainpanel {
+  min-height: calc(100vh);
+}
+
+ion-icon {
+  margin-right: 5px;
+}
+
+.user-profile {
+  position: fixed;
+  bottom: 15px;
+}
+
+.menu-toggler {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 1px solid gray;
+  position: fixed;
+  bottom: 25px;
+  left: 220px;
+  z-index: 333;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  ion-icon {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  &.menu-hidden {
+    left: 15px;
+  }
+}
+
+.profile-menu {
+  top: auto !important;
+  bottom: 35px !important;
+  left: 60px !important;
+  right: auto !important;
+}
+
+
+.nav-pannel{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+  width: 1440px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.nav-pannel-left{
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  
+}
+
+.nav-pannel-logo{
+  margin-left: 37px;
+  color: #000;
+  font-family: Lexend Deca;
+  font-size: 32px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.switcher {
+  display: flex;
+  border-radius: 20px;
+  background-color: #fff;
+  padding: 5px;
+}
+
+.switcher-btn {
+  width: 200px;
+  height: 46px;
+  text-align: center;
+  border: none;
+  border-radius: 18px;
+  background-color: transparent;
+  font-size: 27px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.switcher-btn.active {
+  background: #83DF89;
+  color: #000;
+}
+
+.switcher-btn:not(.active):hover {
+  background-color: #fff;
+  color: #000;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.switcher-btn:not(.active) {
+  color: #AFAFAF;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+@media (max-width: 1199.98px) {
+  .slim-sidebar {
+    margin-left: 0px !important;
+    z-index: 999;
+    height: 100vh;
+    left: 0px !important;
+
+    &.hide {
+      margin-left: -230px !important;
+      left: 0px !important;
+    }
+  }
+  .menu-toggler {
+    left: 220px;
+    .menu-hidden {
+      left: 15px;
+    }
+  }
+}
+
+.footer_wrapper{
+  height: 238px;
+  padding: 59px 179px;
+  background: #545454;
+  // position: fixed;
+  // left: 0; 
+  // bottom: 0;  
+  // width: 100%; 
+  // z-index: 100;  
+
+  .help_wrapper{
+    display: flex;
+    flex-direction: column;
+    .header{
+      color: #FFF;
+      font-size: 23px;
+      font-weight: 500;
+    }
+
+    .subheader{
+      margin-top: 25px;
+      color: #FFF;
+      font-size: 18px;
+      font-weight: 400;
+    }
+  }
+
+  .about_wrapper{
+    display: flex;
+    flex-direction: column;
+    .header{
+      color: #FFF;
+      font-size: 23px;
+      font-weight: 500;
+    }
+
+    .subheader{
+      margin-top: 25px;
+      color: #FFF;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+  }
+}
+
+.footer_wrapper .row {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.footer_wrapper .social_wrapper {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100%; 
+}
+
+.footer_wrapper .social-icon:not(:last-of-type),
+.footer_wrapper .social-icon_lust:not(:last-of-type) {
+  margin-right: 35px;
+}

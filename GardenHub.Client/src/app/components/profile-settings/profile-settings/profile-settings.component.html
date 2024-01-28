@@ -1,0 +1,23 @@
+<div class="container">
+    <h2 class="header">Налаштування профілю</h2>
+    <nav *ngIf="activeRole === 'gardener'">
+        <ul>
+            <li [class.active]="activePage === Page.mainInfo" (click)="changePage(Page.mainInfo)">
+                Основна інформація
+            </li>
+            <li [class.active]="activePage === Page.portfolio" (click)="changePage(Page.portfolio)">
+                Портфоліо
+            </li>
+            <li [class.active]="activePage === Page.serviceType" (click)="changePage(Page.serviceType)">
+                Види послуг
+            </li>
+        </ul>
+    </nav>
+
+    
+
+    <app-main-info *ngIf="activePage === Page.mainInfo"></app-main-info>
+    <app-portfolio *ngIf="activePage === Page.portfolio"></app-portfolio>
+    <app-service-type *ngIf="activePage === Page.serviceType"></app-service-type>
+    
+</div>

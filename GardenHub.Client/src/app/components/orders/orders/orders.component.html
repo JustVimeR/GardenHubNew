@@ -1,0 +1,21 @@
+<div class="container">
+    <h2 class="header">Мої замовлення</h2>
+    <nav>
+        <ul>
+            <li  *ngIf="activeRole === 'housekeeper'" [class.active]="activePage === Page.active" (click)="changePage(Page.active)">
+                Активні
+            </li>
+            <li [class.active]="activePage === Page.inWork" (click)="changePage(Page.inWork)">
+                У роботі
+            </li>
+            <li [class.active]="activePage === Page.complited" (click)="changePage(Page.complited)">
+                Виконані
+            </li>
+        </ul>
+    </nav>
+
+    <app-orders-active *ngIf="activePage === Page.active"></app-orders-active>
+    <app-orders-in-work *ngIf="activePage === Page.inWork"></app-orders-in-work>
+    <app-orders-complited *ngIf="activePage === Page.complited"></app-orders-complited>
+    
+</div>

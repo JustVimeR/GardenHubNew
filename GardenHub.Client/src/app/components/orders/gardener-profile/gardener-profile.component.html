@@ -1,0 +1,29 @@
+<section class="profile_wrapper">
+    <div class="container">
+        <div class="header_wrapper">
+            <div class="img_wrapper">
+                <img src="../../../../assets/gardenerprofile.png" alt="photo" class="profile_img">
+            </div>
+            <div class="data_wrapper">
+                <div class="profile_username">iryna_shevchenko</div>
+                <div class="profile_fullname">Ірина Шевченко</div>
+                <div class="order_subtitle">
+                    <img src="../../../assets/point.png" alt="point" class="order_point">
+                    <span>Київ</span>
+                </div>
+                <button class="profile_message">Написати повідомлення</button>
+            </div>
+        </div>
+        <hr/>
+        <div class="projects_wrapper">
+            <div class="projects_title">Активні проекти користувача</div>
+            <div class="list_wrapper">
+                <app-order 
+                    *ngFor="let order of fakeOrders" 
+                    [order]="order"
+                    (heartToggle)="toggleHeart($event)"
+                ></app-order>
+            </div>
+        </div>
+    </div>
+</section>

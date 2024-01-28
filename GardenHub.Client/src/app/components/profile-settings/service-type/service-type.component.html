@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="service_wrapper">
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
+        
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="service-child_wrapper">
+          <button mat-icon-button disabled></button>
+          <input 
+            class='service-name-checkbox' 
+            type="checkbox" 
+            [id]="node.name" 
+            [(ngModel)]="node.selected"
+            (change)="updateTypeOfWork(node.name, node.selected)"
+          >
+          <label class="service-child-name" for="{{node.name}}">{{node.name}}</label>
+        </mat-tree-node>
+      
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
+                        class="service-title"
+                     [ngClass]="{'service-title-active': treeControl.isExpanded(node)}">
+        <button mat-icon-button matTreeNodeToggle
+                [attr.aria-label]="'Toggle ' + node.name">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        {{node.name}}
+      </mat-tree-node>
+      </mat-tree>
+
+      <section class="choosed-services_wrapper">
+        <div class="choosed-services_header">
+          Вибрані послуги
+        </div>
+        <div class="type-of-work_list" >
+          <div class="type-of-work" *ngFor="let type of typeOfWork">{{type}}</div>
+      </div>
+      </section>
+      <div class='service-btn_wrapper'>
+        <button class="service-btn" (click)="goToProfile()">Переглянути профіль</button>
+        <button class="service-btn">Зберегти зміни</button>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,124 @@
+<app-profile-warning *ngIf="activeRole === 'gardener'"></app-profile-warning>
+<section class="main_wrapper">
+    <div class="container">
+        <h1 class="main_header">GARDENHUB</h1>
+        <h2 class="main_subheader">Онлайн-сервіс замовлення послуг у сфері садівництва 
+            по всій Україні
+        </h2>
+        <div class="search-order_wrapper">
+            <div class="input-icon-container">
+                <input class="search-order_input" placeholder="Знайти замовлення..."/>
+                <ion-icon class="search-order_icon" name="search-outline"></ion-icon>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="top-worker_wrapper">
+    <div class="container">
+       <div class="worker_header">
+        <img src="../../../assets/workerlogo.png" alt="1" class="worker_img">
+        <div class="worker_text">ТОП-садівники</div>
+       </div>
+    <div class="top-worker_slider_wrapper" >
+       <div class="top-worker-slider" *ngFor="let data of fakeData">
+            <img src={{data.workerPhoto}} alt="photo" class="worker_photo">
+            <div class="worker_username">{{data.username}}</div>
+            <div class="worker_raiting">
+                <div class="raiting">{{data.raiting}}</div>
+              <img src="../../../assets/star.png" alt="star" class="star">  
+            </div>
+       </div> 
+    </div>
+    </div>
+</section>
+
+<section class="order_wrapper" *ngIf="activeRole === 'gardener'">
+    <div class="container">
+       <div class="order_header">
+        
+        <div class="order_header_text">
+            <img src="../../../assets/orderlogo.png" alt="2" class="order_img">
+            <div class="order_text">Усі замовлення</div>
+        </div>
+        <div class="filter-container">
+            <div class="filter_wrapper" (click)="toggleFilter()">
+                <img src="../../../assets/filtericon.png" alt="filter" class="filter_img">
+                <div class="order_text">Фільтри</div>
+            </div>
+
+            <div class="filter-open_wrapper" *ngIf="isFilterOpen">
+                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
+        
+                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="service-child_wrapper">
+                      <button mat-icon-button disabled></button>
+                      <input 
+                        class='service-name-checkbox' 
+                        type="checkbox" 
+                        [id]="node.name" 
+                        [(ngModel)]="node.selected"
+                      >
+                      <label class="service-child-name" for="{{node.name}}">{{node.name}}</label>
+                    </mat-tree-node>
+                  
+                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding
+                                    class="service-title"
+                                 [ngClass]="{'service-title-active': treeControl.isExpanded(node)}">
+                    <button mat-icon-button matTreeNodeToggle
+                            [attr.aria-label]="'Toggle ' + node.name">
+                      <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                      </mat-icon>
+                    </button>
+                    {{node.name}}
+                  </mat-tree-node>
+                  </mat-tree>
+            </div>
+        </div>
+       </div>
+    <div class="list_wrapper">
+        <app-order 
+            *ngFor="let order of visibleOrders"  
+            [order]="order"
+            (heartToggle)="toggleHeart($event)"
+        ></app-order>
+    </div>
+        <button 
+            class="load-more" 
+            *ngIf="canLoadMore()" 
+            (click)="onLoadMore()"
+            >Загрузити ще
+        </button>
+    </div>
+
+    
+</section>
+
+<section class="how-work_wrapper" *ngIf="activeRole === 'housekeeper'">
+    <div class="container">
+        <div class="header">
+            Як працює GARDENHUB
+        </div>
+        <div class="steper_wrapper">
+            <div class="step">
+                <img src="../../../assets/steper/orderpic.png" alt="order-menu" class="step-order">
+                <button class="create_order" (click)="goToCreateOrder()">Створіть замовлення</button>
+            </div>
+            <div class="step-arrow">
+                <img src="../../../assets/steper/arrow.png" alt="arrow" class="arrow">
+            </div>
+            <div class="step step-worker-wrap">
+                <img src="../../../assets/steper/workerpic.png" alt="step-worker" class="step-worker">
+                <div class="step_descr">Оберіть садівника серед бажаючих</div>
+            </div>
+            <div class="step-arrow">
+                <img src="../../../assets/steper/arrow.png" alt="arrow" class="arrow">
+            </div>
+            <div class="step step-hand">
+                <img src="../../../assets/steper/handpic.png" alt="step-final" class="step-final">
+                <div class="step_descr">Закрийте замовлення та залиште відгук</div>
+            </div>
+        </div>
+    </div>
+</section>
+

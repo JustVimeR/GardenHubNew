@@ -1,0 +1,14 @@
+<div class="background-auth">
+  <app-login
+    (signUp)="changePage(Page.registration)"
+    (forgotPassword)="changePage(Page.restorePassword)"
+    *ngIf="activePage === Page.login"></app-login>
+  <app-registration
+    (signIn)="changePage(Page.login)"
+    *ngIf="activePage === Page.registration">
+  </app-registration>
+  <app-restore-password
+    (back)="changePage(Page.login)"
+    *ngIf="activePage === Page.restorePassword"
+  ></app-restore-password>
+</div>
