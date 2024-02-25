@@ -11,6 +11,8 @@ namespace Data.IdentityModels
 
         public ICollection<ApplicationUserRole>? UserRoles { get; set; }
 
+
+        public long? UserProfileId { get; set; }
         public UserProfile? UserProfile { get; set; }
     }
 }

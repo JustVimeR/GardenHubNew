@@ -29,7 +29,7 @@ public static class DefaultSuperAdmin
 
         ApplicationUser? user = await userManager.Users
             .Include(u => u.UserRoles)
-            .Include(u => u.)
+            .Include(u => u.UserProfile)
             .FirstOrDefaultAsync(u => u.Email == defaultUser.Email);
 
         if (user == null)
@@ -50,7 +50,10 @@ public static class DefaultSuperAdmin
                 await userManager.AddToRoleAsync(user, Roles.Gardener.ToString());
             }
 
-
+            if (user.UserProfile == null)
+            {
+                await SeedDefaultUserProfile(userProfileRepository, user);
+            }
         }
     }
 
@@ -66,7 +69,12 @@ public static class DefaultSuperAdmin
             UserName = user.UserName,
             Description = "Seeded Test User Profile",
             BirthDate = DateTime.UtcNow,
+
+            CustomerProfile = new CustomerProfile(),
+            GardenerProfile = new GardenerProfile()
         };
+
         await userProfileRepository.Post(userProfile);
+        await userProfileRepository.SaveChangesAsync();
     }
 }

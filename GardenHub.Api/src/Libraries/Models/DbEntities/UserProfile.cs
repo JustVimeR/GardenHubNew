@@ -4,7 +4,7 @@ namespace Models.DbEntities;
 
 public class UserProfile : EntityBase
 {
-    public int IdentityId { get; set; }
+    public required int IdentityId { get; set; }
 
     public required string Name { get; set; }
     public string? Surname { get; set; }

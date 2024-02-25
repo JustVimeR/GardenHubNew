@@ -1,5 +1,6 @@
 ﻿using Core.Services.Interfaces;
 using Data.IdentityModels;
+using Data.Repos.Interfaces;
 using Data.Seeds;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -40,6 +41,7 @@ public class PrepareAppService
         await DefaultRoles.SeedAsync(roleManager);
 
         var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        await DefaultSuperAdmin.SeedAsync(userManager);
+        var userProfileRepository = serviceProvider.GetRequiredService<IUserProfileRepository>();
+        await DefaultSuperAdmin.SeedAsync(userManager, userProfileRepository);
     }
 }
