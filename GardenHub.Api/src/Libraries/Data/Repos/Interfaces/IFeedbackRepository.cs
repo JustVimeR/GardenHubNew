@@ -1,9 +1,9 @@
 ﻿using Models.DbEntities;
 
-namespace Data.Repos.Interfaces
-{
-    public interface IFeedbackRepository : IRepository<Feedback>
-    {
+namespace Data.Repos.Interfaces;
 
-    }
+public interface IFeedbackRepository : IRepository<Feedback>
+{
+
 }
+

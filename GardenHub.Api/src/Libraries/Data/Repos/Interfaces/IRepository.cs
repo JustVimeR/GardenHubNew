@@ -6,27 +6,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Query;
 
-namespace Data.Repos.Interfaces
+namespace Data.Repos.Interfaces;
+
+public interface IRepository<T> where T : IEntityBase
 {
-    public interface IRepository<T> where T : EntityBase
-    {
-        T GetFirstOrDefault(Expression<Func<T, bool>> predicate = null);
-        Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> predicate = null);
-        IQueryable<T> GetWhere(Expression<Func<T, bool>> predicate = null);
-        IPagedList<T> GetWhere(Expression<Func<T, bool>> predicate, PaginationFilter paginationFilter, SortFilter sortFilter);
-        IQueryable<T> GetAll();
-        IPagedList<T> GetAll(PaginationFilter paginationFilter, SortFilter sortFilter);
+    T? GetFirstOrDefault(Expression<Func<T, bool>>? predicate = null,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
+    Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
-        void Post(T[] entities);
-        void Put(T entity);
+    Task<T> GetFirstAsync(Expression<Func<T, bool>>? predicate = null,
+    Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
-        void Delete(T entity);
-        void DeleteAll(IEnumerable<T> entities);
+    IQueryable<T> GetWhere(Expression<Func<T, bool>>? predicate = null,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
-        void Patch(T entity);
+    IPagedList<T> GetWhere(Expression<Func<T, bool>>? predicate, PaginationFilter paginationFilter,
+        SortFilter sortFilter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
-        Task SaveChangesAsync();
-    }
+    IQueryable<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
+
+    Task<IPagedList<T>> GetAll(PaginationFilter paginationFilter, SortFilter sortFilter,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
+
+    Task Post(T entity);
+
+    void Put(T entity);
+    void UpdateMany(Expression<Func<T, bool>> predicate,
+        Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> setPropertyCalls);
+
+    void Delete(T entity);
+    void DeleteAll(IEnumerable<T> entities);
+
+    void Patch(T entity);
+
+    Task SaveChangesAsync();
 }

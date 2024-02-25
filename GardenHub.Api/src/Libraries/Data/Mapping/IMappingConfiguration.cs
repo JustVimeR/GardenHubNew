@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Data.Mapping
+namespace Data.Mapping;
+
+public interface IMappingConfiguration
 {
-    public interface IMappingConfiguration
-    {
-        void ApplyConfiguration(ModelBuilder modelBuilder);
-    }
+    void ApplyConfiguration(ModelBuilder modelBuilder);
 }
+

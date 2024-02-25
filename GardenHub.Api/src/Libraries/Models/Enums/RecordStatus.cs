@@ -1,13 +1,12 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Models.Enums
+namespace Models.Enums;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum RecordStatus
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum RecordStatus
-    {
-        Active,
-        Deleted,
-        Archived,
-        Forgotten
-    }
+    Active,
+    Deleted,
+    Archived,
+    Forgotten
 }

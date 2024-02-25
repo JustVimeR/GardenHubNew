@@ -6,6 +6,5 @@ public class GetCustomerProfileDTO
 {
     public long Id;
 
-    public List<GetProjectDTO> Projects { get; set; }
+    public List<GetProjectDTO> Projects { get; set; } = new();
 }
-

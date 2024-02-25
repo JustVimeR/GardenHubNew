@@ -1,6 +1,5 @@
-﻿namespace Models.DTOs.PostDTOs
+﻿namespace Models.DTOs.PostDTOs;
+
+public class PostCustomerProfileDTO : PostUserProfileDTO
 {
-    public class PostCustomerProfileDTO : PostUserProfileDTO
-    {
-    }
 }

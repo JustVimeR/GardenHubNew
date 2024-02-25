@@ -1,9 +1,8 @@
-﻿namespace Models.Enums
+﻿namespace Models.Enums;
+
+public enum Roles
 {
-    public enum Roles
-    {
-        Moderator,
-        User,
-        Gardener,
-    }
+    Moderator,
+    User,
+    Gardener,
 }

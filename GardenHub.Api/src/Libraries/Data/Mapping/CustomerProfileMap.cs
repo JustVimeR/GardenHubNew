@@ -2,17 +2,15 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.DbEntities;
 
-namespace Data.Mapping
-{
-    public class CustomerProfileMap : MappingEntityTypeConfiguration<CustomerProfile>
-    {
-        public override void Configure(EntityTypeBuilder<CustomerProfile> builder)
-        {
-            builder.ToTable("CustomerProfiles");
-            builder.HasKey(p => p.Id);
-            //builder.Property(p => p.).HasMaxLength(1000);
+namespace Data.Mapping;
 
-            base.Configure(builder);
-        }
+public class CustomerProfileMap : MappingEntityTypeConfiguration<CustomerProfile>
+{
+    public override void Configure(EntityTypeBuilder<CustomerProfile> builder)
+    {
+        builder.ToTable("CustomerProfiles");
+        builder.HasKey(p => p.Id);
+
+        base.Configure(builder);
     }
 }

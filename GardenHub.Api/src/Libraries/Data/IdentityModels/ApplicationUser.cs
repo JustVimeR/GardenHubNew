@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
+using Models.DbEntities;
 using System.Collections.Generic;
-using System.Text;
-using Models.DTOs.Account;
 
 namespace Data.IdentityModels
 {
     public class ApplicationUser : IdentityUser<int>
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public ICollection<ApplicationUserRole> UserRoles { get; set; }
+        public required string FirstName { get; set; }
+        public string? LastName { get; set; }
+
+        public ICollection<ApplicationUserRole>? UserRoles { get; set; }
+
+        public UserProfile? UserProfile { get; set; }
     }
 }

@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
 using Models.DbEntities;
-using Models.DTOs;
 using Models.DTOs.GetDTOs;
 using Models.DTOs.PostDTOs;
-using Services.Interfaces;
+using Services;
+using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -16,42 +16,39 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class WorkTypeController : GenericCRUDDController<WorkType, GetWorkTypeDTO, GetWorkTypeDTO, PostWorkTypeDTO, WorkType>
+public class WorkTypeController : GenericCRUDDController<WorkType, GetWorkTypeDTO, PostWorkTypeDTO, PostWorkTypeDTO>
 {
     ILogger<WorkTypeController> _logger;
     public WorkTypeController(
     IWorkTypeService service,
-    IMapper mapper,
+    IMapper mapper, FilterService filterService,
     ILogger<WorkTypeController> logger)
-    : base(service, mapper)
+    : base(service, mapper, filterService)
     {
         _logger = logger;
     }
 
-    public override ActionResult<ServiceResult<List<GetWorkTypeDTO>>> Get([FromQuery] PaginationQuery paginationQuery, [FromQuery] SortQuery sortQuery)
+    public override async Task<ActionResult<ServiceResult<List<GetWorkTypeDTO>>>> Get([FromQuery] PaginationQuery paginationQuery, [FromQuery] SortQuery sortQuery)
     {
-        return base.Get(paginationQuery, sortQuery);
+        return await base.Get(paginationQuery, sortQuery);
     }
 
-    public override ActionResult<ServiceResult<GetWorkTypeDTO>> Get([FromRoute, Required] long id)
+    public override async Task<ActionResult<ServiceResult<GetWorkTypeDTO>>> Get([FromRoute, Required] long id)
     {
-        return base.Get(id);
+        return await base.Get(id);
     }
 
-
-    public override Task<ActionResult<ServiceResult<GetWorkTypeDTO>>> PutAsync([FromRoute, Required] long id, WorkType addDto)
+    public override Task<ActionResult<ServiceResult<GetWorkTypeDTO>>> PutAsync([FromRoute, Required] long id, PostWorkTypeDTO addDto)
     {
         return base.PutAsync(id, addDto);
     }
-
 
     public override Task<ActionResult<ServiceResult<GetWorkTypeDTO>>> DeleteAsync([FromRoute, Required] long id, [FromQuery] bool softDelete = false)
     {
         return base.DeleteAsync(id, softDelete);
     }
 
-
-    public override Task<ActionResult<ServiceResult<GetWorkTypeDTO>>> PatchAsync([FromRoute, Required] long id, [FromBody] JsonPatchDocument<WorkType> patchDocument)
+    public override Task<ActionResult<ServiceResult<GetWorkTypeDTO>>> PatchAsync([FromRoute, Required] long id, [FromBody] JsonPatchDocument<PostWorkTypeDTO> patchDocument)
     {
         return base.PatchAsync(id, patchDocument);
     }

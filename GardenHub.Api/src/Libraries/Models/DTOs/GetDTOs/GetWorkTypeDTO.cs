@@ -1,13 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using Models.DbEntities;
+using System.Collections.Generic;
 
 namespace Models.DTOs.GetDTOs;
 
-public class GetWorkTypeDTO
+public class GetWorkTypeDTO : EntityBase
 {
-    public long Id;
+    public long? ParentWorkTypeId { get; set; }
 
-    public string GeneralType { get; set; }
-    public string SpecificType { get; set; }
+    public WorkType? ParentWorkType { get; set; }
 
-    public List<GetGardenerProfileDTO> Gardeners { get; set; }
+    public required string Label { get; set; }
+
+    public List<WorkType> DerivedWorkTypes { get; set; } = new();
+
+    public List<GetGardenerProfileDTO> GardenerProfiles { get; set; } = new();
 }

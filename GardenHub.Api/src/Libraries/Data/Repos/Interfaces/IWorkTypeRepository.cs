@@ -1,9 +1,8 @@
 ﻿using Models.DbEntities;
 
-namespace Data.Repos.Interfaces
-{
-    public interface IWorkTypeRepository : IRepository<WorkType>
-    {
+namespace Data.Repos.Interfaces;
 
-    }
+public interface IWorkTypeRepository : IRepository<WorkType>
+{
+
 }

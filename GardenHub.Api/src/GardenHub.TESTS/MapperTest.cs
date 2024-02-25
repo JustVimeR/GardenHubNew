@@ -1,7 +1,7 @@
 using AutoMapper;
 using Data.IdentityModels;
 using Models.DbEntities;
-using WebApi.Helpers;
+using WebApi;
 
 namespace GardenHub.Tests
 {
@@ -37,6 +37,7 @@ namespace GardenHub.Tests
         {
             WorkType workType = new WorkType
             {
+                Label = "tree planting",
                 CreatedAt = DateTime.Now,
                 CreatedBy = "nikita",
                 UpdatedAt = DateTime.Now,

@@ -1,9 +1,6 @@
-﻿using System.Reflection;
+﻿namespace Models;
 
-namespace Models
+public class SearchFilter
 {
-    public class SearchFilter
-    {
-        public string Search { get; set; } = "";
-    }
+    public string Search { get; set; } = "";
 }

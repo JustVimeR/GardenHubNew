@@ -1,8 +1,7 @@
-﻿namespace Models.DTOs.Account
+﻿namespace Models.DTOs.Account;
+
+public class AuthenticationRequest
 {
-    public class AuthenticationRequest
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+    public string Email { get; set; }
+    public string Password { get; set; }
 }

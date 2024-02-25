@@ -4,83 +4,79 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Account;
 using Services.IdentityServices.Interfaces;
-using Services.Interfaces;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApi.Controllers
+namespace WebApi.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class AccountController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AccountController : ControllerBase
+    private readonly IAccountService _accountService;
+
+    public AccountController(IAccountService accountService)
     {
-        private readonly IAccountService _accountService;
+        _accountService = accountService;
+    }
 
-        public AccountController(IAccountService accountService)
-        {
-            _accountService = accountService;
-        }
+    [HttpPost("authenticate")]
+    public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
+    {
+        //auth
+        var result = await _accountService.AuthenticateAsync(request);
+        return Ok(result);
+    }
 
-        [HttpPost("authenticate")]
-        public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
-        {
-            //auth
-            var result = await _accountService.AuthenticateAsync(request);
-            return Ok(result);
-        }
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterAsync(RegisterRequest request)
+    {
+        var uri = $"{Request.Scheme}://{Request.Host.Value}";
+        return Ok(await _accountService.RegisterAsync(request, uri));
+    }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync(RegisterRequest request)
-        {
-            var uri = $"{Request.Scheme}://{Request.Host.Value}";
-            return Ok(await _accountService.RegisterAsync(request, uri));
-        }
+    [HttpGet("confirm-email")]
+    public async Task<IActionResult> ConfirmEmailAsync([FromQuery] string userId, [FromQuery] string code)
+    {
+        return Ok(await _accountService.ConfirmEmailAsync(userId, code));
+    }
 
-        [HttpGet("confirm-email")]
-        public async Task<IActionResult> ConfirmEmailAsync([FromQuery] string userId, [FromQuery] string code)
-        {
-            return Ok(await _accountService.ConfirmEmailAsync(userId, code));
-        }
+    [HttpPost("forgot-password")]
+    public async Task<IActionResult> ForgotPasswordAsync(ForgotPasswordRequest request)
+    {
+        var uri = $"{Request.Scheme}://{Request.Host.Value}";
+        await _accountService.ForgotPasswordAsync(request, uri);
+        return Ok();
+    }
 
-        [HttpPost("forgot-password")]
-        public async Task<IActionResult> ForgotPasswordAsync(ForgotPasswordRequest request)
-        {
-            var uri = $"{Request.Scheme}://{Request.Host.Value}";
-            await _accountService.ForgotPasswordAsync(request, uri);
-            return Ok();
-        }
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
+    {
+        return Ok(await _accountService.ResetPasswordAsync(request));
+    }
 
-        [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPasswordAsync(ResetPasswordRequest request)
-        {
-            return Ok(await _accountService.ResetPasswordAsync(request));
-        }
+    [HttpPost("refreshtoken")]
+    public async Task<IActionResult> RefreshTokenAsync(RefreshTokenRequest request)
+    {
+        return Ok(await _accountService.RefreshTokenAsync(request));
+    }
 
-        [HttpPost("refreshtoken")]
-        public async Task<IActionResult> RefreshTokenAsync(RefreshTokenRequest request)
-        {
-            return Ok(await _accountService.RefreshTokenAsync(request));
-        }
+    [HttpGet("logout")]
+    public async Task<IActionResult> LogoutAsync(string userEmail)
+    {
+        return Ok(await _accountService.LogoutAsync(userEmail));
+    }
+    [Authorize]
+    [HttpGet("is-authorized")]
+    public IActionResult IsAuthorized()
+    {
+        return Ok(true);
+    }
 
-        [HttpGet("logout")]
-        public async Task<IActionResult> LogoutAsync(string userEmail)
-        {
-            return Ok(await _accountService.LogoutAsync(userEmail));
-        }
-        [Authorize]
-        [HttpGet("is-authorized")]
-        public IActionResult IsAuthorized()
-        {
-            return Ok(true);
-        }
-
-        private string GenerateIPAddress()
-        {
-            if (Request.Headers.ContainsKey("X-Forwarded-For"))
-                return Request.Headers["X-Forwarded-For"];
-            else
-                return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-        }
+    private string GenerateIPAddress()
+    {
+        if (Request.Headers.ContainsKey("X-Forwarded-For"))
+            return Request.Headers["X-Forwarded-For"];
+        else
+            return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
     }
 }

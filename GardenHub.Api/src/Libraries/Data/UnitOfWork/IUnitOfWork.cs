@@ -3,11 +3,10 @@ using Models.DbEntities;
 using System;
 using System.Threading.Tasks;
 
-namespace Data.UnitOfWork
+namespace Data.UnitOfWork;
+
+public interface IUnitOfWork : IDisposable
 {
-    public interface IUnitOfWork : IDisposable
-    {
-        IRepository<TEntity> Repository<TEntity>() where TEntity : EntityBase;
-        Task<int> Complete();
-    }
+    IRepository<TEntity> Repository<TEntity>() where TEntity : EntityBase;
+    Task<int> Complete();
 }

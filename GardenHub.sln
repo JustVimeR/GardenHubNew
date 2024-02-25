@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "GardenHub.Api\src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "GardenHub.Api\src\Libraries\Core\Core.csproj", "{83DCD3AE-695F-4362-92DC-E7A43A3ECB5E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenHub.Tests", "GardenHub.Api\src\GardenHub.TESTS\GardenHub.Tests.csproj", "{0DBF805D-0001-439F-9273-4678F5D2C9C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GardenHub.Tests", "GardenHub.Api\src\GardenHub.Tests\GardenHub.Tests.csproj", "{0DBF805D-0001-439F-9273-4678F5D2C9C9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GardenHub.Api", "GardenHub.Api", "{46863305-C07F-4047-9B71-1EAE2A4F4434}"
 EndProject

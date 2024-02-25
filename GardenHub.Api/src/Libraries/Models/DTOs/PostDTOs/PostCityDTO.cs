@@ -1,7 +1,6 @@
-﻿namespace Models.DTOs.PostDTOs
+﻿namespace Models.DTOs.PostDTOs;
+
+public class PostCityDTO
 {
-    public class PostCityDTO
-    {
-        public string Name { get; set; }
-    }
+    public required string Name { get; set; }
 }
