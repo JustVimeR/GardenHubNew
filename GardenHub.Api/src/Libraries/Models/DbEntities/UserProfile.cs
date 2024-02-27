@@ -20,7 +20,7 @@ public class UserProfile : EntityBase
     public Media? Icon { get; set; }
 
     public long CustomerProfileId { get; set; }
-    public long GardenerProfileId { get; set; }
+    public long? GardenerProfileId { get; set; }
 
     public CustomerProfile? CustomerProfile { get; set; }
     public GardenerProfile? GardenerProfile { get; set; }

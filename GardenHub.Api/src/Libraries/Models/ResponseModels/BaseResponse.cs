@@ -16,7 +16,7 @@ public class BaseResponse<T>
     {
         Message = message;
     }
-    public bool Succeeded;
+    public bool Succeeded = true;
     public string Message { get; set; }
     public List<string> Errors;
     public T Data { get; set; }

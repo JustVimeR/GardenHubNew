@@ -51,7 +51,7 @@ public abstract class GenericCRUDDController<T, GetDto, AddDto, PatchDto> : Cont
     [HttpGet("{id:long}")]
     public virtual async Task<ActionResult<ServiceResult<GetDto>>> Get([FromRoute][Required] long id)
     {
-        var entity = service.GetFirstOrDefaultAsync(item => item.Id == id);
+        var entity = await service.GetFirstOrDefaultAsync(item => item.Id == id);
 
         var result = new ServiceResult<GetDto>();
 
@@ -102,9 +102,7 @@ public abstract class GenericCRUDDController<T, GetDto, AddDto, PatchDto> : Cont
         var entity = mapper.Map<T>(addDto);
         entity.Id = id;
 
-        await service.PutAsync(entity);
-
-        result.Data = mapper.Map<GetDto>(entity);
+        result.Data = mapper.Map<GetDto>(await service.PutAsync(entity));
 
         return Ok(result);
     }

@@ -2,6 +2,6 @@
 
 public class SortQuery
 {
-    public string SortBy { get; set; }
+    public string? SortBy { get; set; }
     public bool Descending { get; set; }
 }

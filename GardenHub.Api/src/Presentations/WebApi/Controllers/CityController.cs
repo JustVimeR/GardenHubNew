@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Models;
 using Models.DbEntities;
 using Models.DTOs.GetDTOs;
+using Models.DTOs.PostDTOs;
 using Services;
 using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CityController : GenericCRUDDController<City, GetCityDTO, City, City>
+public class CityController : GenericCRUDDController<City, GetCityDTO, PostCityDTO, PostCityDTO>
 {
     ILogger<CityController> _logger;
     public CityController(
@@ -40,7 +41,7 @@ public class CityController : GenericCRUDDController<City, GetCityDTO, City, Cit
     }
 
 
-    public override Task<ActionResult<ServiceResult<GetCityDTO>>> PutAsync([FromRoute, Required] long id, City addDto)
+    public override Task<ActionResult<ServiceResult<GetCityDTO>>> PutAsync([FromRoute, Required] long id, PostCityDTO addDto)
     {
         return base.PutAsync(id, addDto);
     }
@@ -52,7 +53,7 @@ public class CityController : GenericCRUDDController<City, GetCityDTO, City, Cit
     }
 
 
-    public override Task<ActionResult<ServiceResult<GetCityDTO>>> PatchAsync([FromRoute, Required] long id, [FromBody] JsonPatchDocument<City> patchDocument)
+    public override Task<ActionResult<ServiceResult<GetCityDTO>>> PatchAsync([FromRoute, Required] long id, [FromBody] JsonPatchDocument<PostCityDTO> patchDocument)
     {
         return base.PatchAsync(id, patchDocument);
     }

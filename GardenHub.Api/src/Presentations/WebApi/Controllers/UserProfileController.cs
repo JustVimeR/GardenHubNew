@@ -32,7 +32,7 @@ public class UserProfileController
     }
 
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public override async Task<ActionResult<ServiceResult<GetUserProfileDTO>>> PutAsync(
         [FromRoute, Required] long id, PostUserProfileDTO updateUserProfile)
     {

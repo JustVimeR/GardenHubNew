@@ -38,6 +38,9 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
 
         _mapper.Map(updateGardenerProfile, gardenerProfile);
 
+        await LinkCitiesOfGardenerProfile(gardenerProfile);
+
+
         return await base.PutAsync(gardenerProfile);
     }
 
@@ -58,7 +61,7 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
     {
         List<City> addCities = gardenerProfile.Cities;
 
-        gardenerProfile.Cities = null!;
+        gardenerProfile.Cities = new();
 
         foreach (City addCity in addCities)
         {

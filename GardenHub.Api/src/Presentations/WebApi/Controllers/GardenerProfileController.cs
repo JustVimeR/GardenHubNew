@@ -32,13 +32,13 @@ public class GardenerProfileController : GenericCRUDDController<GardenerProfile,
         _logger = logger;
     }
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public override async Task<ActionResult<ServiceResult<GetGardenerProfileDTO>>> PostAsync(PostGardenerProfileDTO addDto)
     {
         return await base.PostAsync(addDto);
     }
 
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public override async Task<ActionResult<ServiceResult<GetGardenerProfileDTO>>> PutAsync(
         [FromRoute, Required] long id, PostGardenerProfileDTO updateGardenerProfileDto)
     {

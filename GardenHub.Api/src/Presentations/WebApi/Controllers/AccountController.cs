@@ -65,6 +65,7 @@ public class AccountController : ControllerBase
     {
         return Ok(await _accountService.LogoutAsync(userEmail));
     }
+
     [Authorize]
     [HttpGet("is-authorized")]
     public IActionResult IsAuthorized()

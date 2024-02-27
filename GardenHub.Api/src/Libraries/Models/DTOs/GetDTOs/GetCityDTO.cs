@@ -8,5 +8,5 @@ public class GetCityDTO
 
     public required string Name { get; set; }
 
-    public List<GetGardenerProfileDTO> Gardeners { get; set; } = new();
+    public List<GetGardenerProfileDTO>? Gardeners { get; set; }
 }

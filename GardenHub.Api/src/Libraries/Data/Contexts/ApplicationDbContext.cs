@@ -22,12 +22,6 @@ public class ApplicationDbContext : IdentityDbContext<
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<UserProfile>(entity =>
-        {
-            entity.Navigation(nameof(CustomerProfile)).AutoInclude().IsRequired();
-            entity.Navigation(nameof(GardenerProfile)).AutoInclude().IsRequired();
-        });
-
         RegisterEntityMapping(builder);
         base.OnModelCreating(builder);
 

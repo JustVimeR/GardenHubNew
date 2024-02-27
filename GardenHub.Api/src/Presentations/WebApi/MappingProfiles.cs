@@ -16,6 +16,9 @@ public class MappingProfiles : Profile
         CreateMap<SortQuery, SortFilter>();
         CreateMap<SearchQuery, SearchFilter>();
 
+        CreateMap<GardenerProfile, GardenerProfile>();
+        CreateMap<City, City>();
+
         CreateMap<PostCityDTO, City>();
         CreateMap<PostCustomerProfileDTO, CustomerProfile>();
         CreateMap<PostFeedbackDTO, Feedback>();
