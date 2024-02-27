@@ -1,0 +1,15 @@
+<div>
+  <div class="container">
+      <p class="text-successful">Ваше завдання виконано!</p>
+      <p class="text-rate">Оцініть роботу садівника</p>
+      <div class="stars-container">
+        <button *ngFor="let star of starsArray; let i = index" class="star-button" 
+                (mouseenter)="highlightStars(i)" (mouseleave)="resetStars()" (click)="logStar(i)">
+          <img [src]="starIcons[i]" class="star-icon">
+        </button>
+      </div>
+      <input class="input-review" type="text" placeholder="Напишіть відгук..." [(ngModel)]="reviewText">
+      <button class="button-complete" (click)="onSubmit()">Готово</button>
+    </div>
+</div>
+

@@ -12,12 +12,13 @@
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="service-child_wrapper">
           <button mat-icon-button disabled></button>
           <input 
-            class='service-name-checkbox' 
+            class="real-checkbox"
             type="checkbox" 
             [id]="node.name" 
             [(ngModel)]="node.selected"
             (change)="updateTypeOfWork(node.name, node.selected)"
           >
+          <span class="custom-checkbox"></span>  
           <label class="service-child-name" for="{{node.name}}">{{node.name}}</label>
         </mat-tree-node>
       

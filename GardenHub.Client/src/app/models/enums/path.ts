@@ -8,6 +8,7 @@ export enum Path {
     orders = 'orders',
     chats = 'chats',
     createOrder = 'create-order',
-    notification = 'notification'
+    notification = 'notification',
+    homeOwnerProfile='homeowner-profile'
   }
   

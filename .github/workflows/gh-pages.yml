@@ -1,0 +1,38 @@
+name: Publish To GitHub Actions
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  build-services:
+    name: Build Services
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Publish Angular App
+        working-directory: ./GardenHub.Client
+        run: npm install && npm run build
+      
+      - name: rename base-tag to work with GitHub Pages
+        working-directory: ./GardenHub.Client/dist/greenhub
+        run: sed -i 's/<base href="\/" \/>/<base href="\/GardenHub\/" \/>/g' ./index.html
+
+      - name: copy 404
+        working-directory: ./GardenHub.Client/dist/greenhub
+        run: cp index.html 404.html
+      
+      - name: Add .nojekyll
+        working-directory: ./GardenHub.Client/dist/greenhub
+        run: touch .nojekyll
+      
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token	: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: ./GardenHub.Client/dist/greenhub

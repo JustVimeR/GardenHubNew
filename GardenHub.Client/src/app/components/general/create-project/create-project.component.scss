@@ -1,15 +1,15 @@
-.container{
+.container {
     max-width: 1200px;
 }
 
-.service_wrapper{
+.service_wrapper {
     margin-top: 24px;
     min-height: 1700px;
 }
 
-.service_header{
+.service_header {
     margin-top: 38px;
-    width:255;
+    width: 255;
     text-align: center;
     margin: 0 auto;
     color: #000;
@@ -17,20 +17,21 @@
     font-weight: 500;
 }
 
-.header-input_wrapper{
+.header-input_wrapper {
     display: flex;
     width: 1073px;
     height: 83px;
     flex-direction: column;
     align-items: flex-start;
     gap: 3px;
-    .header-title{
+
+    .header-title {
         color: #000;
         font-size: 23px;
         font-weight: 500;
     }
 
-    .header-input{
+    .header-input {
         display: flex;
         padding: 15px;
         align-items: center;
@@ -44,14 +45,14 @@
     }
 }
 
-.service_category-header{
+.service_category-header {
     margin-top: 40px;
     color: #000;
     font-size: 23px;
     font-weight: 500;
 }
 
-.service-title{
+.service-title {
     width: 1075px;
     height: 67px;
     border-radius: 10px;
@@ -60,45 +61,79 @@
     font-weight: 500;
 }
 
-.service-title-active{
-    background: #83DF89;
-}
-
-.service-name-checkbox{
-    margin-right: 10px;
+.custom-checkbox {
     width: 30px;
     height: 30px;
-    border-radius: 40%;
+    border-radius: 7px;
+    border: 1px solid rgb(131, 223, 137);
+    background-color: #83DF89 scale(0);
+    vertical-align: sub;
+
+    position: absolute;
 }
 
-input[type="checkbox"]:checked {
+
+.custom-checkbox::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("/assets/info/check-mark.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    margin-top: 3px;
+}
+
+.real-checkbox {
+    position: absolute;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.real-checkbox:focus+.custom-checkbox {
+    box-shadow: 0px 0px 0px 1px #83DF89, 0px 0px 10px #83DF89;
+}
+
+.real-checkbox:checked+.custom-checkbox::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.real-checkbox:checked+.custom-checkbox {
     background-color: #83DF89;
+    transform: scale(1);
 }
 
-.service-child-name{
+.service-child-name {
     color: #000;
     font-size: 23px;
     font-weight: 400;
 }
 
-.service-child_wrapper{
+.service-child_wrapper {
     margin: 20px 0;
 }
 
-.choosed-services_wrapper{
-    .choosed-services_header{
+.choosed-services_wrapper {
+    .choosed-services_header {
         margin: 60px 0 16px 0;
         color: #000;
         font-size: 30px;
         font-weight: 500;
     }
 
-    .type-of-work_list{
+    .type-of-work_list {
         display: flex;
         flex-wrap: wrap;
-        align-items:center;
+        align-items: center;
 
-        .type-of-work{
+        .type-of-work {
             display: flex;
             padding: 8px;
             justify-content: center;
@@ -109,12 +144,12 @@ input[type="checkbox"]:checked {
             color: #A5A5A5;
             font-size: 18px;
             font-weight: 400;
-            margin: 0 10px 10px 0 ;
+            margin: 0 10px 10px 0;
         }
     }
 }
 
-.location-input_wrapper{
+.location-input_wrapper {
     margin-top: 20px;
     display: flex;
     width: 1073px;
@@ -122,13 +157,14 @@ input[type="checkbox"]:checked {
     flex-direction: column;
     align-items: flex-start;
     gap: 3px;
-    .location-title{
+
+    .location-title {
         color: #000;
         font-size: 23px;
         font-weight: 500;
     }
 
-    .location-input{
+    .location-input {
         display: flex;
         padding: 15px;
         align-items: center;
@@ -142,7 +178,7 @@ input[type="checkbox"]:checked {
     }
 }
 
-.project-price-input_wrapper{
+.project-price-input_wrapper {
     margin-top: 30px;
     display: flex;
     width: 1073px;
@@ -150,13 +186,14 @@ input[type="checkbox"]:checked {
     flex-direction: column;
     align-items: flex-start;
     gap: 3px;
-    .project-price-title{
+
+    .project-price-title {
         color: #000;
         font-size: 23px;
         font-weight: 500;
     }
 
-    .project-price-input{
+    .project-price-input {
         display: flex;
         padding: 15px;
         align-items: center;
@@ -170,7 +207,7 @@ input[type="checkbox"]:checked {
     }
 }
 
-.textarea_wrapper{
+.textarea_wrapper {
     margin-top: 30px;
     display: flex;
     width: 1073px;
@@ -180,13 +217,13 @@ input[type="checkbox"]:checked {
     gap: 3px;
     flex: 1 0 0;
 
-    .textarea_title{
+    .textarea_title {
         color: #000;
         font-size: 23px;
         font-weight: 500;
     }
 
-    .textarea_desrc{
+    .textarea_desrc {
         display: flex;
         padding: 15px;
         align-items: flex-start;
@@ -202,16 +239,16 @@ input[type="checkbox"]:checked {
     }
 }
 
-.photo-input_wrapper{
+.photo-input_wrapper {
     margin-top: 30px;
 
-    .photo-title{
+    .photo-title {
         color: #000;
         font-size: 23px;
         font-weight: 500;
     }
 
-    .photo-input{
+    .photo-input {
         margin-top: 17px;
         display: flex;
         width: 338px;
@@ -223,11 +260,11 @@ input[type="checkbox"]:checked {
         color: #FFF;
         font-size: 20px;
         font-weight: 700;
-        border:none;
+        border: none;
         cursor: pointer;
     }
 
-    .photo-input-count{
+    .photo-input-count {
         margin-top: 5px;
         color: #000;
         font-size: 18px;
@@ -235,15 +272,15 @@ input[type="checkbox"]:checked {
     }
 }
 
-.service-btn_wrapper{
+.service-btn_wrapper {
     margin-top: 130px;
     margin-right: 100px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    align-items:center;
-     
-    .service-btn{
+    align-items: center;
+
+    .service-btn {
         display: flex;
         width: 309px;
         padding: 20px;

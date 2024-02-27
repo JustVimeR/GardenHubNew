@@ -6,14 +6,14 @@
             </div>
             <div class="profile_info">
                 <div class="profile_username">
-                    emilliartp
+                    @{{selfUserProfile.userName}}
                 </div>
                 <div class="profile_fullname">
-                    Емілія Артеменко
+                    {{selfUserProfile.name}} {{selfUserProfile.surname}}
                 </div>
                 <div class="profile_location">
                     <img src="../../../assets/point.png" alt="point" class="order_point">
-                    <span>Київ, Обухів, Вишгород, Житомир</span>
+                    <span *ngFor="let city of selfUserProfile.gardenerProfile.cities">{{ city.name }}, </span>
                 </div>
                 <div class="type-of-work_list" >
                     <div class="type-of-work">Догляд за газоном</div>

@@ -7,7 +7,8 @@ import StorageService from "./storage.service";
   providedIn: 'root'
 })
 export class SharedService extends StorageService {
-  API_URL = 'http://gardenhub1-001-site1.anytempurl.com/api';
+
+  API_URL = 'http://xivapar697-001-site1.htempurl.com/api';
 
   constructor(
     private location: Location

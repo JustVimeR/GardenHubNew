@@ -1,0 +1,119 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    width: 928px;
+    height: 597px;
+    margin-bottom: 50px;
+
+    border: solid 1px;
+    border-radius: 10px;
+    padding: 80px 40px 80px 40px;
+
+    transition: all 0.3s ease;
+}
+.stars-container{
+    margin-bottom: 50px;
+}
+.stars{
+    
+    margin-right: 3px;
+    width: 25px;
+    height: 25px;
+    padding: 0px;
+}
+.star-icon {
+    width: 25px;
+    height: 25px;
+    transition: transform  0.3s ease;
+}
+
+.star-button {
+    padding: 0px;
+    margin-right: 3px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.star-button:hover .star-icon {
+    
+    content: url('../../../../assets/star-fill.svg');
+    transform: scale(1.2);
+    
+}
+
+.star-button:hover {
+    transform: scale(1.1); 
+}
+.text-successful{
+    margin-bottom: 50px;
+
+    color: rgb(131, 223, 137);
+    font-family: Roboto;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 47px;
+    letter-spacing: 0%;
+    text-align: center;
+}
+.text-rate{
+    margin-bottom: 50px;
+
+    color: rgb(0, 0, 0);
+    font-family: Roboto;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 35px;
+    letter-spacing: 0%;
+    text-align: center;
+}
+.input-review{
+    width: 669px;
+    height: 59px;
+    margin-bottom: 50px;
+
+    box-sizing: border-box;
+    border: 1px solid rgb(165, 165, 165);
+    border-radius: 10px;
+
+    align-items: center;
+    color: black;
+    font-family: Roboto;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0%;
+
+    display: flex;
+
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.input-review::placeholder{
+    color: rgb(165, 165, 165);
+    font-family: Roboto;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0%;
+}
+.button-complete{
+    width: 200px;
+    height: 70px;
+
+    box-sizing: border-box;
+    border: 3px solid rgb(131, 223, 137);
+    border-radius: 18px;
+
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 30px;
+    
+    text-align: center;
+    background: rgb(131, 223, 137);
+}

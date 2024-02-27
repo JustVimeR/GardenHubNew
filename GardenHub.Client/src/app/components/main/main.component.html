@@ -27,7 +27,7 @@
         <li class="sidebar-nav-item">
           <p class="sidebar-nav-role">Садівник</p>
           <a href="" class="sidebar-nav-link" routerLinkActive="active"
-            ><span>Ім’я користувача</span></a>
+            ><span> @{{selfUserProfile.userName}}</span></a>
         </li>
         <li class="sidebar-nav-item">
           <hr class="direct"/>
@@ -61,6 +61,10 @@
         <li class="sidebar-nav-item">
           <a href="" class="sidebar-nav-link" routerLinkActive="active"
           [routerLink]="['/api/profilesettings']">Налаштування профілю</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a href="" class="sidebar-nav-link" routerLinkActive="active"
+          [routerLink]="['/api/homeowner-profile']">Home owner Profile</a>
         </li>
         <li class="sidebar-nav-item">
           <hr class="direct"/>

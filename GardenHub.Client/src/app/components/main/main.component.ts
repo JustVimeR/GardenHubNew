@@ -3,24 +3,29 @@ import {ModalService} from "../../services/modal.service";
 import {AuthService} from "../../services/auth.service";
 import { RoleService } from 'src/app/services/role.service';
 import { Router } from '@angular/router';
+import StorageService from 'src/app/services/storage.service';
+import { UserProfileService } from 'src/app/services/user-profile.service';
+import { StorageKey } from 'src/app/models/enums/storage-key';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit{
+export class MainComponent extends StorageService implements OnInit{
   show$ = this.modalService.showModal;
   statusMenu = false;
   showProfileMenu = false;
   activeTab: 'gardener' | 'housekeeper' = 'housekeeper';
   activeRole: 'gardener' | 'housekeeper';
-  
+  selfUserProfile: any = {};
+
   ngOnInit() {
     this.roleService.activeRole.subscribe(role => {
       this.activeRole = role;
       this.activeTab = role; 
     });
+    this.getUserProfile();
   }
 
   @HostListener('click', ['$event'])
@@ -59,10 +64,24 @@ export class MainComponent implements OnInit{
     private modalService: ModalService,
     private authService: AuthService,
     private roleService: RoleService,
-    private router:Router
+    private router:Router,
+    private userProfileService: UserProfileService
   ) {
+    super();
     this.activeRole = 'gardener';
   }
+
+  getUserProfile(): void {
+    if (this.hasKeyInStorage(StorageKey.userProfile)) {
+      this.selfUserProfile = this.getDataStorage(StorageKey.userProfile);
+    } else {
+      this.userProfileService.getSelfUserProfile().subscribe(response => {
+        this.selfUserProfile = response;
+        this.setDataStorage(StorageKey.userProfile, this.selfUserProfile);
+      });
+    }
+  }
+
 
   removeClassforAllNav(): void {
     let listNavItem = document.getElementsByClassName('sidebar-nav-link');

@@ -43,6 +43,11 @@ const mainRoutes: Routes = [
           loadChildren: () => import('../create-order/create-order.module').then(m => m.CreateOrderModule),
           canActivate: [StopRouteGuard]
         },
+        {
+          path: Path.homeOwnerProfile,
+          loadChildren: () => import('../homeowner-profile/homeowner-profile.module').then(m => m.HomeOwnerProfileModule),
+          canActivate: [StopRouteGuard]
+        },
         {path: Path.error, component: ErrorPageComponent},
         {path: '**', redirectTo: Path.mainPage}
       ]
