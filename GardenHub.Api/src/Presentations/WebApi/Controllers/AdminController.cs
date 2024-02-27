@@ -25,7 +25,7 @@ public class AdminController : ControllerBase
     }
 
 
-    [Authorize(Policy = "OnlyAdmins")]
+    [Authorize(Roles = "Admin")]
     [HttpGet("alluser")]
     public async Task<IActionResult> GetAllUser()
     {
@@ -36,7 +36,7 @@ public class AdminController : ControllerBase
         return Ok(new BaseResponse<IReadOnlyList<UserDto>>(data, $"User List"));
     }
 
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet("alluserwithroles")]
     public async Task<IActionResult> GetAllUserWithRoles()
     {

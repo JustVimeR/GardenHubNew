@@ -22,6 +22,11 @@ public class ApplicationDbContext : IdentityDbContext<
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<UserProfile>(entity =>
+        {
+            entity.Navigation(nameof(CustomerProfile)).AutoInclude().IsRequired();
+            entity.Navigation(nameof(GardenerProfile)).AutoInclude().IsRequired();
+        });
 
         RegisterEntityMapping(builder);
         base.OnModelCreating(builder);
@@ -91,6 +96,7 @@ public class ApplicationDbContext : IdentityDbContext<
             configuration.ApplyConfiguration(modelBuilder);
         }
     }
+
     public virtual new DbSet<TEntity> Set<TEntity>() where TEntity : class
     {
         return base.Set<TEntity>();

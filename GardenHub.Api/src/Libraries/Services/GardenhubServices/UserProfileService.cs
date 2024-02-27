@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Data.IdentityModels;
 using Data.Repos.Interfaces;
 using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
@@ -13,6 +14,15 @@ public class UserProfileService : Service<UserProfile>, IUserProfileService
     public UserProfileService(IUserProfileRepository repository, IMapper mapper) : base(repository)
     {
         _mapper = mapper;
+    }
+
+    public async Task CreateApplicationUser(ApplicationUser user)
+    {
+        UserProfile userProfile = _mapper.Map<UserProfile>(user);
+
+        userProfile.CustomerProfile = new();
+
+        await base.PostAsync(userProfile);
     }
 
     public override async Task<UserProfile> PostAsync(UserProfile userProfile)

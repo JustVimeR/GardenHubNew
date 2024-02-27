@@ -1,5 +1,4 @@
 ﻿using Data.IdentityModels;
-using Data.Repos;
 using Data.Repos.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

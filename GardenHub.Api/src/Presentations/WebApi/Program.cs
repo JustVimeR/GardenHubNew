@@ -34,8 +34,10 @@ builder.Services.AddHealthChecks()
 ServiceRegisterer serviceRegistry = new();
 serviceRegistry.RegisterServices(builder.Services, builder.Configuration);
 serviceRegistry.AddConfiguredSwagger(builder.Services);
-serviceRegistry.AddConfiguredAuthenticationWithAuthorization(builder.Services, builder.Configuration);
+
+// Those two should be in order cause of identity default auth scheme
 serviceRegistry.AddConfiguredDbContextWithIdentity(builder.Services, builder.Configuration);
+serviceRegistry.AddConfiguredAuthenticationWithAuthorization(builder.Services, builder.Configuration);
 
 builder.Services.AddControllers(options =>
 {
@@ -45,11 +47,6 @@ builder.Services.AddControllers(options =>
 {
     c.SerializerSettings.Converters.Add(new StringEnumConverter());
     c.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-});
-
-builder.Services.ConfigureApplicationCookie(options =>
-{
-
 });
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
