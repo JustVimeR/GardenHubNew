@@ -1,7 +1,7 @@
-.warning_wrapper{
+.warning_wrapper {
     display: flex;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     height: 140px;
     padding-left: 0px;
     align-items: center;
@@ -9,30 +9,30 @@
     flex-shrink: 0;
     background: #FFBDBD;
 
-    .text_wrapper{
+    .text_wrapper {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items:center;
+        align-items: center;
         width: 751px;
         margin-right: 312px;
 
-        .warning_header{
+        .warning_header {
             color: #F00;
             text-align: center;
             font-size: 18px;
             font-weight: 600;
             text-align: center;
         }
-    
-        .warning_subheader{
+
+        .warning_subheader {
             color: #535353;
             font-size: 18px;
             font-weight: 400;
             text-align: center;
         }
-    
-        .profile_route{
+
+        .profile_route {
             display: flex;
             margin: 0 auto;
             margin-top: 18px;
@@ -46,10 +46,56 @@
             border: 3px solid #000;
             background-color: #FFBDBD;
             color: #000;
-    
+
             font-size: 18px;
             font-weight: 600;
         }
     }
 }
 
+@media screen and (max-width: 763px) {
+    .warning_wrapper {
+
+        gap: 0 !important;
+
+    }
+
+    .warning_header {
+        font-family: Inter !important;
+        font-size: 16px !important;
+        font-weight: 400 !important;
+        line-height: 15px !important;
+        font-weight: bold !important;
+        margin-bottom: 10px !important;
+
+    }
+
+    .warning_subheader {
+        font-family: Inter !important;
+        font-size: 12px !important;
+        font-weight: 400 !important;
+        line-height: 15px !important;
+
+    }
+
+    .text_wrapper {
+        width: auto !important;
+        margin-right: 0 !important;
+        margin-right: 10px !important;
+
+    }
+
+    .profile_route {
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        line-height: 17px !important;
+        width: 174px !important;
+        height: 37px !important;
+        padding: 10px !important;
+    }
+
+    .warning_img {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
