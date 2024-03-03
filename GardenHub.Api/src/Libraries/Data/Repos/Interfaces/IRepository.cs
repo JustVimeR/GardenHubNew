@@ -22,7 +22,8 @@ public interface IRepository<T> where T : IEntityBase
     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
     IQueryable<T> GetWhere(Expression<Func<T, bool>>? predicate = null,
-        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+        bool ignorePrepareDbSet = false);
 
     IPagedList<T> GetWhere(Expression<Func<T, bool>>? predicate, PaginationFilter paginationFilter,
         SortFilter sortFilter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);

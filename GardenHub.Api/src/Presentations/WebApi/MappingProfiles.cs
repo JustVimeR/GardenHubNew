@@ -18,6 +18,7 @@ public class MappingProfiles : Profile
 
         CreateMap<GardenerProfile, GardenerProfile>();
         CreateMap<City, City>();
+        CreateMap<WorkType, WorkType>();
 
         CreateMap<PostCityDTO, City>();
         CreateMap<PostCustomerProfileDTO, CustomerProfile>();
@@ -26,8 +27,10 @@ public class MappingProfiles : Profile
         CreateMap<PostMediaDTO, Media>();
         CreateMap<PostProjectDTO, Project>();
         CreateMap<PostUserProfileDTO, UserProfile>();
+
         CreateMap<PostWorkTypeDTO, WorkType>();
         CreateMap<PostDerivedWorkTypeDTO, WorkType>();
+        CreateMap<PostGardenerWorkTypeDTO, WorkType>();
 
         CreateMap<City, GetCityDTO>();
         CreateMap<CustomerProfile, GetCustomerProfileDTO>();

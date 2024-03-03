@@ -1,10 +1,12 @@
 ﻿using Core.Constants;
 using Core.Exceptions;
 using Data.Repos.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -19,6 +21,11 @@ public class WorkTypeService : Service<WorkType>, IWorkTypeService
     public override Task<List<WorkType>> GetAllAsync()
     {
         return base.GetAllAsync();
+    }
+
+    public Task<List<WorkType>> GetDerivedWorkTypesById(List<long> workTypesIds)
+    {
+        return _repository.GetWhere(x => workTypesIds.Contains(x.Id), ignorePrepareDbSet: true).ToListAsync();
     }
 
     public override Task<WorkType> PostAsync(WorkType addWorkType)

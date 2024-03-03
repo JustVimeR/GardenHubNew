@@ -5,6 +5,7 @@ using Data.Repos.Interfaces;
 using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Services.GardenhubServices;
@@ -13,12 +14,15 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
 {
     private readonly ICityService _cityService;
     private readonly IUserAccessor _userAccessor;
+    private readonly IWorkTypeService _workTypeService;
     private readonly IUserProfileService _userProfileService;
     private readonly IMapper _mapper;
 
     public GardenerProfileService(IGardenerProfileRepository repository, ICityService cityService,
-        IUserAccessor userAccessor, IUserProfileService userProfileService, IMapper mapper) : base(repository)
+        IUserAccessor userAccessor, IUserProfileService userProfileService, IWorkTypeService workTypeService,
+        IMapper mapper) : base(repository)
     {
+        _workTypeService = workTypeService;
         _userProfileService = userProfileService;
         _userAccessor = userAccessor;
         _cityService = cityService;
@@ -40,6 +44,7 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
 
         await LinkCitiesOfGardenerProfile(gardenerProfile);
 
+        await LinkWorkTypesOfGardenerProfile(gardenerProfile);
 
         return await base.PutAsync(gardenerProfile);
     }
@@ -47,6 +52,8 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
     public override async Task<GardenerProfile> PostAsync(GardenerProfile gardenerProfile)
     {
         UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
+
+        await LinkWorkTypesOfGardenerProfile(gardenerProfile);
 
         await LinkCitiesOfGardenerProfile(gardenerProfile);
 
@@ -59,6 +66,11 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
 
     private async Task LinkCitiesOfGardenerProfile(GardenerProfile gardenerProfile)
     {
+        if(gardenerProfile.Cities==null)
+        {
+            return;
+        }
+
         List<City> addCities = gardenerProfile.Cities;
 
         gardenerProfile.Cities = new();
@@ -98,5 +110,18 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
                 }
             }
         }
+    }
+
+    private async Task LinkWorkTypesOfGardenerProfile(GardenerProfile gardenerProfile)
+    {
+        if (gardenerProfile.WorkTypes == null)
+        {
+            return;
+        }
+
+        List<WorkType> gardenerWorkTypes = gardenerProfile.WorkTypes;
+
+        gardenerProfile.WorkTypes = await _workTypeService.GetDerivedWorkTypesById(
+            gardenerProfile.WorkTypes.Select(x => x.Id).ToList());
     }
 }

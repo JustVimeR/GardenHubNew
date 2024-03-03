@@ -79,12 +79,15 @@ public class Repository<T> : IRepository<T> where T : class, IEntityBase
     }
 
     public virtual IQueryable<T> GetWhere(Expression<Func<T, bool>>? predicate,
-        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+        bool ignoreDbSet = false)
     {
         if (predicate is null)
             throw new ArgumentNullException(nameof(predicate));
 
-        var preparedDbSet = PrepareDbSet();
+        IQueryable<T> preparedDbSet = dataContext.Set<T>();
+        if (!ignoreDbSet)
+            preparedDbSet = PrepareDbSet();
 
         if (include != null)
         {

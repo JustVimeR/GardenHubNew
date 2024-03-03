@@ -15,6 +15,6 @@ public class GardenerProfileRepository : Repository<GardenerProfile>, IGardenerP
 
     protected override IQueryable<GardenerProfile> PrepareDbSet()
     {
-        return base.PrepareDbSet().Include(x=>x.Cities);
+        return base.PrepareDbSet().Include(x => x.Cities).Include(x => x.WorkTypes);
     }
 }
