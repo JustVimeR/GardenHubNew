@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -127,7 +127,8 @@ namespace Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserProfileId = table.Column<long>(type: "bigint", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -207,52 +208,6 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserProfiles",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdentityId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IconId = table.Column<long>(type: "bigint", nullable: false),
-                    CustomerProfileId = table.Column<long>(type: "bigint", nullable: false),
-                    GardenerProfileId = table.Column<long>(type: "bigint", nullable: false),
-                    RecordStatus = table.Column<int>(type: "int", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GetUtcDate()"),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GetUtcDate()"),
-                    CreatedBy = table.Column<string>(type: "nvarchar(50)", nullable: true, defaultValue: "'Anonymous creation'"),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(50)", nullable: true, defaultValueSql: "'Anonymous creation'")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserProfiles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserProfiles_CustomerProfiles_CustomerProfileId",
-                        column: x => x.CustomerProfileId,
-                        principalTable: "CustomerProfiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserProfiles_GardenerProfiles_GardenerProfileId",
-                        column: x => x.GardenerProfileId,
-                        principalTable: "GardenerProfiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserProfiles_Medias_IconId",
-                        column: x => x.IconId,
-                        principalTable: "Medias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RoleClaims",
                 columns: table => new
                 {
@@ -309,6 +264,56 @@ namespace Data.Migrations
                     table.ForeignKey(
                         name: "FK_UserLogins_User_UserId",
                         column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserProfiles",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdentityId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IconId = table.Column<long>(type: "bigint", nullable: true),
+                    CustomerProfileId = table.Column<long>(type: "bigint", nullable: false),
+                    GardenerProfileId = table.Column<long>(type: "bigint", nullable: true),
+                    RecordStatus = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GetUtcDate()"),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GetUtcDate()"),
+                    CreatedBy = table.Column<string>(type: "nvarchar(50)", nullable: true, defaultValue: "'Anonymous creation'"),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(50)", nullable: true, defaultValueSql: "'Anonymous creation'")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserProfiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserProfiles_CustomerProfiles_CustomerProfileId",
+                        column: x => x.CustomerProfileId,
+                        principalTable: "CustomerProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserProfiles_GardenerProfiles_GardenerProfileId",
+                        column: x => x.GardenerProfileId,
+                        principalTable: "GardenerProfiles",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_UserProfiles_Medias_IconId",
+                        column: x => x.IconId,
+                        principalTable: "Medias",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_UserProfiles_User_IdentityId",
+                        column: x => x.IdentityId,
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -580,6 +585,12 @@ namespace Data.Migrations
                 name: "IX_UserProfiles_IconId",
                 table: "UserProfiles",
                 column: "IconId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserProfiles_IdentityId",
+                table: "UserProfiles",
+                column: "IdentityId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",

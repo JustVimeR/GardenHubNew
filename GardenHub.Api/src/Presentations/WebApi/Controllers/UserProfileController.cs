@@ -16,7 +16,7 @@ namespace WebApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class UserProfileController
-    : GenericCRUDDController<UserProfile, GetUserProfileDTO, PostUserProfileDTO, PostUserProfileDTO>
+    : BaseCRUDController<UserProfile, GetUserProfileDTO, PostUserProfileDTO, PostUserProfileDTO>
 {
     IUserAccessor _userAccessor;
     IMapper _mapper;
@@ -31,6 +31,11 @@ public class UserProfileController
         _mapper = mapper;
     }
 
+    [NonAction]
+    public override Task<ActionResult<ServiceResult<GetUserProfileDTO>>> DeleteAsync([FromRoute, Required] long id, [FromQuery] bool softDelete = false)
+    {
+        return base.DeleteAsync(id, softDelete);
+    }
 
     [Authorize]
     public override async Task<ActionResult<ServiceResult<GetUserProfileDTO>>> PutAsync(

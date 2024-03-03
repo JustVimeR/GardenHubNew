@@ -27,6 +27,7 @@ public class MappingProfiles : Profile
         CreateMap<PostProjectDTO, Project>();
         CreateMap<PostUserProfileDTO, UserProfile>();
         CreateMap<PostWorkTypeDTO, WorkType>();
+        CreateMap<PostDerivedWorkTypeDTO, WorkType>();
 
         CreateMap<City, GetCityDTO>();
         CreateMap<CustomerProfile, GetCustomerProfileDTO>();
@@ -36,6 +37,7 @@ public class MappingProfiles : Profile
         CreateMap<Project, GetProjectDTO>();
         CreateMap<UserProfile, GetUserProfileDTO>();
         CreateMap<WorkType, GetWorkTypeDTO>();
+        CreateMap<WorkType, GetDerivedWorkTypeDTO>();
 
         CreateMap<ApplicationUser, UserDto>()
             .ForMember(d => d.UserName, o => o.MapFrom(s => s.UserName))

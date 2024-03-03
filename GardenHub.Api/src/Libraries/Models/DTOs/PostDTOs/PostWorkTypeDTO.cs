@@ -13,7 +13,5 @@ public class PostWorkTypeDTO
 
 public class PostDerivedWorkTypeDTO
 {
-    public long? ParentWorkTypeId { get; set; }
-
     public string? Label { get; set; }
 }

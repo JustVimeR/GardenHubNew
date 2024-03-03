@@ -17,7 +17,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class GardenerProfileController : GenericCRUDDController<GardenerProfile, GetGardenerProfileDTO, PostGardenerProfileDTO, PostGardenerProfileDTO>
+public class GardenerProfileController : BaseCRUDController<GardenerProfile, GetGardenerProfileDTO, PostGardenerProfileDTO, PostGardenerProfileDTO>
 {
     private readonly IGardenerProfileService _gardenerProfileService;
     ILogger<UserProfileController> _logger;

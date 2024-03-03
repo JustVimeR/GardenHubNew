@@ -7,4 +7,6 @@ public class ErrorMessages
 
     public const string UpdateEntityWithNoId = "Couldn't update entity of type {0} since it's Id was not" +
         " provided.";
+
+    public const string DerivedWorkTypeCantBeParent = "Derived work type can't be parent.";
 }

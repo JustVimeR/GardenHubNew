@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240212022352_init")]
-    partial class init
+    [Migration("20240303120903_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -124,7 +124,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -159,6 +158,9 @@ namespace Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<long?>("UserProfileId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -711,10 +713,10 @@ namespace Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("GardenerProfileId")
+                    b.Property<long?>("GardenerProfileId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("IconId")
+                    b.Property<long?>("IconId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("IdentityId")
@@ -753,6 +755,9 @@ namespace Data.Migrations
                     b.HasIndex("GardenerProfileId");
 
                     b.HasIndex("IconId");
+
+                    b.HasIndex("IdentityId")
+                        .IsUnique();
 
                     b.ToTable("UserProfiles", (string)null);
                 });
@@ -958,13 +963,15 @@ namespace Data.Migrations
 
                     b.HasOne("Models.DbEntities.GardenerProfile", "GardenerProfile")
                         .WithMany()
-                        .HasForeignKey("GardenerProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GardenerProfileId");
 
                     b.HasOne("Models.DbEntities.Media", "Icon")
                         .WithMany()
-                        .HasForeignKey("IconId")
+                        .HasForeignKey("IconId");
+
+                    b.HasOne("Data.IdentityModels.ApplicationUser", null)
+                        .WithOne("UserProfile")
+                        .HasForeignKey("Models.DbEntities.UserProfile", "IdentityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -995,6 +1002,8 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.IdentityModels.ApplicationUser", b =>
                 {
+                    b.Navigation("UserProfile");
+
                     b.Navigation("UserRoles");
                 });
 

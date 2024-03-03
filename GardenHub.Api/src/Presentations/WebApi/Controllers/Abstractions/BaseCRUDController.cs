@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers;
 
 [ApiController]
-public abstract class GenericCRUDDController<T, GetDto, AddDto, PatchDto> : ControllerBase where T : IEntityBase where PatchDto : class
+public abstract class BaseCRUDController<T, GetDto, AddDto, PatchDto> : ControllerBase where T : IEntityBase where PatchDto : class
 {
     protected readonly IService<T> service;
     protected readonly IMapper mapper;
     protected readonly FilterService _filterService;
 
-    protected GenericCRUDDController(IService<T> service, IMapper mapper, FilterService filterService)
+    protected BaseCRUDController(IService<T> service, IMapper mapper, FilterService filterService)
     {
         this.service = service;
         this.mapper = mapper;

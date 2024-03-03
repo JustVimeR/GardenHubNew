@@ -16,7 +16,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProjectController : GenericCRUDDController<Project, GetProjectDTO, PostProjectDTO, Project>
+public class ProjectController : BaseCRUDController<Project, GetProjectDTO, PostProjectDTO, Project>
 {
     ILogger<ProjectController> _logger;
     public ProjectController(

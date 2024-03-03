@@ -17,7 +17,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class FeedbackController : GenericCRUDDController<Feedback, GetFeedbackDTO, PostFeedbackDTO, Feedback>
+public class FeedbackController : BaseCRUDController<Feedback, GetFeedbackDTO, PostFeedbackDTO, Feedback>
 {
     ILogger<FeedbackController> _logger;
     public FeedbackController(

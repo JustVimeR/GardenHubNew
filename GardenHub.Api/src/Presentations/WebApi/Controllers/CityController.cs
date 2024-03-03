@@ -16,7 +16,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CityController : GenericCRUDDController<City, GetCityDTO, PostCityDTO, PostCityDTO>
+public class CityController : BaseCRUDController<City, GetCityDTO, PostCityDTO, PostCityDTO>
 {
     ILogger<CityController> _logger;
     public CityController(

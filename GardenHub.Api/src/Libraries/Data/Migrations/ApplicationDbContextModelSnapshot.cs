@@ -960,9 +960,7 @@ namespace Data.Migrations
 
                     b.HasOne("Models.DbEntities.GardenerProfile", "GardenerProfile")
                         .WithMany()
-                        .HasForeignKey("GardenerProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GardenerProfileId");
 
                     b.HasOne("Models.DbEntities.Media", "Icon")
                         .WithMany()
