@@ -6,6 +6,7 @@ using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Services.GardenhubServices;
@@ -33,7 +34,8 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
     {
         if (updateGardenerProfile.Id == default)
         {
-            throw new ApiException(400, ErrorMessages.UpdateEntityWithNoId, nameof(GardenerProfile));
+            throw new ApiException((int)HttpStatusCode.BadRequest, ErrorMessages.UpdateEntityWithNoId,
+                nameof(GardenerProfile));
         }
 
         UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
@@ -66,7 +68,7 @@ public class GardenerProfileService : Service<GardenerProfile>, IGardenerProfile
 
     private async Task LinkCitiesOfGardenerProfile(GardenerProfile gardenerProfile)
     {
-        if(gardenerProfile.Cities==null)
+        if (gardenerProfile.Cities == null)
         {
             return;
         }

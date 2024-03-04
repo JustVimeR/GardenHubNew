@@ -16,9 +16,13 @@ public class MappingProfiles : Profile
         CreateMap<SortQuery, SortFilter>();
         CreateMap<SearchQuery, SearchFilter>();
 
+        CreateMap<PostIdDTO, WorkType>();
+
         CreateMap<GardenerProfile, GardenerProfile>();
         CreateMap<City, City>();
         CreateMap<WorkType, WorkType>();
+        CreateMap<Project, Project>()
+            .ForMember(d => d.CustomerId, o => o.Ignore());
 
         CreateMap<PostCityDTO, City>();
         CreateMap<PostCustomerProfileDTO, CustomerProfile>();
@@ -30,7 +34,6 @@ public class MappingProfiles : Profile
 
         CreateMap<PostWorkTypeDTO, WorkType>();
         CreateMap<PostDerivedWorkTypeDTO, WorkType>();
-        CreateMap<PostGardenerWorkTypeDTO, WorkType>();
 
         CreateMap<City, GetCityDTO>();
         CreateMap<CustomerProfile, GetCustomerProfileDTO>();

@@ -1,12 +1,90 @@
-﻿using Data.Repos.Interfaces;
+﻿using AutoMapper;
+using Core.Constants;
+using Core.Exceptions;
+using Data.Repos.Interfaces;
 using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Services.GardenhubServices;
 
 public class ProjectService : Service<Project>, IProjectService
 {
-    public ProjectService(IProjectRepository repository) : base(repository)
+    private readonly IMapper _mapper;
+    private readonly IWorkTypeService _workTypeService;
+    private readonly IUserAccessor _userAccessor;
+
+    public ProjectService(IProjectRepository repository, IUserAccessor userAccessor,
+        IWorkTypeService workTypeService, IMapper mapper)
+        : base(repository)
     {
+        _mapper = mapper;
+        _workTypeService = workTypeService;
+        _userAccessor = userAccessor;
+    }
+
+    public async override Task<Project> PostAsync(Project addProject)
+    {
+        UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
+
+        addProject.Customer = userProfile.CustomerProfile;
+
+        if (addProject.WorkTypes != null)
+        {
+            addProject.WorkTypes = await _workTypeService.GetDerivedWorkTypesById(
+                addProject.WorkTypes
+                .Select(x => x.Id)
+                .ToList());
+        }
+
+        addProject.PublicationDate = DateTime.UtcNow;
+        addProject.IsVerified = true;
+
+        return await base.PostAsync(addProject);
+    }
+
+    public override async Task<Project> PutAsync(Project updateProject)
+    {
+        if (updateProject.Id == default)
+        {
+            throw new ApiException(
+                (int)HttpStatusCode.BadRequest, ErrorMessages.UpdateEntityWithNoId, nameof(Project));
+        }
+
+        Project project = await base.GetFirstAsync(x => x.Id == updateProject.Id);
+
+        if (project.Id != _userAccessor.IdentityUserId)
+        {
+            throw new ApiException(
+                (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotUpdateNotOwnedEntity,
+                                                                        nameof(Project), updateProject.Id);
+        }
+
+        _mapper.Map(updateProject, project);
+
+        if (project.WorkTypes != null)
+        {
+            project.WorkTypes = await _workTypeService.GetDerivedWorkTypesById(
+                project.WorkTypes
+                .Select(x => x.Id)
+                .ToList());
+        }
+
+        return await base.PutAsync(project);
+    }
+
+    public override Task DeleteAsync(Project project, bool softDelete = false)
+    {
+        if (project.Id != _userAccessor.IdentityUserId)
+        {
+            throw new ApiException(
+                (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotDeleteNotOwnedEntity,
+                                                                        nameof(Project), project.Id);
+        }
+
+        return base.DeleteAsync(project, softDelete);
     }
 }

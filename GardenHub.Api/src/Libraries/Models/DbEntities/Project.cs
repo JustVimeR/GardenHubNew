@@ -16,15 +16,15 @@ public class Project : EntityBase
     public bool IsVerified { get; set; }
 
 
-    public DateTime PublicationDate { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public DateTimeOffset PublicationDate { get; set; }
+    public DateTimeOffset StartDate { get; set; }
+    public DateTimeOffset EndDate { get; set; }
 
     public long CustomerId { get; set; }
 
     public CustomerProfile? Customer { get; set; }
 
-    public List<WorkType> WorkTypes { get; set; } = new();
-    public List<ProjectMedia> Medias { get; set; } = new();
-    public List<GardenerProfile> Gardeners { get; set; } = new();
+    public List<WorkType>? WorkTypes { get; set; }
+    public List<ProjectMedia>? Medias { get; set; }
+    public List<GardenerProfile>? Gardeners { get; set; }
 }

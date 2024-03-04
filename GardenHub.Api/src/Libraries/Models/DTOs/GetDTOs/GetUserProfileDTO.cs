@@ -14,7 +14,7 @@ public class GetUserProfileDTO
     public string? PhoneNumber { get; set; }
     public string? Description { get; set; }
 
-    public DateTime BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 
     public long GardenerProfileId { get; set; }
     public long CustomerProfileId { get; set; }

@@ -10,15 +10,13 @@ namespace Services.GardenhubServices.Interfaces;
 
 public interface IService<T> where T : IEntityBase
 {
-    T? GetFirstOrDefault(Expression<Func<T, bool>>? predicate = null);
-    List<T> GetWhere(Expression<Func<T, bool>> predicate);
-    List<T> GetWhere(Expression<Func<T, bool>> predicate, PaginationFilter paginationFilter, SortFilter sortFilter);
     Task<List<T>> GetAllAsync();
     Task<List<T>> GetAllAsync(PaginationFilter paginationFilter, SortFilter sortFilter);
 
     Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null);
     Task<T> GetFirstAsync(Expression<Func<T, bool>>? predicate = null);
     Task<List<T>> GetWhereAsync(Expression<Func<T, bool>> predicate);
+    Task<List<T>> GetWhereAsync(Expression<Func<T, bool>> predicate, PaginationFilter paginationFilter, SortFilter sortFilter);
 
     Task<T> PostAsync(T entity);
 
@@ -27,6 +25,6 @@ public interface IService<T> where T : IEntityBase
     Task DeleteAllAsync(IList<T> entities, bool softDelete = false);
     Task<T> PatchAsync(T entity);
 
-    void UpdateMany(Expression<Func<T, bool>> predicate,
+    Task UpdateManyAsync(Expression<Func<T, bool>> predicate,
         Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> setPropertyCalls);
 }

@@ -112,7 +112,7 @@ public abstract class BaseCRUDController<T, GetDto, AddDto, PatchDto> : Controll
     {
         var result = new ServiceResult<GetDto>();
 
-        var entity = service.GetFirstOrDefault(item => item.Id == id);
+        var entity = await service.GetFirstOrDefaultAsync(item => item.Id == id);
 
         if (entity is null)
         {
@@ -129,7 +129,7 @@ public abstract class BaseCRUDController<T, GetDto, AddDto, PatchDto> : Controll
     {
         var result = new ServiceResult<GetDto>();
 
-        var entity = service.GetFirstOrDefault(item => item.Id == id);
+        var entity = await service.GetFirstOrDefaultAsync(item => item.Id == id);
 
         if (entity is null)
         {

@@ -11,15 +11,12 @@ public class PostProjectDTO
 
     public int NumberOfRequriedGardeners { get; set; }
 
-    public bool IsCompleted { get; set; }
-    public bool IsVerified { get; set; }
+    public bool IsCompleted { get; set; } = false;
+
+    public DateTimeOffset StartDate { get; set; }
+    public DateTimeOffset EndDate { get; set; }
 
 
-    public DateTime PublicationDate { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
-
-
-    public List<PostWorkTypeDTO> WorkTypes { get; set; } = new();
-    public List<PostMediaDTO> Medias { get; set; } = new();
+    public List<PostIdDTO>? WorkTypes { get; set; }
+    //public List<PostMediaDTO>? Medias { get; set; }
 }

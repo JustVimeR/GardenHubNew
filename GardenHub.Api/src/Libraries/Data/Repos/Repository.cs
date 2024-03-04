@@ -30,22 +30,6 @@ public class Repository<T> : IRepository<T> where T : class, IEntityBase
         dbSet = dataContext.Set<T>();
     }
 
-    public virtual T? GetFirstOrDefault(Expression<Func<T, bool>>? predicate = null,
-        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
-    {
-        var preparedDbSet = PrepareDbSet();
-
-        if (include != null)
-        {
-            preparedDbSet = include(preparedDbSet);
-        }
-
-        if (predicate is null)
-            return preparedDbSet.FirstOrDefault();
-
-        return preparedDbSet.FirstOrDefault(predicate);
-    }
-
     public virtual async Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null,
         Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
     {
@@ -97,7 +81,7 @@ public class Repository<T> : IRepository<T> where T : class, IEntityBase
         return preparedDbSet.Where(predicate);
     }
 
-    public virtual IPagedList<T> GetWhere(Expression<Func<T, bool>>? predicate,
+    public virtual async Task<IPagedList<T>> GetWhere(Expression<Func<T, bool>>? predicate,
         PaginationFilter paginationFilter, SortFilter sortFilter,
         Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
     {
@@ -116,22 +100,22 @@ public class Repository<T> : IRepository<T> where T : class, IEntityBase
             if (sortFilter.PropertyInfo is not null)
             {
                 if (sortFilter.Descending)
-                    return preparedDbSet.Where(predicate)
+                    return await preparedDbSet.Where(predicate)
                         .OrderBy(sortFilter.SortBy + " descending")
-                        .ToPagedList(paginationFilter.PageNumber, paginationFilter.PageSize);
+                        .ToPagedListAsync(paginationFilter.PageNumber, paginationFilter.PageSize);
                 else
-                    return preparedDbSet.Where(predicate)
+                    return await preparedDbSet.Where(predicate)
                         .OrderBy(sortFilter.SortBy)
-                        .ToPagedList(paginationFilter.PageNumber, paginationFilter.PageSize);
+                        .ToPagedListAsync(paginationFilter.PageNumber, paginationFilter.PageSize);
             }
             else
             {
-                return new List<T>().ToPagedList(paginationFilter.PageNumber, paginationFilter.PageSize);
+                return await new List<T>().ToPagedListAsync(paginationFilter.PageNumber, paginationFilter.PageSize);
             }
         }
 
-        return preparedDbSet.Where(predicate)
-            .ToPagedList(paginationFilter.PageNumber, paginationFilter.PageSize);
+        return await preparedDbSet.Where(predicate)
+            .ToPagedListAsync(paginationFilter.PageNumber, paginationFilter.PageSize);
     }
 
     public virtual IQueryable<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null)
@@ -157,8 +141,8 @@ public class Repository<T> : IRepository<T> where T : class, IEntityBase
         }
 
         if (sortFilter.Descending)
-            return preparedDbSet.OrderByDescending(item => EF.Property<object>(item, sortFilter.SortBy))
-                .ToPagedList(filter.PageSize, filter.PageNumber);
+            return await preparedDbSet.OrderByDescending(item => EF.Property<object>(item, sortFilter.SortBy))
+                .ToPagedListAsync(filter.PageNumber, filter.PageSize);
 
         return await preparedDbSet.OrderBy(item => EF.Property<object>(item, sortFilter.SortBy))
                 .ToPagedListAsync(filter.PageNumber, filter.PageSize);
@@ -180,12 +164,12 @@ public class Repository<T> : IRepository<T> where T : class, IEntityBase
         dbSet.Update(entity);
     }
 
-    public virtual void UpdateMany(Expression<Func<T, bool>> predicate,
+    public virtual async Task UpdateMany(Expression<Func<T, bool>> predicate,
         Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> setPropertyCalls)
     {
         var preparedDbSet = PrepareDbSet();
 
-        preparedDbSet.Where(predicate).ExecuteUpdate(setPropertyCalls);
+        await preparedDbSet.Where(predicate).ExecuteUpdateAsync(setPropertyCalls);
     }
 
     public virtual void Delete(T entity)

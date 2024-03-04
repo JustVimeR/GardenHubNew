@@ -6,7 +6,6 @@ using Microsoft.IdentityModel.Tokens;
 using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 

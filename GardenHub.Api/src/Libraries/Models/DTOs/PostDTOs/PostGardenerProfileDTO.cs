@@ -8,5 +8,5 @@ public class PostGardenerProfileDTO
 
     public List<PostCityDTO> Cities { get; set; } = new();
 
-    public List<PostGardenerWorkTypeDTO> WorkTypes { get; set; } = new();
+    public List<PostIdDTO> WorkTypes { get; set; } = new();
 }

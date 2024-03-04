@@ -1,6 +1,6 @@
 ﻿namespace Models.DTOs.PostDTOs;
 
-public class PostGardenerWorkTypeDTO
+public class PostIdDTO
 {
     public long Id { get; set; }
 }

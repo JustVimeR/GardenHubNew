@@ -13,5 +13,5 @@ public class PostUserProfileDTO
     public string? PhoneNumber { get; set; }
     public string? Description { get; set; }
 
-    public DateTime BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 }

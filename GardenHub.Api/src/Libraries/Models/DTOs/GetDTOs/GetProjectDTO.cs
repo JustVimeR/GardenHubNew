@@ -17,9 +17,9 @@ public class GetProjectDTO
     public bool IsCompleted { get; set; }
     public bool IsVerified { get; set; }
 
-    public DateTime PublicationDate { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public DateTimeOffset PublicationDate { get; set; }
+    public DateTimeOffset StartDate { get; set; }
+    public DateTimeOffset EndDate { get; set; }
 
     public List<GetWorkTypeDTO> WorkTypes { get; set; } = new();
     public List<GetMediaDTO> Medias { get; set; } = new();

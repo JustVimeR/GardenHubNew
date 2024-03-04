@@ -4,6 +4,7 @@ using Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240304210357_DateTime_Columns_To_DateTimeOffset")]
+    partial class DateTime_Columns_To_DateTimeOffset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -784,6 +787,9 @@ namespace Data.Migrations
                     b.Property<long?>("ParentWorkTypeId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("ProjectId")
+                        .HasColumnType("bigint");
+
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
 
@@ -801,22 +807,9 @@ namespace Data.Migrations
 
                     b.HasIndex("ParentWorkTypeId");
 
+                    b.HasIndex("ProjectId");
+
                     b.ToTable("WorkTypes", (string)null);
-                });
-
-            modelBuilder.Entity("ProjectWorkType", b =>
-                {
-                    b.Property<long>("ProjectsId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("WorkTypesId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ProjectsId", "WorkTypesId");
-
-                    b.HasIndex("WorkTypesId");
-
-                    b.ToTable("ProjectWorkType");
                 });
 
             modelBuilder.Entity("CityGardenerProfile", b =>
@@ -995,22 +988,11 @@ namespace Data.Migrations
                         .WithMany("DerivedWorkTypes")
                         .HasForeignKey("ParentWorkTypeId");
 
-                    b.Navigation("ParentWorkType");
-                });
-
-            modelBuilder.Entity("ProjectWorkType", b =>
-                {
                     b.HasOne("Models.DbEntities.Project", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("WorkTypes")
+                        .HasForeignKey("ProjectId");
 
-                    b.HasOne("Models.DbEntities.WorkType", null)
-                        .WithMany()
-                        .HasForeignKey("WorkTypesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ParentWorkType");
                 });
 
             modelBuilder.Entity("Data.IdentityModels.ApplicationRole", b =>
@@ -1038,6 +1020,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.DbEntities.Project", b =>
                 {
                     b.Navigation("Medias");
+
+                    b.Navigation("WorkTypes");
                 });
 
             modelBuilder.Entity("Models.DbEntities.WorkType", b =>

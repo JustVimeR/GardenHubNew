@@ -67,7 +67,7 @@ public static class DefaultSuperAdmin
             Email = user.Email,
             UserName = user.UserName,
             Description = "Seeded Test User Profile",
-            BirthDate = DateTime.UtcNow,
+            BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-20)),
 
             CustomerProfile = new CustomerProfile(),
             GardenerProfile = new GardenerProfile()
