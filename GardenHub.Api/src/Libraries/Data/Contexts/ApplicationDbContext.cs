@@ -1,5 +1,4 @@
-﻿
-using Data.IdentityModels;
+﻿using Data.IdentityModels;
 using Data.Mapping;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

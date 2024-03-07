@@ -56,7 +56,9 @@ public class ProjectService : Service<Project>, IProjectService
 
         Project project = await base.GetFirstAsync(x => x.Id == updateProject.Id);
 
-        if (project.Id != _userAccessor.IdentityUserId)
+        UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
+
+        if (project.CustomerId != userProfile.CustomerProfile.Id)
         {
             throw new ApiException(
                 (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotUpdateNotOwnedEntity,
@@ -76,15 +78,17 @@ public class ProjectService : Service<Project>, IProjectService
         return await base.PutAsync(project);
     }
 
-    public override Task DeleteAsync(Project project, bool softDelete = false)
+    public override async Task DeleteAsync(Project project, bool softDelete = false)
     {
-        if (project.Id != _userAccessor.IdentityUserId)
+        UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
+
+        if (project.CustomerId != userProfile.CustomerProfile.Id)
         {
             throw new ApiException(
                 (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotDeleteNotOwnedEntity,
                                                                         nameof(Project), project.Id);
         }
 
-        return base.DeleteAsync(project, softDelete);
+        await base.DeleteAsync(project, softDelete);
     }
 }
