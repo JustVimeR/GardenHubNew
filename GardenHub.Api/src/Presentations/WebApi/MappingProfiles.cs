@@ -22,7 +22,8 @@ public class MappingProfiles : Profile
         CreateMap<City, City>();
         CreateMap<WorkType, WorkType>();
         CreateMap<Project, Project>()
-            .ForMember(d => d.CustomerId, o => o.Ignore());
+            .ForMember(d => d.CustomerId, o => o.Ignore())
+            .ForMember(d => d.Customer, o => o.Ignore());
 
         CreateMap<PostCityDTO, City>();
         CreateMap<PostCustomerProfileDTO, CustomerProfile>();
@@ -37,7 +38,15 @@ public class MappingProfiles : Profile
 
         CreateMap<City, GetCityDTO>();
         CreateMap<CustomerProfile, GetCustomerProfileDTO>();
-        CreateMap<Feedback, GetFeedbackDTO>();
+        CreateMap<Feedback, GetFeedbackDTO>()
+            .ForMember(d => d.Customer, o => o.Ignore())
+            .ForMember(d => d.Project, o => o.Ignore())
+            .ForPath(dest => dest.Gardener.Projects, opt => opt.Ignore())
+            .ForPath(dest => dest.Gardener.WorkTypes, opt => opt.Ignore())
+            .ForPath(dest => dest.Gardener.Feedbacks, opt => opt.Ignore())
+            .ForPath(dest => dest.Gardener.Cities, opt => opt.Ignore());
+
+
         CreateMap<GardenerProfile, GetGardenerProfileDTO>();
         CreateMap<Media, GetMediaDTO>();
         CreateMap<Project, GetProjectDTO>();
