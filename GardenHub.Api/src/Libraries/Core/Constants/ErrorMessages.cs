@@ -23,4 +23,6 @@ public class ErrorMessages
         " to project with id {1}.";
 
     public const string DerivedWorkTypeCantBeParent = "Derived work type can't be parent.";
+
+    public const string EntityAlreadyExists = "Entity '{0}' already exists.";
 }
