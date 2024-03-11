@@ -7,6 +7,7 @@ import { Observable, map, startWith } from 'rxjs';
 import StorageService from 'src/app/services/storage.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { RoleService } from 'src/app/services/role.service';
+import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-main-info',
@@ -20,6 +21,8 @@ export class MainInfoComponent extends StorageService implements OnInit{
   filteredCities: Observable<string[]> | undefined;
   cities: string[] = ['Київ'];
   allCities: string[] = ['Львів', 'Харків', 'Житомир', 'Івано-Франківськ', 'Рівне'];
+  isPhonePortrait = false;
+  isBigScreen = false;
 
   @ViewChild('fruitInput') cityInput: ElementRef<HTMLInputElement> | undefined;
 
@@ -36,7 +39,8 @@ export class MainInfoComponent extends StorageService implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private roleService: RoleService){
+    private roleService: RoleService, 
+    private responsive: BreakpointObserver){
     super();
     this.activeRole = 'housekeeper';
     this.filteredCities = this.cityCtrl.valueChanges.pipe(
@@ -46,6 +50,21 @@ export class MainInfoComponent extends StorageService implements OnInit{
   }
 
   ngOnInit() {
+    this.responsive.observe(Breakpoints.HandsetPortrait)
+      .subscribe(result => {
+
+        this.isPhonePortrait = false; 
+        this.isBigScreen = false;
+
+        if (result.matches) {
+          console.log("screens matches HandsetPortrait");
+          this.isPhonePortrait = true;
+        }
+        else{
+          this.isBigScreen = true;
+        }
+
+  });
     this.roleService.activeRole.subscribe(role => {
       this.activeRole = role;
     });

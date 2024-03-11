@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="service_wrapper">
+    <div [ngClass]="{'phone-service-wrapper' : isPhonePortrait, 'service_wrapper': isBigScreen}">
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
         
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="service-child_wrapper">
