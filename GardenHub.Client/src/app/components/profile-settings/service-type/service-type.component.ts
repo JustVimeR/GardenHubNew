@@ -2,6 +2,7 @@ import {FlatTreeControl} from '@angular/cdk/tree';
 import {Component} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Router } from '@angular/router';
+import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 
 interface ServiceNode {
   name: string;
@@ -89,7 +90,9 @@ interface ExampleFlatNode {
   styleUrls: ['./service-type.component.scss']
 })
 export class ServiceTypeComponent {
-
+  
+  isPhonePortrait = false;
+  isBigScreen = false;
   typeOfWork: any = [
     'Обрізання дерев', 'Стрижка кущів', 'Кронування дерев'
   ]
@@ -116,9 +119,28 @@ export class ServiceTypeComponent {
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    private responsive: BreakpointObserver) {
     this.dataSource.data = TREE_DATA;
   }
+
+  ngOnInit() {
+      this.responsive.observe(Breakpoints.HandsetPortrait)
+        .subscribe(result => {
+
+          this.isPhonePortrait = false; 
+          this.isBigScreen = false;
+
+          if (result.matches) {
+            console.log("screens matches HandsetPortrait");
+            this.isPhonePortrait = true;
+          }
+          else{
+            this.isBigScreen = true;
+          }
+
+    });
+  } 
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 

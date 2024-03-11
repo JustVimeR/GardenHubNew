@@ -1,6 +1,6 @@
-<div class="main-page_wrapper">
+<div [ngClass]="{'phone-wrapper' : isPhonePortrait, 'main-page_wrapper': isBigScreen}">
     <div class="container1">
-        <div class="main-page_info_wrapper">
+        <div   class="main-page_info_wrapper" >
         <div class="user-photo_wrapper">
             <img src="../../../../assets/usernonephoto.png" alt="photo" class="user-photo">
             <button class="user-photo-change_btn">
@@ -147,7 +147,7 @@
                   rows="4" 
                   class="form-control" 
                   placeholder="Введіть ваш коментар тут..." 
-                  style="width: 819px; height: 412px;  resize: none;" 
+                  style=" height: 412px;  resize: none;" 
                   formControlName="commentText">
                 </textarea>
                 <div
