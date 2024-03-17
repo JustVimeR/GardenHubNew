@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderStatus } from 'src/app/models/enums/order-status';
+import { ProjectService } from 'src/app/services/project.service';
 import StorageService from 'src/app/services/storage.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-order-details',
@@ -14,15 +16,27 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
     status: OrderStatus.complited
   }
 
+  order: any;
+
   savedRole = this.storageService.getStringStorage('activeRole');
   constructor(
     private router: Router,
-    private storageService: StorageService
+    private route: ActivatedRoute,
+    private storageService: StorageService,
+    private projectService: ProjectService
     ){
     super();  
   }
+
   ngOnInit(){
-    console.log(this.savedRole)
+    const orderId = this.route.snapshot.paramMap.get('id');
+    if (orderId) {
+      this.projectService.getProjectById(orderId).subscribe(order => {
+        this.order = order;
+      }, error => {
+        console.error("Failed to fetch order details:", error);
+      });
+    }
   }
 
   back() {

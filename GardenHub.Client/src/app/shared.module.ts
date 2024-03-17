@@ -18,7 +18,7 @@ import { SuccessfullOrderComponent } from "./components/general/successfull-orde
       ProfileWarningComponent,
       OrderComponent,
       CreateProjectComponent,
-      SuccessfullOrderComponent
+      SuccessfullOrderComponent,
       // DIRECTIVES
     
       // PIPES

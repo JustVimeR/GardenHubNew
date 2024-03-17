@@ -16,16 +16,16 @@
                     <span *ngFor="let city of selfUserProfile.gardenerProfile.cities">{{ city.name }}, </span>
                 </div>
                 <div class="type-of-work_list" >
-                    <div class="type-of-work">Догляд за газоном</div>
-                    <div class="type-of-work">Догляд за рослинами</div>
-                    <div class="type-of-work">Діагностика хвороб</div>
-                    <div class="type-of-work">Лікування хвороб</div>
-                    <div class="type-of-work">Догляд за газоном</div>
-                    <div class="type-of-work">Догляд за рослинами</div>
-                    <div class="type-of-work">Діагностика хвороб</div>
-                    <div class="type-of-work">Лікування хвороб</div>
+                    <div 
+                        class="type-of-work" 
+                        *ngFor="let worktype of selfUserProfile.gardenerProfile.workTypes"
+                    >{{ worktype.label }}</div>
                 </div>
             </div>
+        </div>
+
+        <div class="about-me_wrapper">
+            {{selfUserProfile.gardenerProfile.descriptionOfExperience}}
         </div>
 
         <div class="portfolio_wrapper">
@@ -47,13 +47,13 @@
                 Відгуки
                 <hr/>
             </div>
-            <div class="comments_wrapper" *ngFor="let comment of fakeReviews">
+            <div class="comments_wrapper" *ngFor="let comment of selfFeedback.data">
                 <div class="comment_username">
-                    <div class="username">{{comment.username}}</div>
+                    <div class="username">{{comment.customerId}}</div>
                     <div class="rate">
-                        <ion-icon class='star_yellow' name="star" *ngFor="let star of [].constructor(comment.rate); let i = index"></ion-icon>
+                        <ion-icon class='star_yellow' name="star" *ngFor="let star of [].constructor(comment.rating); let i = index"></ion-icon>
                         
-                        <ion-icon name="star-outline" *ngFor="let outline of [].constructor(5 - comment.rate); let i = index"></ion-icon>
+                        <ion-icon name="star-outline" *ngFor="let outline of [].constructor(5 - comment.rating); let i = index"></ion-icon>
                     </div>
                 </div>
 
@@ -62,12 +62,12 @@
                         {{comment.text}}
                     </div>   
                     <div class="comment_review_route">
-                        Відгук по замовленню: <span>{{comment.reviewRoute}}</span>
+                        Відгук по замовленню: <span>{{comment.projectId}}</span>
                     </div>
                 </div>
 
                 <div class="comment_data_wrapper">
-                    {{comment.data}}
+                    {{comment.publicationDate ? (comment.publicationDate | date:'dd.MM.yyyy') : 'Нема дати'}}
                 </div>
             </div>
         </div>

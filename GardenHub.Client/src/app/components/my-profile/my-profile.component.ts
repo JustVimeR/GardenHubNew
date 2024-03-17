@@ -4,6 +4,7 @@ import StorageService from 'src/app/services/storage.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { OnInit } from '@angular/core';
 import { StorageKey } from 'src/app/models/enums/storage-key';
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -13,15 +14,19 @@ import { StorageKey } from 'src/app/models/enums/storage-key';
 export class MyProfileComponent extends StorageService implements OnInit, OnDestroy{
   
   selfUserProfile: any = {};
+  selfFeedback: any = {};
 
   constructor(
-    private userProfileService: UserProfileService) {
+    private userProfileService: UserProfileService,
+    private feedbackService: FeedbackService
+    ) {
     super();
   }
  
 
   ngOnInit() {
     this.getUserProfile();
+    this.getFeedback();
   }
 
   getUserProfile(): void {
@@ -31,6 +36,17 @@ export class MyProfileComponent extends StorageService implements OnInit, OnDest
       this.userProfileService.getSelfUserProfile().subscribe(response => {
         this.selfUserProfile = response;
         this.setDataStorage(StorageKey.userProfile, this.selfUserProfile);
+      });
+    }
+  }
+
+  getFeedback(): void {
+    if (this.hasKeyInStorage(StorageKey.feedback)) {
+      this.selfFeedback = this.getDataStorage(StorageKey.feedback);
+    } else {
+      this.feedbackService.getFeedback().subscribe(response => {
+        this.selfFeedback = response;
+        this.setDataStorage(StorageKey.feedback, this.selfFeedback);
       });
     }
   }
