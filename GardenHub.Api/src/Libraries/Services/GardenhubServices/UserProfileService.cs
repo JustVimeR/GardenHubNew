@@ -1,38 +1,147 @@
 ﻿using AutoMapper;
+using Core.Constants;
+using Core.Exceptions;
 using Data.IdentityModels;
 using Data.Repos.Interfaces;
 using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Services.GardenhubServices;
 
 public class UserProfileService : Service<UserProfile>, IUserProfileService
 {
-    private IMapper _mapper;
+    private readonly ICityService _cityService;
+    private readonly IUserAccessor _userAccessor;
+    private readonly IWorkTypeService _workTypeService;
+    private readonly IMapper _mapper;
 
-    public UserProfileService(IUserProfileRepository repository, IMapper mapper) : base(repository)
+    public UserProfileService(IUserProfileRepository repository, ICityService cityService,
+        IUserAccessor userAccessor, IWorkTypeService workTypeService,
+        IMapper mapper) : base(repository)
     {
+        _userAccessor = userAccessor;
+        _workTypeService = workTypeService;
+        _cityService = cityService;
         _mapper = mapper;
+    }
+
+    public Task<UserProfile> GetUserProfileFromToken()
+    {
+        long identityUserId = _userAccessor.IdentityUserId; 
+
+        return base.GetFirstAsync(x => x.IdentityId == identityUserId);
     }
 
     public async Task CreateApplicationUser(ApplicationUser user)
     {
         UserProfile userProfile = _mapper.Map<UserProfile>(user);
 
-        userProfile.CustomerProfile = new();
-
         await base.PostAsync(userProfile);
+    }
+
+    public override async Task<UserProfile> PutAsync(UserProfile updateUserProfile)
+    {
+        if (updateUserProfile.Id == default)
+        {
+            throw new ApiException((int)HttpStatusCode.BadRequest, ErrorMessages.UpdateEntityWithNoId,
+                nameof(UserProfile));
+        }
+
+        UserProfile userProfile = await GetUserProfileFromToken();
+
+        if (updateUserProfile.IsGardener)
+        {
+            _mapper.Map(updateUserProfile, userProfile);
+
+            await LinkCitiesOfGardenerProfile(userProfile);
+
+            await LinkWorkTypesOfGardenerProfile(userProfile);
+        }
+
+        return await base.PutAsync(userProfile);
     }
 
     public override async Task<UserProfile> PostAsync(UserProfile userProfile)
     {
-        //entity.IdentityId = _userAccessor.IdentityUserId;
-        //entity.CustomerProfile = new CustomerProfile() { CreatedAt = entity.CreatedAt, CreatedBy=entity.CreatedBy,
-        //UpdatedAt=entity.UpdatedAt,UpdatedBy=entity.UpdatedBy};
+        if (userProfile.IsGardener)
+        {
+            await LinkWorkTypesOfGardenerProfile(userProfile);
 
-        userProfile.CustomerProfile = _mapper.Map<CustomerProfile>(userProfile);
+            await LinkCitiesOfGardenerProfile(userProfile);
+        }
 
-        return await base.PostAsync(userProfile);
+        await base.PostAsync(userProfile);
+
+        return userProfile;
+    }
+
+    private async Task LinkCitiesOfGardenerProfile(UserProfile gardenerProfile)
+    {
+        if (gardenerProfile.Cities == null)
+        {
+            return;
+        }
+
+        List<City> addCities = gardenerProfile.Cities;
+
+        gardenerProfile.Cities = new();
+
+        foreach (City addCity in addCities)
+        {
+            City? city;
+
+            if (addCity.Id != default)
+            {
+                city = await _cityService.GetFirstOrDefaultAsync(x => x.Id == addCity.Id);
+
+                if (city != null)
+                {
+                    gardenerProfile.Cities.Add(city);
+                }
+                else
+                {
+                    addCity.Id = default;
+
+                    await _cityService.PostAsync(addCity);
+
+                    gardenerProfile.Cities.Add(addCity);
+                }
+            }
+            else
+            {
+                city = await _cityService.GetFirstOrDefaultAsync(x =>
+                                                x.Name.ToLower() == addCity.Name.ToLower());
+                if (city == null)
+                {
+                    gardenerProfile.Cities.Add(addCity);
+                }
+                else
+                {
+                    gardenerProfile.Cities.Add(city);
+                }
+            }
+        }
+    }
+
+    private async Task LinkWorkTypesOfGardenerProfile(UserProfile gardenerProfile)
+    {
+        if (gardenerProfile.WorkTypes == null)
+        {
+            return;
+        }
+
+        List<WorkType> gardenerWorkTypes = gardenerProfile.WorkTypes;
+
+        gardenerProfile.WorkTypes = await _workTypeService.GetDerivedWorkTypesById(
+            gardenerProfile.WorkTypes.Select(x => x.Id).ToList());
+    }
+
+    public Task<List<UserProfile>> GetGardenerProfiles()
+    {
+        return base.GetWhereAsync(x => x.IsGardener);
     }
 }

@@ -14,5 +14,5 @@ public class WorkType : EntityBase
 
     public List<Project> Projects { get; set; } = new();
 
-    public List<GardenerProfile> GardenerProfiles { get; set; } = new();
+    public List<UserProfile> Gardeners { get; set; } = new();
 }

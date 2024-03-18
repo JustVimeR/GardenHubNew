@@ -18,7 +18,6 @@ public class MappingProfiles : Profile
 
         CreateMap<PostIdDTO, WorkType>();
 
-        CreateMap<GardenerProfile, GardenerProfile>();
         CreateMap<City, City>();
         CreateMap<WorkType, WorkType>();
         CreateMap<Project, Project>()
@@ -26,9 +25,7 @@ public class MappingProfiles : Profile
             .ForMember(d => d.Customer, o => o.Ignore());
 
         CreateMap<PostCityDTO, City>();
-        CreateMap<PostCustomerProfileDTO, CustomerProfile>();
         CreateMap<PostFeedbackDTO, Feedback>();
-        CreateMap<PostGardenerProfileDTO, GardenerProfile>();
         CreateMap<PostMediaDTO, Media>();
         CreateMap<PostProjectDTO, Project>();
         CreateMap<PostUserProfileDTO, UserProfile>();
@@ -37,17 +34,15 @@ public class MappingProfiles : Profile
         CreateMap<PostDerivedWorkTypeDTO, WorkType>();
 
         CreateMap<City, GetCityDTO>();
-        CreateMap<CustomerProfile, GetCustomerProfileDTO>();
         CreateMap<Feedback, GetFeedbackDTO>()
             .ForMember(d => d.Customer, o => o.Ignore())
             .ForMember(d => d.Project, o => o.Ignore())
-            .ForPath(dest => dest.Gardener.Projects, opt => opt.Ignore())
+            .ForPath(dest => dest.Gardener.GardenerProjects, opt => opt.Ignore())
             .ForPath(dest => dest.Gardener.WorkTypes, opt => opt.Ignore())
             .ForPath(dest => dest.Gardener.Feedbacks, opt => opt.Ignore())
             .ForPath(dest => dest.Gardener.Cities, opt => opt.Ignore());
 
 
-        CreateMap<GardenerProfile, GetGardenerProfileDTO>();
         CreateMap<Media, GetMediaDTO>();
         CreateMap<Project, GetProjectDTO>();
         CreateMap<UserProfile, GetUserProfileDTO>();
@@ -62,9 +57,7 @@ public class MappingProfiles : Profile
 
 
         CreateMap<IEntityBase, City>().ForMember(d => d.Id, o => o.Ignore());
-        CreateMap<IEntityBase, CustomerProfile>().ForMember(d => d.Id, o => o.Ignore());
         CreateMap<IEntityBase, Feedback>().ForMember(d => d.Id, o => o.Ignore());
-        CreateMap<IEntityBase, GardenerProfile>().ForMember(d => d.Id, o => o.Ignore());
         CreateMap<IEntityBase, Media>().ForMember(d => d.Id, o => o.Ignore());
         CreateMap<IEntityBase, Project>().ForMember(d => d.Id, o => o.Ignore());
         CreateMap<IEntityBase, UserProfile>().ForMember(d => d.Id, o => o.Ignore());

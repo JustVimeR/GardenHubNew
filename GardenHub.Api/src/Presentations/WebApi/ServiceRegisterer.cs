@@ -188,9 +188,6 @@ public class ServiceRegisterer
         services.AddScoped<IWorkTypeService, WorkTypeService>();
         services.AddScoped<IWorkTypeRepository, WorkTypeRepository>();
 
-        services.AddScoped<IGardenerProfileRepository, GardenerProfileRepository>();
-        services.AddScoped<IGardenerProfileService, GardenerProfileService>();
-
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectService, ProjectService>();
 

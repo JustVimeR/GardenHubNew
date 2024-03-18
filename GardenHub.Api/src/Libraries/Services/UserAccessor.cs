@@ -1,19 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
 using System;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Services;
 
 public class UserAccessor : IUserAccessor
 {
-    readonly IUserProfileService _userProfileService;
     readonly IHttpContextAccessor _httpContextAccessor;
-    public UserAccessor(IHttpContextAccessor httpContextAccessor, IUserProfileService userProfileService)
+
+    public UserAccessor(IHttpContextAccessor httpContextAccessor)
     {
-        _userProfileService = userProfileService;
         _httpContextAccessor = httpContextAccessor;
     }
 
@@ -33,10 +30,5 @@ public class UserAccessor : IUserAccessor
             // You might want to throw an exception, return a default value, or handle it based on your requirements.
             throw new InvalidOperationException("Unable to retrieve or parse 'uid' claim.");
         }
-    }
-
-    public async Task<UserProfile> GetUserProfileAsync()
-    {
-        return await _userProfileService.GetFirstAsync(x => x.IdentityId == IdentityUserId);
     }
 }

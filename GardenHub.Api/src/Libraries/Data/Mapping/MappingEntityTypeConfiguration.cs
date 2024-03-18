@@ -18,6 +18,6 @@ public class MappingEntityTypeConfiguration<TEntity> : IMappingConfiguration, IE
         builder.Property(p => p.UpdatedAt).HasColumnType("datetime2").HasDefaultValueSql("GetUtcDate()");
 
         builder.Property(p => p.CreatedBy).HasColumnType("nvarchar(50)").HasDefaultValue(Defaults.AnonymousCreation);
-        builder.Property(p => p.UpdatedBy).HasColumnType("nvarchar(50)").HasDefaultValueSql(Defaults.AnonymousCreation);
+        builder.Property(p => p.UpdatedBy).HasColumnType("nvarchar(50)").HasDefaultValue(Defaults.AnonymousCreation);
     }
 }

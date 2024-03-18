@@ -22,9 +22,9 @@ public class Project : EntityBase
 
     public long CustomerId { get; set; }
 
-    public CustomerProfile? Customer { get; set; }
+    public UserProfile? Customer { get; set; }
 
     public List<WorkType>? WorkTypes { get; set; }
     public List<ProjectMedia>? Medias { get; set; }
-    public List<GardenerProfile>? Gardeners { get; set; }
+    public List<UserProfile>? Gardeners { get; set; }
 }

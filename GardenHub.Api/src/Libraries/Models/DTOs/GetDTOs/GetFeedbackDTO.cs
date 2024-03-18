@@ -16,6 +16,6 @@ public class GetFeedbackDTO
     public long CustomerId { get; set; }
 
     public GetProjectDTO? Project { get; set; }
-    public GetGardenerProfileDTO? Gardener { get; set; }
-    public GetCustomerProfileDTO? Customer { get; set; }
+    public GetUserProfileDTO? Gardener { get; set; }
+    public GetUserProfileDTO? Customer { get; set; }
 }

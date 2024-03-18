@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Models.DTOs.PostDTOs;
+namespace Models.DTOs.GetDTOs;
 
-public class PostUserProfileDTO
+public class GetBaseProfile
 {
-    bool IsGardener { get; set; }
+    public long Id;
 
     //Customer
-
-    //public PostMediaDTO? Icon { get; set; }
     public required string Name { get; set; }
     public string? Surname { get; set; }
 
@@ -20,11 +18,10 @@ public class PostUserProfileDTO
 
     public DateOnly BirthDate { get; set; }
 
-    //Gardener
+    public long IconId { get; set; }
 
-    public string? DescriptionOfExperience { get; set; }
+    public GetMediaDTO? Icon { get; set; }
 
-    public List<PostCityDTO>? Cities { get; set; }
-
-    public List<PostIdDTO>? WorkTypes { get; set; }
+    public List<GetProjectDTO> CustomerProjects { get; set; } = new();
 }
+

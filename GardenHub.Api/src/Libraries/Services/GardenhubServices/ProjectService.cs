@@ -15,22 +15,22 @@ public class ProjectService : Service<Project>, IProjectService
 {
     private readonly IMapper _mapper;
     private readonly IWorkTypeService _workTypeService;
-    private readonly IUserAccessor _userAccessor;
+    private readonly IUserProfileService _userProfileService;
 
-    public ProjectService(IProjectRepository repository, IUserAccessor userAccessor,
+    public ProjectService(IProjectRepository repository, IUserProfileService userProfileService,
         IWorkTypeService workTypeService, IMapper mapper)
         : base(repository)
     {
         _mapper = mapper;
         _workTypeService = workTypeService;
-        _userAccessor = userAccessor;
+        _userProfileService = userProfileService;
     }
 
     public async override Task<Project> PostAsync(Project addProject)
     {
-        UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
+        UserProfile userProfile = await _userProfileService.GetUserProfileFromToken();
 
-        addProject.Customer = userProfile.CustomerProfile;
+        addProject.Customer = userProfile;
 
         if (addProject.WorkTypes != null)
         {
@@ -55,10 +55,10 @@ public class ProjectService : Service<Project>, IProjectService
         }
 
         Project project = await base.GetFirstAsync(x => x.Id == updateProject.Id);
+        
+        UserProfile userProfile = await _userProfileService.GetUserProfileFromToken();
 
-        UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
-
-        if (project.CustomerId != userProfile.CustomerProfile.Id)
+        if (project.CustomerId != userProfile.Id)
         {
             throw new ApiException(
                 (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotUpdateNotOwnedEntity,
@@ -80,9 +80,9 @@ public class ProjectService : Service<Project>, IProjectService
 
     public override async Task DeleteAsync(Project project, bool softDelete = false)
     {
-        UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
+        UserProfile userProfile = await _userProfileService.GetUserProfileFromToken();
 
-        if (project.CustomerId != userProfile.CustomerProfile.Id)
+        if (project.CustomerId != userProfile.Id)
         {
             throw new ApiException(
                 (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotDeleteNotOwnedEntity,

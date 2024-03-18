@@ -4,7 +4,6 @@ using Data.Repos.Interfaces;
 using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
 using System.Net;
-using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace Services.GardenhubServices;
@@ -18,7 +17,7 @@ public class CityService : Service<City>, ICityService
 
     public override async Task<City> PostAsync(City addCity)
     {
-        var existingCity = await GetFirstOrDefaultAsync(c => c.Name.ToLower() == addCity.Name.ToLower());
+        City? existingCity = await GetFirstOrDefaultAsync(c => c.Name.ToLower() == addCity.Name.ToLower());
 
         if (existingCity != null)
         {
@@ -30,7 +29,8 @@ public class CityService : Service<City>, ICityService
 
     public override async Task<City> PutAsync(City updateCity)
     {
-        var existingCity = await GetFirstOrDefaultAsync(c => c.Name.ToLower() == updateCity.Name.ToLower() && c.Id != updateCity.Id);
+        City? existingCity = await GetFirstOrDefaultAsync(c =>
+                                    c.Name.ToLower() == updateCity.Name.ToLower() && c.Id != updateCity.Id);
 
         if (existingCity != null)
         {
