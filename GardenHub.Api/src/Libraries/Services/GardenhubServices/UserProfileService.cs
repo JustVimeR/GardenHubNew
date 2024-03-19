@@ -8,7 +8,9 @@ using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Core.Extensions;
 using System.Threading.Tasks;
+using Models.DTOs.PostDTOs;
 
 namespace Services.GardenhubServices;
 
@@ -55,7 +57,7 @@ public class UserProfileService : Service<UserProfile>, IUserProfileService
 
         if (updateUserProfile.IsGardener)
         {
-            _mapper.Map(updateUserProfile, userProfile);
+            _mapper.AssertiveMap<UserProfile,PostUserProfileDTO>(updateUserProfile, userProfile);
 
             await LinkCitiesOfGardenerProfile(userProfile);
 

@@ -17,7 +17,8 @@ public class ProjectRepository : Repository<Project>, IProjectRepository
     {
         return base.PrepareDbSet()
             .Include(x => x.WorkTypes)
-            .Include(x => x.Gardeners);
+            .Include(x => x.Gardeners)
+            .Include(x => x.Customer);
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Models.DTOs.GetDTOs;
@@ -14,7 +15,7 @@ public class GetProjectDTO
 
     public int NumberOfRequriedGardeners { get; set; }
 
-    public bool IsCompleted { get; set; }
+    public ProjectStatus Status { get; set; }
     public bool IsVerified { get; set; }
 
     public DateTimeOffset PublicationDate { get; set; }
@@ -23,4 +24,7 @@ public class GetProjectDTO
 
     public List<GetWorkTypeDTO> WorkTypes { get; set; } = new();
     public List<GetMediaDTO> Medias { get; set; } = new();
+
+    public long CustomerId { get; set; }
+    public string? CustomerName { get; set; }
 }

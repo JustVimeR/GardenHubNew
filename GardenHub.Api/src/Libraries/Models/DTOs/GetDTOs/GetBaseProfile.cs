@@ -23,5 +23,6 @@ public class GetBaseProfile
     public GetMediaDTO? Icon { get; set; }
 
     public List<GetProjectDTO> CustomerProjects { get; set; } = new();
+    public List<GetFeedbackDTO> CustomerFeedbacks { get; set; } = new();
 }
 

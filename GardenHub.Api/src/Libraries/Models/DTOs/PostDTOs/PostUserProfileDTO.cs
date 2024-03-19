@@ -5,7 +5,7 @@ namespace Models.DTOs.PostDTOs;
 
 public class PostUserProfileDTO
 {
-    bool IsGardener { get; set; }
+    public bool IsGardener { get; set; }
 
     //Customer
 

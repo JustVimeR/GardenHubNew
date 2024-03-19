@@ -1,11 +1,10 @@
-﻿using Models.DbEntities;
-using System.Threading.Tasks;
-
-namespace Services;
+﻿namespace Services;
 
 public interface IUserAccessor
 {
     string Username { get; }
 
-    int IdentityUserId { get; }
+    long IdentityUserId { get; }
+
+    long UserProfileId { get; }
 }

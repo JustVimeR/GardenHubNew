@@ -10,6 +10,6 @@ public class GetUserProfileDTO : GetBaseProfile
 
     public List<GetWorkTypeDTO>? WorkTypes { get; set; }
     public List<GetProjectDTO>? GardenerProjects { get; set; }
-    public List<GetFeedbackDTO>? Feedbacks { get; set; }
+    public List<GetFeedbackDTO>? GardenerFeedbacks { get; set; }
 }
 

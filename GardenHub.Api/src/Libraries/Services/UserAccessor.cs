@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Services.GardenhubServices.Interfaces;
+﻿using Core.Constants;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Security.Claims;
 
@@ -15,20 +15,35 @@ public class UserAccessor : IUserAccessor
     }
 
     public string Username => _httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.Name)!;
-    public int IdentityUserId //=> int.Parse(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+    public long IdentityUserId //=> int.Parse(_httpContextAccessor.HttpContext!.User.FindFirstValue(ClaimTypes.NameIdentifier)!);
     {
         get
         {
-            var uidClaim = _httpContextAccessor.HttpContext?.User.FindFirst("uid");
+            var uidClaim = _httpContextAccessor.HttpContext?.User.FindFirst(Defaults.IdentityIdClaimIdentifier);
 
-            if (uidClaim != null && int.TryParse(uidClaim.Value, out var userId))
+            if (uidClaim != null && long.TryParse(uidClaim.Value, out var userId))
             {
                 return userId;
             }
 
             // Handle the case where the 'uid' claim is not found or cannot be parsed to an integer.
             // You might want to throw an exception, return a default value, or handle it based on your requirements.
-            throw new InvalidOperationException("Unable to retrieve or parse 'uid' claim.");
+            throw new InvalidOperationException($"Unable to retrieve or parse '{Defaults.IdentityIdClaimIdentifier}' claim.");
+        }
+    }
+
+    public long UserProfileId
+    {
+        get
+        {
+            var uidClaim = _httpContextAccessor.HttpContext?.User.FindFirst(Defaults.UserProfileIdClaimIdentifier);
+
+            if (uidClaim != null && long.TryParse(uidClaim.Value, out var userId))
+            {
+                return userId;
+            }
+
+            throw new InvalidOperationException($"Unable to retrieve or parse '{Defaults.UserProfileIdClaimIdentifier}' claim.");
         }
     }
 }

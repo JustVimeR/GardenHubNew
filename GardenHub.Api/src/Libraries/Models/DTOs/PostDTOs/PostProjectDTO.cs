@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Enums;
+using System;
 using System.Collections.Generic;
 namespace Models.DTOs.PostDTOs;
 
@@ -11,7 +12,7 @@ public class PostProjectDTO
 
     public int NumberOfRequriedGardeners { get; set; }
 
-    public bool IsCompleted { get; set; } = false;
+    public ProjectStatus Status { get; set; } = ProjectStatus.Active;
 
     public DateTimeOffset StartDate { get; set; }
     public DateTimeOffset EndDate { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Models.DbEntities;
@@ -12,7 +13,7 @@ public class Project : EntityBase
 
     public int NumberOfRequriedGardeners { get; set; }
 
-    public bool IsCompleted { get; set; }
+    public ProjectStatus Status { get; set; }
     public bool IsVerified { get; set; }
 
 
@@ -28,3 +29,4 @@ public class Project : EntityBase
     public List<ProjectMedia>? Medias { get; set; }
     public List<UserProfile>? Gardeners { get; set; }
 }
+

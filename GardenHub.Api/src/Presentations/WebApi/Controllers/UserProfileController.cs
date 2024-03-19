@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Core.Constants;
+using Core.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -9,6 +11,7 @@ using Services;
 using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers;
@@ -20,15 +23,18 @@ public class UserProfileController
 {
     private readonly IUserProfileService _userProfileService;
     private readonly IMapper _mapper;
+    private readonly IUserAccessor _userAccessor;
 
     public UserProfileController(
     IUserProfileService userProfileService,
-    IMapper mapper, FilterService filterService)
+    IMapper mapper, FilterService filterService,
+    IUserAccessor userAccessor)
     : base(userProfileService, mapper, filterService)
     {
         _userProfileService = userProfileService;
         _mapper = mapper;
          _userProfileService = userProfileService;
+        _userAccessor = userAccessor;
     }
 
     [NonAction]
@@ -47,10 +53,17 @@ public class UserProfileController
     public override async Task<ActionResult<ServiceResult<GetUserProfileDTO>>> PutAsync(
         [FromRoute, Required] long id, PostUserProfileDTO updateUserProfile)
     {
+        if (_userAccessor.UserProfileId != id)
+        {
+            throw new ApiException(
+               (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotUpdateNotOwnedEntity,
+                                                                        nameof(UserProfile), id);
+        }
+
         return await base.PutAsync(id, updateUserProfile);
     }
 
-    [HttpGet("getGardeners")]
+    [HttpGet("gardeners")]
     public async Task<ActionResult<ServiceResult<List<GetUserProfileDTO>>>> GetGardeners()
     {
         ServiceResult<List<GetUserProfileDTO>> serviceResult = new ServiceResult<List<GetUserProfileDTO>>();
