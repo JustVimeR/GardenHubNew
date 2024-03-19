@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Core.Constants;
 using Core.Exceptions;
+using Core.Extensions;
 using Data.Repos.Interfaces;
 using Models.DbEntities;
+using Models.DTOs.PostDTOs;
 using Services.GardenhubServices.Interfaces;
 using System;
 using System.Linq;
@@ -65,7 +67,7 @@ public class ProjectService : Service<Project>, IProjectService
                                                                         nameof(Project), updateProject.Id);
         }
 
-        _mapper.Map(updateProject, project);
+        _mapper.SelectiveMap<Project, PostProjectDTO>(updateProject, project);
 
         if (project.WorkTypes != null)
         {

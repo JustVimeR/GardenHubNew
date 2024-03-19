@@ -30,15 +30,6 @@ public class MappingProfiles : Profile
                 opts.Condition((src, dest, srcMember) => srcMember == default));
         }
 
-        CreateMap<City, City>();
-        CreateMap<UserProfile, UserProfile>()
-            .ForMember(d => d.UserName, o => o.Ignore())
-            .ForMember(d => d.Email, o => o.Ignore());
-        CreateMap<WorkType, WorkType>();
-        CreateMap<Project, Project>()
-            .ForMember(d => d.CustomerId, o => o.Ignore())
-            .ForMember(d => d.Customer, o => o.Ignore());
-
         CreateMap<PostCityDTO, City>().ReverseMap();
         CreateMap<PostFeedbackDTO, Feedback>().ReverseMap();
         CreateMap<PostMediaDTO, Media>().ReverseMap();
