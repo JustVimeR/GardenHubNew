@@ -57,7 +57,7 @@ public class UserProfileService : Service<UserProfile>, IUserProfileService
 
         if (updateUserProfile.IsGardener)
         {
-            _mapper.AssertiveMap<UserProfile,PostUserProfileDTO>(updateUserProfile, userProfile);
+            _mapper.SelectiveMap<UserProfile,PostUserProfileDTO>(updateUserProfile, userProfile);
 
             await LinkCitiesOfGardenerProfile(userProfile);
 
