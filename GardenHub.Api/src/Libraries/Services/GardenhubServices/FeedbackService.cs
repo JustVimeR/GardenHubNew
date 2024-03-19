@@ -12,29 +12,29 @@ namespace Services.GardenhubServices;
 public class FeedbackService : Service<Feedback>, IFeedbackService
 {
     private readonly IProjectService _projectService;
-    private readonly IUserAccessor _userAccessor;
+    private readonly IUserProfileService _userProfileService;
 
-    public FeedbackService(IFeedbackRepository repository, IUserAccessor userAccessor,
+    public FeedbackService(IFeedbackRepository repository, IUserProfileService userProfileService,
         IProjectService projectService) : base(repository)
     {
+        _userProfileService = userProfileService;
         _projectService = projectService;
-        _userAccessor = userAccessor;
     }
 
     public override async Task<Feedback> PostAsync(Feedback addFeedback)
     {
-        UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
+        UserProfile userProfile = await _userProfileService.GetUserProfileFromToken();
 
         Project project = await _projectService.GetFirstAsync(x => x.Id == addFeedback.ProjectId);
 
-        if (project.CustomerId != userProfile.CustomerProfileId)
+        if (addFeedback.CustomerId != userProfile.Id && !userProfile.IsGardener)
         {
             throw new ApiException(
                (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotReferenceNotOwnedEntity,
                                                                        nameof(Project), project.Id);
         }
 
-        GardenerProfile? gardener = project.Gardeners!.FirstOrDefault(x => x.Id == addFeedback.GardenerId);
+        UserProfile? gardener = project.Gardeners!.FirstOrDefault(x => x.Id == addFeedback.GardenerId);
 
         if (gardener == null)
         {
@@ -43,16 +43,16 @@ public class FeedbackService : Service<Feedback>, IFeedbackService
                                                                         addFeedback.GardenerId, project.Id);
         }
 
-        addFeedback.CustomerId = userProfile.CustomerProfileId;
+        addFeedback.CustomerId = userProfile.Id;
 
         return await base.PostAsync(addFeedback);
     }
 
     public override async Task DeleteAsync(Feedback feedback, bool softDelete = false)
     {
-        UserProfile userProfile = await _userAccessor.GetUserProfileAsync();
+        UserProfile userProfile = await _userProfileService.GetUserProfileFromToken();
 
-        if (feedback.CustomerId!=userProfile.CustomerProfileId)
+        if (feedback.CustomerId!=userProfile.Id && !userProfile.IsGardener)
         {
             throw new ApiException(
                 (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotDeleteNotOwnedEntity,

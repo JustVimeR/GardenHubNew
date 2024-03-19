@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace Models.DTOs.GetDTOs;
 
-namespace Models.DTOs.GetDTOs;
-
-public class GetCustomerProfileDTO
+public class GetCustomerProfileDTO : GetBaseProfile
 {
-    public long Id;
-
-    public List<GetProjectDTO> Projects { get; set; } = new();
 }
+

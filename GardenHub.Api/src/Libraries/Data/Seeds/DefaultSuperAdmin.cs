@@ -18,10 +18,10 @@ public static class DefaultSuperAdmin
         //Seed Default User
         var defaultUser = new ApplicationUser
         {
-            UserName = "string",
-            Email = "string@gmail.com",
-            FirstName = "string",
-            LastName = "string",
+            UserName = "Howard",
+            Email = "howard@example.com",
+            FirstName = "Howard",
+            LastName = "Hemlin",
             EmailConfirmed = true,
             PhoneNumberConfirmed = true
         };
@@ -67,10 +67,7 @@ public static class DefaultSuperAdmin
             Email = user.Email,
             UserName = user.UserName,
             Description = "Seeded Test User Profile",
-            BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-20)),
-
-            CustomerProfile = new CustomerProfile(),
-            GardenerProfile = new GardenerProfile()
+            BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-20))
         };
 
         await userProfileRepository.Post(userProfile);

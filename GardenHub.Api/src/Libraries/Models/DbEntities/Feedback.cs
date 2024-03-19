@@ -14,7 +14,7 @@ namespace Models.DbEntities
         public long? ProjectId { get; set; }
 
         public Project? Project { get; set; }
-        public CustomerProfile? Customer { get; set; }
-        public GardenerProfile? Gardener { get; set; }
+        public UserProfile? Customer { get; set; }
+        public UserProfile? Gardener { get; set; }
     }
 }
