@@ -170,6 +170,14 @@ export class MainPageComponent extends StorageService implements OnInit{
     }
   }
 
+  getActiveProjects() {
+    if (!this.allProjects.data) {
+      return [];
+    }
+    return this.allProjects.data.filter((order: any) => order.status === 'Active');
+  }
+  
+
   toggleFilter() {
     this.isFilterOpen = !this.isFilterOpen;
   }

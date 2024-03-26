@@ -5,7 +5,7 @@ export enum StorageKey {
     city = 'city',
     userProfile = 'userProfile',
     feedback = 'feedback',
-    workType = 'work-type',
+    workType = 'worktype',
     gardenerProfile = 'gardener-profile',
     project = 'project'
   }

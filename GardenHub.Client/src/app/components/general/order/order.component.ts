@@ -20,11 +20,18 @@ export class OrderComponent {
     this.heartToggle.emit(this.order);
   }
 
-  // viewOrderDetails() {
-  //   this.viewDetails.emit(this.order.id);
-  // }
-
   viewOrderDetails() {
     this.router.navigate(['/api/order-details', this.order.id]);
+  }
+
+  translateStatus(status: string): string {
+    const statusTranslations: {[key: string]: string} = {
+      'Active': 'Активно',
+      'InProggress': 'В роботі',
+      'Completed': 'Виконано',
+      'Inactive': 'Не активно'
+    };
+
+    return statusTranslations[status] || status;
   }
 }

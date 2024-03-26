@@ -6,26 +6,26 @@
             </div>
             <div class="profile_info">
                 <div class="profile_username">
-                    @{{selfUserProfile.userName}}
+                    @{{selfUserProfile.data.userName}}
                 </div>
                 <div class="profile_fullname">
-                    {{selfUserProfile.name}} {{selfUserProfile.surname}}
+                    {{selfUserProfile.data.name}} {{selfUserProfile.data.surname}}
                 </div>
                 <div class="profile_location">
                     <img src="../../../assets/point.png" alt="point" class="order_point">
-                    <span *ngFor="let city of selfUserProfile.gardenerProfile.cities">{{ city.name }}, </span>
+                    <span *ngFor="let city of selfUserProfile.data.cities">{{ city?.name ? city.name : 'Міста не додані'}}, </span>
                 </div>
                 <div class="type-of-work_list" >
                     <div 
                         class="type-of-work" 
-                        *ngFor="let worktype of selfUserProfile.gardenerProfile.workTypes"
+                        *ngFor="let worktype of selfUserProfile.data.workTypes"
                     >{{ worktype.label }}</div>
                 </div>
             </div>
         </div>
 
         <div class="about-me_wrapper">
-            {{selfUserProfile.gardenerProfile.descriptionOfExperience}}
+            {{selfUserProfile.data.descriptionOfExperience}}
         </div>
 
         <div class="portfolio_wrapper">
@@ -47,9 +47,9 @@
                 Відгуки
                 <hr/>
             </div>
-            <div class="comments_wrapper" *ngFor="let comment of selfFeedback.data">
+            <div class="comments_wrapper" *ngFor="let comment of selfUserProfile.data.gardenerFeedbacks">
                 <div class="comment_username">
-                    <div class="username">{{comment.customerId}}</div>
+                    <div class="username">{{comment.customerName}}</div>
                     <div class="rate">
                         <ion-icon class='star_yellow' name="star" *ngFor="let star of [].constructor(comment.rating); let i = index"></ion-icon>
                         
@@ -62,7 +62,7 @@
                         {{comment.text}}
                     </div>   
                     <div class="comment_review_route">
-                        Відгук по замовленню: <span>{{comment.projectId}}</span>
+                        Відгук по замовленню: <span>{{comment.projectTitle}}</span>
                     </div>
                 </div>
 
