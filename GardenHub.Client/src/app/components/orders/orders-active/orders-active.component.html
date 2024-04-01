@@ -2,10 +2,12 @@
     <div class="container">
         <div class="list_wrapper">
             <app-order 
-                *ngFor="let order of fakeOrders" 
+                *ngFor="let order of getActiveProjects()"  
                 [order]="order"
                 (heartToggle)="toggleHeart($event)"
             ></app-order>
+
+            <p class="no-data" *ngIf="getActiveProjects().length === 0">Немає замовлень</p>
         </div>
     </div>
 </section>

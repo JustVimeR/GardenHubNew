@@ -8,10 +8,10 @@
             <div class="details_subheader">
                 <div class="details_subheader-title">{{ order?.data?.title }}</div>
                 <div class="details_status" [ngClass]="{
-                    'active': fakeData.status === 'Активно',
-                    'work': fakeData.status === 'В роботі',
-                    'completed': fakeData.status === 'Виконано'
-                }">{{ fakeData.status }}</div>
+                    'Active': order?.data?.status === 'Active',
+                    'InProggress': order?.data?.status === 'InProggress',
+                    'Completed': order?.data?.status === 'Completed'
+                }">{{ order?.data?.status }}</div>
             </div>
 
             <div class="type-of-work_list">
@@ -46,15 +46,15 @@
                 <div class="left_container">
                     <div class="details_published">Опубліковано  {{order?.data?.publicationDate ? (order?.data?.publicationDate | date:'dd.MM.yyyy') : 'Нема дати'}}</div>
                     <div class="details_author">Автор:
-                        <span (click)="viewAuthor()">iryna_shevchenko</span>
+                        <span (click)="viewAuthor()">{{order?.data?.customerName}}</span>
                     </div>
                     <ng-container *ngIf="savedRole === 'housekeeper'">
-                        <ng-container *ngIf="fakeData.status === 'В роботі'">
+                        <ng-container *ngIf="order?.data?.status === 'InProggress'">
                             <div class="details_author">Працює:
                                 <span (click)="viewPerformer()">emiliart</span>
                             </div>
                         </ng-container>
-                        <ng-container *ngIf="fakeData.status === 'Виконано'">
+                        <ng-container *ngIf="order?.data?.status === 'Completed'">
                             <div class="details_author">Виконавець:
                                 <span (click)="viewPerformer()">emiliart</span>
                             </div>
@@ -63,7 +63,7 @@
                 </div>
 
                 <ng-container *ngIf="this.savedRole === 'gardener'; else housekeeperBlock">
-                    <ng-container *ngIf="fakeData.status === 'Виконано'">
+                    <ng-container *ngIf="order?.data?.status === 'Completed'">
                         <div class="add-to-portfolio">
                             <input type="checkbox" id="check" name="addToPortfolio" class="real-checkbox">
                             <span class="custom-checkbox"></span>   
@@ -73,12 +73,12 @@
                 </ng-container>
 
                 <ng-template #housekeeperBlock>
-                    <ng-container *ngIf="fakeData.status === 'Активно'">
+                    <ng-container *ngIf="order?.data?.status === 'Active'">
                         <div class="delete_btn">
                             <button>Видалити</button>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="fakeData.status === 'В роботі'">
+                    <ng-container *ngIf="order?.data?.status === 'InProggress'">
                         <div class="complite_btn">
                             <button>Виконано</button>
                         </div>
