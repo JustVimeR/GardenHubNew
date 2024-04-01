@@ -109,44 +109,6 @@ export class MainPageComponent extends StorageService implements OnInit{
     this.getProjects();
   }
 
-  // getFilteredOrders() {
-  //   const selectedCategories = this.getSelectedCategories();
-  //   const selectedLocations = this.getSelectedLocations();
-  
-  //   return this.fakeOrders.filter((order: Order) => {
-  //     const matchesCategory = selectedCategories.length === 0 || order.typeOfWork.some((work: string) => selectedCategories.includes(work));
-  //     const matchesLocation = selectedLocations.length === 0 || selectedLocations.includes(order.location);
-  //     return matchesCategory && matchesLocation;
-  //   });
-  // }
-
-  // getSelectedLocations(): string[] {
-  //   const selectedLocations: string[] = [];
-  //   const locationNode = TREE_DATA.find(node => node.name === 'За локацією');
-  //   if (locationNode && locationNode.children) {
-  //     locationNode.children.forEach(child => {
-  //       if (child.selected) {
-  //         selectedLocations.push(child.name);
-  //       }
-  //     });
-  //   }
-  //   return selectedLocations;
-  // }
-
-  // getSelectedCategories(): string[] {
-  //   const selectedCategories: string[] = [];
-  //   TREE_DATA.forEach(node => {
-  //     if (node.children) {
-  //       node.children.forEach(child => {
-  //         if (child.selected) {
-  //           selectedCategories.push(child.name);
-  //         }
-  //       });
-  //     }
-  //   });
-  //   return selectedCategories;
-  // }
-
   getCities(): void {
     if (this.hasKeyInStorage(StorageKey.city)) {
       this.cities = this.getDataStorage(StorageKey.city);
@@ -229,5 +191,45 @@ export class MainPageComponent extends StorageService implements OnInit{
       raiting: '4.6'
     },
   ];
+
+  
+  // getFilteredOrders() {
+  //   const selectedCategories = this.getSelectedCategories();
+  //   const selectedLocations = this.getSelectedLocations();
+  
+  //   return this.fakeOrders.filter((order: Order) => {
+  //     const matchesCategory = selectedCategories.length === 0 || order.typeOfWork.some((work: string) => selectedCategories.includes(work));
+  //     const matchesLocation = selectedLocations.length === 0 || selectedLocations.includes(order.location);
+  //     return matchesCategory && matchesLocation;
+  //   });
+  // }
+
+  // getSelectedLocations(): string[] {
+  //   const selectedLocations: string[] = [];
+  //   const locationNode = TREE_DATA.find(node => node.name === 'За локацією');
+  //   if (locationNode && locationNode.children) {
+  //     locationNode.children.forEach(child => {
+  //       if (child.selected) {
+  //         selectedLocations.push(child.name);
+  //       }
+  //     });
+  //   }
+  //   return selectedLocations;
+  // }
+
+  // getSelectedCategories(): string[] {
+  //   const selectedCategories: string[] = [];
+  //   TREE_DATA.forEach(node => {
+  //     if (node.children) {
+  //       node.children.forEach(child => {
+  //         if (child.selected) {
+  //           selectedCategories.push(child.name);
+  //         }
+  //       });
+  //     }
+  //   });
+  //   return selectedCategories;
+  // }
+
 }
 

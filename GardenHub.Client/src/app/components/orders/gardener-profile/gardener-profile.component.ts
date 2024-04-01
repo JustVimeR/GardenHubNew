@@ -22,16 +22,6 @@ export class GardenerProfileComponent {
        'Догляд за газоном','Догляд за фруктовими деревами','Ландшафтний дизайн'
       ],
       orderStatus: OrderStatus.complited
-    },
-    {
-      title: 'Обрізка фруктових дерев у саду',
-      location: 'м. Житомир',
-      price: 'Договірна',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за фруктовими деревами','Ландшафтний дизайн','Догляд за газоном','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.complited
     }
   ]
 }

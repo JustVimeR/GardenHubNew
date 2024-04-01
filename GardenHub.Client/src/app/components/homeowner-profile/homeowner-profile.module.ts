@@ -6,7 +6,8 @@ import { IonicModule } from '@ionic/angular';
 import { HomeownerProfileComponent } from './homeowner-profile.component';
 
 const homeownerProfileRoutes = [
-  {path: '', component: HomeownerProfileComponent}
+  {path: '', component: HomeownerProfileComponent},
+  { path: ':id', component: HomeownerProfileComponent }
 ]
 
 @NgModule({
