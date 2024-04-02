@@ -11,11 +11,7 @@ import { OrdersActiveComponent } from './orders-active/orders-active.component';
 import { GardenerProfileComponent } from './gardener-profile/gardener-profile.component';
 
 const OrdersRoutes = [
-  {path: '', component: OrdersComponent},
-  {path: 'order/:id', component: OrderDetailsComponent},
-  {path: 'order', component: OrderDetailsComponent},
-  {path: 'gardener-profile/:id', component: GardenerProfileComponent},
-  {path: 'gardener-profile', component: GardenerProfileComponent}
+  {path: '', component: OrdersComponent}
 ]
 
 @NgModule({

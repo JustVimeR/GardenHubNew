@@ -74,7 +74,7 @@
 
                 <ng-template #housekeeperBlock>
                     <ng-container *ngIf="order?.data?.status === 'Active'">
-                        <div class="delete_btn">
+                        <div class="delete_btn" (click)="deleteOrder()">
                             <button>Видалити</button>
                         </div>
                     </ng-container>

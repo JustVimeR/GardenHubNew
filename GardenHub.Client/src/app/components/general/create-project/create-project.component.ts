@@ -164,11 +164,28 @@ export class CreateProjectComponent extends StorageService implements OnInit{
       next: (response) => {
         console.log('Project created successfully', response);
         this.isProjectCreatedSuccessfully = true;
+        this.updateProjectInLocalStorage(response.data);
       },
       error: (error) => {
         console.error('There was an error creating the project', error);
       }
     });
   }
+
+  updateProjectInLocalStorage(newProject: any): void {
+    const projectKey = StorageKey.project;
+    const projectObject = this.getDataStorage(projectKey);
+
+    if (projectObject && projectObject.data) {
+        projectObject.data.push(newProject);
+        this.setDataStorage(projectKey, projectObject);
+    } else {
+        const initialProjectData = {
+            errors: [],
+            data: [newProject]
+        };
+        this.setDataStorage(projectKey, initialProjectData);
+    }
+}
 
 }
