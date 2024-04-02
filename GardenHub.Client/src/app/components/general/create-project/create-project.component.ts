@@ -1,14 +1,17 @@
+import { A } from '@angular/cdk/keycodes';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, OnInit } from '@angular/core';
 import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { Router } from '@angular/router';
 import { StorageKey } from 'src/app/models/enums/storage-key';
+import { ProjectService } from 'src/app/services/project.service';
 import { RoleService } from 'src/app/services/role.service';
 import StorageService from 'src/app/services/storage.service';
 import { WorkTypeService } from 'src/app/services/work-type.service';
 
 
 interface ServiceNode {
+  id?: number;
   label: string;
   derivedWorkTypes?: ServiceNode[];
 }
@@ -27,7 +30,6 @@ interface DerivedWorkType {
   label: string;
 }
 
-
 @Component({
   selector: 'app-create-project',
   templateUrl: './create-project.component.html',
@@ -35,9 +37,18 @@ interface DerivedWorkType {
 })
 export class CreateProjectComponent extends StorageService implements OnInit{
 
-  allWorkType: any = {};
+  projectTitle: string = '';
+  projectLocation: string = '';
+  projectBudget: number = 0;
+  projectDescription: string = '';
+  requiredGardeners: number = 1;
+  projectStatus: number = 0; 
+  selectedWorkTypes: number[] = [];
 
+
+  allWorkType: any = {};
   typeOfWork: any = [];
+  isProjectCreatedSuccessfully = false;
 
   activeRole: 'gardener' | 'housekeeper';
   selectedFilesCount = 0;
@@ -46,6 +57,7 @@ export class CreateProjectComponent extends StorageService implements OnInit{
       expandable: !!node.derivedWorkTypes && node.derivedWorkTypes.length > 0,
       name: node.label,
       level: level,
+      id: node.id,
     };
   };
 
@@ -66,7 +78,8 @@ export class CreateProjectComponent extends StorageService implements OnInit{
   constructor(
     private router: Router,
     private roleService: RoleService,
-    private workTypeService: WorkTypeService
+    private workTypeService: WorkTypeService,
+    private projectService: ProjectService
     ) {
     super();
     this.dataSource.data = TREE_DATA;
@@ -79,6 +92,7 @@ export class CreateProjectComponent extends StorageService implements OnInit{
     });
     this.getWorkTypes();
   }
+
 
   getWorkTypes(): void {
     if (this.hasKeyInStorage(StorageKey.workType)) {
@@ -95,8 +109,10 @@ export class CreateProjectComponent extends StorageService implements OnInit{
   
   transformAndSetData(apiData: any[]): void {
     const transformedData = apiData.map(item => ({
+      id: item.id,
       label: item.label,
       derivedWorkTypes: item.derivedWorkTypes?.map((subItem: DerivedWorkType) => ({
+        id: subItem.id,
         label: subItem.label
       }))
     }));
@@ -107,13 +123,16 @@ export class CreateProjectComponent extends StorageService implements OnInit{
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  updateTypeOfWork(name: string, isSelected: boolean) {
+  updateTypeOfWork(name: string, isSelected: boolean, id: number) {
     if (isSelected) {
       if (!this.typeOfWork.includes(name)) {
         this.typeOfWork.push(name);
+        this.selectedWorkTypes.push(id);
+        console.log(name, isSelected, id);
       }
     } else {
       this.typeOfWork = this.typeOfWork.filter((item: string) => item !== name);
+      this.selectedWorkTypes = this.selectedWorkTypes.filter(item => item !== id);
     }
   }
 
@@ -130,5 +149,26 @@ export class CreateProjectComponent extends StorageService implements OnInit{
     document.getElementById('fileInput')!.click();
   }
 
- 
+  createProject(): void {
+    const project = {
+      title: this.projectTitle,
+      location: this.projectLocation,
+      budget: this.projectBudget,
+      description: this.projectDescription,
+      numberOfRequriedGardeners: this.requiredGardeners,
+      status: this.projectStatus,
+      workTypes: this.selectedWorkTypes.map(id => ({ id }))
+    };
+
+    this.projectService.createProject(project).subscribe({
+      next: (response) => {
+        console.log('Project created successfully', response);
+        this.isProjectCreatedSuccessfully = true;
+      },
+      error: (error) => {
+        console.error('There was an error creating the project', error);
+      }
+    });
+  }
+
 }

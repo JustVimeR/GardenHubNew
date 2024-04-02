@@ -11,6 +11,7 @@ import { CreateProjectComponent } from "./components/general/create-project/crea
 import { MatTreeModule } from "@angular/material/tree";
 import { MatButtonModule } from "@angular/material/button";
 import { SuccessfullOrderComponent } from "./components/general/successfull-order/successfull-order.component";
+import { SuccessfullCreateOrderComponent } from "./components/general/successfull-create-order/successfull-create-order.component";
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { SuccessfullOrderComponent } from "./components/general/successfull-orde
       OrderComponent,
       CreateProjectComponent,
       SuccessfullOrderComponent,
+      SuccessfullCreateOrderComponent,
       // DIRECTIVES
     
       // PIPES
@@ -30,6 +32,7 @@ import { SuccessfullOrderComponent } from "./components/general/successfull-orde
       OrderComponent,
       CreateProjectComponent,
       SuccessfullOrderComponent,
+      SuccessfullCreateOrderComponent,
       // DIRECTIVES
   
       // PIPES
