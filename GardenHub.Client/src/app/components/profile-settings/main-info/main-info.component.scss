@@ -1,9 +1,9 @@
-.main-page_wrapper{
+.main-page_wrapper {
     margin-top: 70px;
     height: 2000px;
 }
 
-.main-page_info_wrapper{
+.main-page_info_wrapper {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
@@ -13,17 +13,18 @@
     margin-top: -0.75rem;
 }
 
-.user-photo_wrapper{
+.user-photo_wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:center;
-    .user-photo{
+    align-items: center;
+
+    .user-photo {
         width: 208px;
         height: 208px;
     }
 
-    .user-photo-change_btn{
+    .user-photo-change_btn {
         margin-top: 13px;
         display: flex;
         width: 166px;
@@ -38,24 +39,25 @@
         color: #83DF89;
         font-size: 25px;
         font-weight: 600;
-    }  
+    }
 }
 
-.form-wrapper{
+.form-wrapper {
     width: 820px;
-    .form-group{
+
+    .form-group {
         display: flex;
-        justify-content:flex-start;
-        align-items:start;
+        justify-content: flex-start;
+        align-items: start;
         flex-direction: column;
 
-        .input_header{
+        .input_header {
             color: #000;
             font-size: 30px;
             font-weight: 500;
         }
 
-        .form-control{
+        .form-control {
             width: 819px;
             height: 59px;
             border-radius: 10px;
@@ -63,13 +65,14 @@
             margin-bottom: 26px;
         }
     }
-   
+
 }
-.btn-comfirm{
+
+.btn-comfirm {
     margin: 111px 0 0 592px;
     display: flex;
     padding: 20px;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     border-radius: 18px;
@@ -78,18 +81,18 @@
     color: #000;
     font-size: 25px;
     font-weight: 600;
-    
+
 }
 
 .example-chip-list {
     width: 100%;
 }
 
-.btn-lookprofile{
+.btn-lookprofile {
     margin: -83px 0 0 -350px;
     display: flex;
     padding: 20px;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     border-radius: 18px;
@@ -100,8 +103,87 @@
     font-weight: 600;
 }
 
-
-
-
-  
-  
+.phone-wrapper{
+    .main-page_wrapper {
+        margin-top: 70px;
+        height: 1500px;
+    }
+    .main-page_info_wrapper {
+        display: block ;
+    }
+    
+    .header {
+        font-size: 28px ;
+        font-weight: 500 ;
+        line-height: 19px ;
+        width: 181px ;
+        height: 19px ;
+    }
+    
+    .form-control {
+    
+        width: 100% ;
+    
+    }
+    
+    .example-chip-list {
+        width: auto ;
+    
+    }
+    
+    .form-wrapper {
+        width: auto ;
+    }
+    
+    .user-photo {
+        width: 261px ;
+        height: 261px ;
+    }
+    
+    .btn-comfirm {
+        margin: 0 ;
+        padding: 12px ;
+        content: "Змінити" ;
+        font-size: 14px ;
+        font-weight: 600 ;
+        line-height: 17px ;
+        margin-bottom: 82px ;
+    }
+    
+    .btn-lookprofile {
+        margin: 0 ;
+        font-size: 14px ;
+        font-weight: 600 ;
+        line-height: 17px ;
+        padding: 12px ;
+        margin-bottom: 82px ;
+    }
+    .btn-container{
+        display: flex ;
+        justify-content: space-between ;
+    
+    }
+    
+    .input_header{
+    font-size: 14px ;
+    }
+    .form-wrapper{
+        width: 100%;
+        .form-control{
+            height: 40px ;
+            width: 100%;
+            }
+    }
+    .main-page_wrapper{
+        margin-top: 30px ;
+    }
+    .input_header{
+        font-size: 14px ;
+    }
+    .form-control{
+        height: 40px ;
+    }
+    .main-page_wrapper{
+    height: auto;
+    }
+}
