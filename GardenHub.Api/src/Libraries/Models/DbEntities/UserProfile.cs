@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Models.DbEntities;
 
@@ -6,6 +7,9 @@ public class UserProfile : EntityBase
 {
     public required int IdentityId { get; set; }
 
+    public bool IsGardener { get; set; }
+
+    //CustomerProfile
     public required string Name { get; set; }
     public string? Surname { get; set; }
 
@@ -14,14 +18,20 @@ public class UserProfile : EntityBase
     public string? PhoneNumber { get; set; }
     public string? Description { get; set; }
 
-    public DateTime BirthDate { get; set; }
+    public DateOnly BirthDate { get; set; }
 
     public long? IconId { get; set; }
     public Media? Icon { get; set; }
 
-    public long CustomerProfileId { get; set; }
-    public long? GardenerProfileId { get; set; }
+    public List<Project>? CustomerProjects { get; set; }
+    public List<Feedback>? CustomerFeedbacks { get; set; }
 
-    public CustomerProfile? CustomerProfile { get; set; }
-    public GardenerProfile? GardenerProfile { get; set; }
+    //GardenerProfile
+    public string? DescriptionOfExperience { get; set; }
+
+    public List<City>? Cities { get; set; } = new();
+
+    public List<WorkType>? WorkTypes { get; set; }
+    public List<Project>? GardenerProjects { get; set; }
+    public List<Feedback>? GardenerFeedbacks { get; set; }
 }

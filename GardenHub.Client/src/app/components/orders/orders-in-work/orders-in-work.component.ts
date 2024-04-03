@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderStatus } from 'src/app/models/enums/order-status';
 
@@ -10,7 +10,8 @@ import { OrderStatus } from 'src/app/models/enums/order-status';
 export class OrdersInWorkComponent {
 
   constructor(private router: Router){}
-
+  @Input() allProjects: any;
+  
   toggleHeart(order: any) {
     order.isHeartClicked = !order.isHeartClicked;
   }
@@ -19,28 +20,10 @@ export class OrdersInWorkComponent {
     this.router.navigateByUrl(`api/orders/order/${orderId}`);
   }
 
-  fakeOrders:any = [
-    {
-      id: 1,
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Вишгород, Київська обл.',
-      price: '700',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за газоном','Догляд за фруктовими деревами','Ландшафтний дизайн'
-      ],
-      orderStatus: OrderStatus.work
-    },
-    {
-      id: 2,
-      title: 'Обрізка фруктових дерев у саду',
-      location: 'м. Житомир',
-      price: 'Договірна',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за фруктовими деревами','Ландшафтний дизайн','Догляд за газоном','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.work
+  getProggressProjects() {
+    if (!this.allProjects.data) {
+      return [];
     }
-  ]
+    return this.allProjects.data.filter((order: any) => order.status === 'InProggress');
+  }
 }

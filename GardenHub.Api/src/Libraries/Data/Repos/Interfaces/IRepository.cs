@@ -12,9 +12,6 @@ namespace Data.Repos.Interfaces;
 
 public interface IRepository<T> where T : IEntityBase
 {
-    T? GetFirstOrDefault(Expression<Func<T, bool>>? predicate = null,
-        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
-
     Task<T?> GetFirstOrDefaultAsync(Expression<Func<T, bool>>? predicate = null,
         Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
@@ -22,9 +19,10 @@ public interface IRepository<T> where T : IEntityBase
     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
     IQueryable<T> GetWhere(Expression<Func<T, bool>>? predicate = null,
-        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+        bool ignorePrepareDbSet = false);
 
-    IPagedList<T> GetWhere(Expression<Func<T, bool>>? predicate, PaginationFilter paginationFilter,
+    Task<IPagedList<T>> GetWhere(Expression<Func<T, bool>>? predicate, PaginationFilter paginationFilter,
         SortFilter sortFilter, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
 
     IQueryable<T> GetAll(Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
@@ -35,7 +33,7 @@ public interface IRepository<T> where T : IEntityBase
     Task Post(T entity);
 
     void Put(T entity);
-    void UpdateMany(Expression<Func<T, bool>> predicate,
+    Task UpdateMany(Expression<Func<T, bool>> predicate,
         Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> setPropertyCalls);
 
     void Delete(T entity);

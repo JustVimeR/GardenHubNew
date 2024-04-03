@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240227163757_upd")]
-    partial class upd
+    [Migration("20240304223446_Add_Project_To_WorkType_Table")]
+    partial class Add_Project_To_WorkType_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -587,8 +587,8 @@ namespace Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("EndDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
@@ -602,14 +602,14 @@ namespace Data.Migrations
                     b.Property<int>("NumberOfRequriedGardeners")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PublicationDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("PublicationDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("StartDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -690,8 +690,8 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -714,7 +714,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("GardenerProfileId")
-                        .IsRequired()
                         .HasColumnType("bigint");
 
                     b.Property<long?>("IconId")
@@ -788,9 +787,6 @@ namespace Data.Migrations
                     b.Property<long?>("ParentWorkTypeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ProjectId")
-                        .HasColumnType("bigint");
-
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
 
@@ -808,9 +804,22 @@ namespace Data.Migrations
 
                     b.HasIndex("ParentWorkTypeId");
 
-                    b.HasIndex("ProjectId");
-
                     b.ToTable("WorkTypes", (string)null);
+                });
+
+            modelBuilder.Entity("ProjectWorkType", b =>
+                {
+                    b.Property<long>("ProjectsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WorkTypesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ProjectsId", "WorkTypesId");
+
+                    b.HasIndex("WorkTypesId");
+
+                    b.ToTable("ProjectWorkType");
                 });
 
             modelBuilder.Entity("CityGardenerProfile", b =>
@@ -964,9 +973,7 @@ namespace Data.Migrations
 
                     b.HasOne("Models.DbEntities.GardenerProfile", "GardenerProfile")
                         .WithMany()
-                        .HasForeignKey("GardenerProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GardenerProfileId");
 
                     b.HasOne("Models.DbEntities.Media", "Icon")
                         .WithMany()
@@ -991,11 +998,22 @@ namespace Data.Migrations
                         .WithMany("DerivedWorkTypes")
                         .HasForeignKey("ParentWorkTypeId");
 
-                    b.HasOne("Models.DbEntities.Project", null)
-                        .WithMany("WorkTypes")
-                        .HasForeignKey("ProjectId");
-
                     b.Navigation("ParentWorkType");
+                });
+
+            modelBuilder.Entity("ProjectWorkType", b =>
+                {
+                    b.HasOne("Models.DbEntities.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.DbEntities.WorkType", null)
+                        .WithMany()
+                        .HasForeignKey("WorkTypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Data.IdentityModels.ApplicationRole", b =>
@@ -1023,8 +1041,6 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.DbEntities.Project", b =>
                 {
                     b.Navigation("Medias");
-
-                    b.Navigation("WorkTypes");
                 });
 
             modelBuilder.Entity("Models.DbEntities.WorkType", b =>

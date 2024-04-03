@@ -23,19 +23,6 @@ public class Service<T> : IService<T> where T : IEntityBase
         _repository = repository ?? throw new ArgumentNullException(nameof(repository)); ;
     }
 
-    public virtual T? GetFirstOrDefault(Expression<Func<T, bool>>? predicate = null)
-    {
-        return _repository.GetFirstOrDefault(predicate);
-    }
-
-    public virtual List<T> GetWhere(Expression<Func<T, bool>> predicate)
-    {
-        if (predicate is null)
-            throw new ArgumentNullException(nameof(predicate));
-
-        return _repository.GetWhere(predicate).ToList();
-    }
-
     public virtual async Task<List<T>> GetWhereAsync(Expression<Func<T, bool>> predicate)
     {
         if (predicate is null)
@@ -44,11 +31,14 @@ public class Service<T> : IService<T> where T : IEntityBase
         return await _repository.GetWhere(predicate).ToListAsync();
     }
 
-    public virtual List<T> GetWhere(Expression<Func<T, bool>> predicate, PaginationFilter paginationFilter, SortFilter sortFilter)
+    public virtual async Task<List<T>> GetWhereAsync(Expression<Func<T, bool>> predicate, PaginationFilter paginationFilter, SortFilter sortFilter)
     {
         if (predicate is null)
             throw new ArgumentNullException(nameof(predicate));
-        return _repository.GetWhere(predicate, paginationFilter, sortFilter).ToList();
+
+        var pagedList = await _repository.GetWhere(predicate, paginationFilter, sortFilter);
+
+        return pagedList.ToList();
     }
 
     public virtual Task<List<T>> GetAllAsync()
@@ -147,15 +137,10 @@ public class Service<T> : IService<T> where T : IEntityBase
         return entity;
     }
 
-    public virtual T? UpdateMany(Expression<Func<T, bool>>? predicate = null)
-    {
-        return _repository.GetFirstOrDefault(predicate);
-    }
-
-    public void UpdateMany(Expression<Func<T, bool>> predicate,
+    public async Task UpdateManyAsync(Expression<Func<T, bool>> predicate,
         Expression<Func<SetPropertyCalls<T>, SetPropertyCalls<T>>> setPropertyCalls)
     {
-        _repository.UpdateMany(predicate, setPropertyCalls);
+        await _repository.UpdateMany(predicate, setPropertyCalls);
     }
 }
 

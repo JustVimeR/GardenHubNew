@@ -1,28 +1,15 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Models.DTOs.GetDTOs;
 
-public class GetUserProfileDTO
+public class GetUserProfileDTO : GetBaseProfile
 {
-    public long Id;
+    //Gardener
+    public string? DescriptionOfExperience { get; set; }
+    public List<GetCityDTO>? Cities { get; set; } = new();
 
-    public required string Name { get; set; }
-    public string? Surname { get; set; }
-
-    public string? Email { get; set; }
-    public string? UserName { get; set; }
-    public string? PhoneNumber { get; set; }
-    public string? Description { get; set; }
-
-    public DateTime BirthDate { get; set; }
-
-    public long GardenerProfileId { get; set; }
-    public long CustomerProfileId { get; set; }
-    public long IconId { get; set; }
-
-
-    public GetMediaDTO? Icon { get; set; }
-    public GetGardenerProfileDTO? GardenerProfile { get; set; }
-    public GetCustomerProfileDTO? CustomerProfile { get; set; }
+    public List<GetWorkTypeDTO>? WorkTypes { get; set; }
+    public List<GetProjectDTO>? GardenerProjects { get; set; }
+    public List<GetFeedbackDTO>? GardenerFeedbacks { get; set; }
 }
 

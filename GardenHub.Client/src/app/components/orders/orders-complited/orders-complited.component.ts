@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { OrderStatus } from 'src/app/models/enums/order-status';
 
 @Component({
@@ -7,31 +7,17 @@ import { OrderStatus } from 'src/app/models/enums/order-status';
   styleUrls: ['./orders-complited.component.scss']
 })
 export class OrdersComplitedComponent {
-
+  @Input() allProjects: any;
+  
   toggleHeart(order: any) {
     order.isHeartClicked = !order.isHeartClicked;
   }
 
-  fakeOrders:any = [
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Вишгород, Київська обл.',
-      price: '700',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за газоном','Догляд за фруктовими деревами','Ландшафтний дизайн'
-      ],
-      orderStatus: OrderStatus.complited
-    },
-    {
-      title: 'Обрізка фруктових дерев у саду',
-      location: 'м. Житомир',
-      price: 'Договірна',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за фруктовими деревами','Ландшафтний дизайн','Догляд за газоном','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.complited
+  getCompletedProjects() {
+    if (!this.allProjects.data) {
+      return [];
     }
-  ]
+    return this.allProjects.data.filter((order: any) => order.status === 'Completed');
+  }
+
 }

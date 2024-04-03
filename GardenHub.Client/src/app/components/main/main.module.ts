@@ -7,6 +7,7 @@ import {Path} from "../../models/enums/path";
 import {SharedModule} from "../../shared.module";
 import {ErrorPageComponent} from "../error-page/error-page.component";
 import { StopRouteGuard } from '../../guards/stop-route.guard';
+import { OrderDetailsComponent } from '../orders/order-details/order-details.component';
 
 
 const mainRoutes: Routes = [
@@ -48,6 +49,7 @@ const mainRoutes: Routes = [
           loadChildren: () => import('../homeowner-profile/homeowner-profile.module').then(m => m.HomeOwnerProfileModule),
           canActivate: [StopRouteGuard]
         },
+        { path: 'order-details/:id', component: OrderDetailsComponent },
         {path: Path.error, component: ErrorPageComponent},
         {path: '**', redirectTo: Path.mainPage}
       ]

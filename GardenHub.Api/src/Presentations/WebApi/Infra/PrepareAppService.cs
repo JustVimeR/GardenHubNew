@@ -1,11 +1,11 @@
-﻿using Core.Services.Interfaces;
+﻿using Core.Constants;
+using Core.Services.Interfaces;
 using Data.IdentityModels;
 using Data.Repos.Interfaces;
 using Data.Seeds;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Models.DTOs.Email;
 using System;
 using System.Threading.Tasks;
 
@@ -23,18 +23,18 @@ public class PrepareAppService
         var emailService = serviceProvider.GetRequiredService<IEmailService>();
         try
         {
-            await emailService.SendAsync(new EmailRequest()
-            {
-                From = "sender@email.com",
-                To = "sssssss@sss.sss",
-                Body = $"APP IS RUNNING",
-                Subject = "APP"
-            });
+            //await emailService.SendAsync(new EmailRequest()
+            //{
+            //    From = "apprunner@app.runner",
+            //    To = "apprunner@app.runner",
+            //    Body = $"APP IS RUNNING",
+            //    Subject = "APP"
+            //});
         }
         catch
         {
             serviceProvider.GetRequiredService<IGardenHubLogger<PrepareAppService>>()
-                .Error("Test email wasn't sent, update mailtrap creadentioals");
+                .Error(ErrorMessages.InvalidEmailSettings);
         }
 
         var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();

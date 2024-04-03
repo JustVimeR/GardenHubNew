@@ -10,9 +10,11 @@ namespace Models.DbEntities
         public string? Text { get; set; }
 
         public long GardenerId { get; set; }
-        public long ProjectId { get; set; }
+        public long? CustomerId { get; set; }
+        public long? ProjectId { get; set; }
 
         public Project? Project { get; set; }
-        public GardenerProfile? Gardener { get; set; }
+        public UserProfile? Customer { get; set; }
+        public UserProfile? Gardener { get; set; }
     }
 }

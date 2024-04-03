@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240227165817_upd2")]
-    partial class upd2
+    [Migration("20240303120903_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -963,9 +963,7 @@ namespace Data.Migrations
 
                     b.HasOne("Models.DbEntities.GardenerProfile", "GardenerProfile")
                         .WithMany()
-                        .HasForeignKey("GardenerProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GardenerProfileId");
 
                     b.HasOne("Models.DbEntities.Media", "Icon")
                         .WithMany()

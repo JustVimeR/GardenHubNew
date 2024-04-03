@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProjectController : GenericCRUDDController<Project, GetProjectDTO, PostProjectDTO, Project>
+public class ProjectController : BaseCRUDController<Project, GetProjectDTO, PostProjectDTO, PostProjectDTO>
 {
     ILogger<ProjectController> _logger;
     public ProjectController(
@@ -39,8 +40,14 @@ public class ProjectController : GenericCRUDDController<Project, GetProjectDTO, 
         return await base.Get(id);
     }
 
+    [Authorize]
+    public override Task<ActionResult<ServiceResult<GetProjectDTO>>> PostAsync(PostProjectDTO addDto)
+    {
+        return base.PostAsync(addDto);
+    }
 
-    public override Task<ActionResult<ServiceResult<GetProjectDTO>>> PutAsync([FromRoute, Required] long id, Project addDto)
+    [Authorize]
+    public override Task<ActionResult<ServiceResult<GetProjectDTO>>> PutAsync([FromRoute, Required] long id, PostProjectDTO addDto)
     {
         return base.PutAsync(id, addDto);
     }
@@ -51,8 +58,8 @@ public class ProjectController : GenericCRUDDController<Project, GetProjectDTO, 
         return base.DeleteAsync(id, softDelete);
     }
 
-
-    public override Task<ActionResult<ServiceResult<GetProjectDTO>>> PatchAsync([FromRoute, Required] long id, [FromBody] JsonPatchDocument<Project> patchDocument)
+    [NonAction]
+    public override Task<ActionResult<ServiceResult<GetProjectDTO>>> PatchAsync([FromRoute, Required] long id, [FromBody] JsonPatchDocument<PostProjectDTO> patchDocument)
     {
         return base.PatchAsync(id, patchDocument);
     }

@@ -1,7 +1,7 @@
 <div class="order">
     <div class="order-title_wrapper">
         <div class="order_title">{{order.title}}</div>
-        <div class="order_status">{{order.orderStatus}}</div>
+        <div class="order_status">{{translateStatus(order.status)}}</div>
     </div>
     <div class="order_subtitle">
         <img src="../../../assets/point.png" alt="point" class="order_point">
@@ -9,10 +9,10 @@
     </div>
     <div class="order_price">
         <img src="../../../assets/moneygrn.png" alt="point" class="order_point">
-        <span>{{order.price}}</span>
+        <span>{{order.budget}}</span>
     </div>
     <div class="type-of-work_list" >
-        <div class="type-of-work" *ngFor="let type of order.typeOfWork">{{type}}</div>
+        <div class="type-of-work" *ngFor="let type of order.workTypes">{{type.label}}</div>
     </div>
     <div class="order_footer">
         <button class="details_btn" (click)="viewOrderDetails()">Детальніше</button>

@@ -78,15 +78,13 @@
        </div>
     <div class="list_wrapper">
         <app-order 
-            *ngFor="let order of visibleOrders"  
+            *ngFor="let order of getActiveProjects()"  
             [order]="order"
             (heartToggle)="toggleHeart($event)"
         ></app-order>
     </div>
         <button 
-            class="load-more" 
-            *ngIf="canLoadMore()" 
-            (click)="onLoadMore()"
+            class="load-more"
             >Загрузити ще
         </button>
     </div>
@@ -122,5 +120,5 @@
     </div>
 </section>
 
-<app-successfull-order></app-successfull-order>
+<!-- <app-successfull-order></app-successfull-order> -->
 

@@ -6,5 +6,5 @@ public class City : EntityBase
 {
     public required string Name { get; set; }
 
-    public List<GardenerProfile> Gardeners { get; set; } = new();
+    public List<UserProfile> Gardeners { get; set; } = new();
 }

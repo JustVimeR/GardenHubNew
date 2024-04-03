@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240212022352_init")]
-    partial class init
+    [Migration("20240318195905_Merge_Profile_Tables")]
+    partial class Merge_Profile_Tables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CityGardenerProfile", b =>
+            modelBuilder.Entity("CityUserProfile", b =>
                 {
                     b.Property<long>("CitiesId")
                         .HasColumnType("bigint");
@@ -37,7 +37,7 @@ namespace Data.Migrations
 
                     b.HasIndex("GardenersId");
 
-                    b.ToTable("CityGardenerProfile");
+                    b.ToTable("CityUserProfile");
                 });
 
             modelBuilder.Entity("Data.IdentityModels.ApplicationRole", b =>
@@ -124,7 +124,6 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -159,6 +158,9 @@ namespace Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<long?>("UserProfileId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -252,36 +254,6 @@ namespace Data.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("GardenerProfileProject", b =>
-                {
-                    b.Property<long>("GardenersId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProjectsId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("GardenersId", "ProjectsId");
-
-                    b.HasIndex("ProjectsId");
-
-                    b.ToTable("GardenerProfileProject");
-                });
-
-            modelBuilder.Entity("GardenerProfileWorkType", b =>
-                {
-                    b.Property<long>("GardenerProfilesId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("WorkTypesId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("GardenerProfilesId", "WorkTypesId");
-
-                    b.HasIndex("WorkTypesId");
-
-                    b.ToTable("GardenerProfileWorkType");
-                });
-
             modelBuilder.Entity("Models.DbEntities.City", b =>
                 {
                     b.Property<long>("Id")
@@ -315,47 +287,11 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
+                        .HasDefaultValue("'Anonymous creation'");
 
                     b.HasKey("Id");
 
                     b.ToTable("Cities", (string)null);
-                });
-
-            modelBuilder.Entity("Models.DbEntities.CustomerProfile", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GetUtcDate()");
-
-                    b.Property<string>("CreatedBy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
-
-                    b.Property<int?>("RecordStatus")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GetUtcDate()");
-
-                    b.Property<string>("UpdatedBy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CustomerProfiles", (string)null);
                 });
 
             modelBuilder.Entity("Models.DbEntities.Feedback", b =>
@@ -376,13 +312,16 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasDefaultValue("'Anonymous creation'");
 
+                    b.Property<long?>("CustomerId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("EditedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<long>("GardenerId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProjectId")
+                    b.Property<long?>("ProjectId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("PublicationDate")
@@ -405,55 +344,17 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
+                        .HasDefaultValue("'Anonymous creation'");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("GardenerId");
 
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Feedbacks", (string)null);
-                });
-
-            modelBuilder.Entity("Models.DbEntities.GardenerProfile", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GetUtcDate()");
-
-                    b.Property<string>("CreatedBy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
-
-                    b.Property<string>("DescriptionOfExperience")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int?>("RecordStatus")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GetUtcDate()");
-
-                    b.Property<string>("UpdatedBy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GardenerProfiles", (string)null);
                 });
 
             modelBuilder.Entity("Models.DbEntities.Media", b =>
@@ -490,7 +391,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
+                        .HasDefaultValue("'Anonymous creation'");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -550,7 +451,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
+                        .HasDefaultValue("'Anonymous creation'");
 
                     b.HasKey("Id");
 
@@ -585,8 +486,8 @@ namespace Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("EndDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
@@ -600,14 +501,14 @@ namespace Data.Migrations
                     b.Property<int>("NumberOfRequriedGardeners")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PublicationDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("PublicationDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("StartDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -621,7 +522,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
+                        .HasDefaultValue("'Anonymous creation'");
 
                     b.HasKey("Id");
 
@@ -667,7 +568,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
+                        .HasDefaultValue("'Anonymous creation'");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -688,8 +589,8 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -701,24 +602,25 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasDefaultValue("'Anonymous creation'");
 
-                    b.Property<long>("CustomerProfileId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("DescriptionOfExperience")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("GardenerProfileId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("IconId")
+                    b.Property<long?>("IconId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("IdentityId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsGardener")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -741,18 +643,17 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
+                        .HasDefaultValue("'Anonymous creation'");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerProfileId");
-
-                    b.HasIndex("GardenerProfileId");
-
                     b.HasIndex("IconId");
+
+                    b.HasIndex("IdentityId")
+                        .IsUnique();
 
                     b.ToTable("UserProfiles", (string)null);
                 });
@@ -782,9 +683,6 @@ namespace Data.Migrations
                     b.Property<long?>("ParentWorkTypeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ProjectId")
-                        .HasColumnType("bigint");
-
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
 
@@ -796,18 +694,61 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValueSql("'Anonymous creation'");
+                        .HasDefaultValue("'Anonymous creation'");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ParentWorkTypeId");
 
-                    b.HasIndex("ProjectId");
-
                     b.ToTable("WorkTypes", (string)null);
                 });
 
-            modelBuilder.Entity("CityGardenerProfile", b =>
+            modelBuilder.Entity("ProjectUserProfile", b =>
+                {
+                    b.Property<long>("GardenerProjectsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("GardenersId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("GardenerProjectsId", "GardenersId");
+
+                    b.HasIndex("GardenersId");
+
+                    b.ToTable("ProjectUserProfile");
+                });
+
+            modelBuilder.Entity("ProjectWorkType", b =>
+                {
+                    b.Property<long>("ProjectsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WorkTypesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("ProjectsId", "WorkTypesId");
+
+                    b.HasIndex("WorkTypesId");
+
+                    b.ToTable("ProjectWorkType");
+                });
+
+            modelBuilder.Entity("UserProfileWorkType", b =>
+                {
+                    b.Property<long>("GardenersId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WorkTypesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("GardenersId", "WorkTypesId");
+
+                    b.HasIndex("WorkTypesId");
+
+                    b.ToTable("UserProfileWorkType");
+                });
+
+            modelBuilder.Entity("CityUserProfile", b =>
                 {
                     b.HasOne("Models.DbEntities.City", null)
                         .WithMany()
@@ -815,7 +756,7 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Models.DbEntities.GardenerProfile", null)
+                    b.HasOne("Models.DbEntities.UserProfile", null)
                         .WithMany()
                         .HasForeignKey("GardenersId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -877,49 +818,23 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GardenerProfileProject", b =>
-                {
-                    b.HasOne("Models.DbEntities.GardenerProfile", null)
-                        .WithMany()
-                        .HasForeignKey("GardenersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.DbEntities.Project", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GardenerProfileWorkType", b =>
-                {
-                    b.HasOne("Models.DbEntities.GardenerProfile", null)
-                        .WithMany()
-                        .HasForeignKey("GardenerProfilesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.DbEntities.WorkType", null)
-                        .WithMany()
-                        .HasForeignKey("WorkTypesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Models.DbEntities.Feedback", b =>
                 {
-                    b.HasOne("Models.DbEntities.GardenerProfile", "Gardener")
-                        .WithMany("Feedbacks")
+                    b.HasOne("Models.DbEntities.UserProfile", "Customer")
+                        .WithMany("CustomerFeedbacks")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("Models.DbEntities.UserProfile", "Gardener")
+                        .WithMany("GardenerFeedbacks")
                         .HasForeignKey("GardenerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Models.DbEntities.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProjectId");
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Gardener");
 
@@ -928,10 +843,10 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.DbEntities.Project", b =>
                 {
-                    b.HasOne("Models.DbEntities.CustomerProfile", "Customer")
-                        .WithMany("Projects")
+                    b.HasOne("Models.DbEntities.UserProfile", "Customer")
+                        .WithMany("CustomerProjects")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Customer");
@@ -950,27 +865,15 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.DbEntities.UserProfile", b =>
                 {
-                    b.HasOne("Models.DbEntities.CustomerProfile", "CustomerProfile")
-                        .WithMany()
-                        .HasForeignKey("CustomerProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Models.DbEntities.GardenerProfile", "GardenerProfile")
-                        .WithMany()
-                        .HasForeignKey("GardenerProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Models.DbEntities.Media", "Icon")
                         .WithMany()
-                        .HasForeignKey("IconId")
+                        .HasForeignKey("IconId");
+
+                    b.HasOne("Data.IdentityModels.ApplicationUser", null)
+                        .WithOne("UserProfile")
+                        .HasForeignKey("Models.DbEntities.UserProfile", "IdentityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CustomerProfile");
-
-                    b.Navigation("GardenerProfile");
 
                     b.Navigation("Icon");
                 });
@@ -981,11 +884,52 @@ namespace Data.Migrations
                         .WithMany("DerivedWorkTypes")
                         .HasForeignKey("ParentWorkTypeId");
 
-                    b.HasOne("Models.DbEntities.Project", null)
-                        .WithMany("WorkTypes")
-                        .HasForeignKey("ProjectId");
-
                     b.Navigation("ParentWorkType");
+                });
+
+            modelBuilder.Entity("ProjectUserProfile", b =>
+                {
+                    b.HasOne("Models.DbEntities.Project", null)
+                        .WithMany()
+                        .HasForeignKey("GardenerProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.DbEntities.UserProfile", null)
+                        .WithMany()
+                        .HasForeignKey("GardenersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectWorkType", b =>
+                {
+                    b.HasOne("Models.DbEntities.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.DbEntities.WorkType", null)
+                        .WithMany()
+                        .HasForeignKey("WorkTypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UserProfileWorkType", b =>
+                {
+                    b.HasOne("Models.DbEntities.UserProfile", null)
+                        .WithMany()
+                        .HasForeignKey("GardenersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.DbEntities.WorkType", null)
+                        .WithMany()
+                        .HasForeignKey("WorkTypesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Data.IdentityModels.ApplicationRole", b =>
@@ -995,24 +939,23 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Data.IdentityModels.ApplicationUser", b =>
                 {
+                    b.Navigation("UserProfile");
+
                     b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("Models.DbEntities.CustomerProfile", b =>
-                {
-                    b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("Models.DbEntities.GardenerProfile", b =>
-                {
-                    b.Navigation("Feedbacks");
                 });
 
             modelBuilder.Entity("Models.DbEntities.Project", b =>
                 {
                     b.Navigation("Medias");
+                });
 
-                    b.Navigation("WorkTypes");
+            modelBuilder.Entity("Models.DbEntities.UserProfile", b =>
+                {
+                    b.Navigation("CustomerFeedbacks");
+
+                    b.Navigation("CustomerProjects");
+
+                    b.Navigation("GardenerFeedbacks");
                 });
 
             modelBuilder.Entity("Models.DbEntities.WorkType", b =>

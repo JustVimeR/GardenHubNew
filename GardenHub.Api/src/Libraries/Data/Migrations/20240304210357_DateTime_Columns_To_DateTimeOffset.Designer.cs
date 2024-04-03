@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240225012635_UserProfiles_Add_FK_Users_To_Profile")]
-    partial class UserProfiles_Add_FK_Users_To_Profile
+    [Migration("20240304210357_DateTime_Columns_To_DateTimeOffset")]
+    partial class DateTime_Columns_To_DateTimeOffset
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -587,8 +587,8 @@ namespace Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("EndDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
@@ -602,14 +602,14 @@ namespace Data.Migrations
                     b.Property<int>("NumberOfRequriedGardeners")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PublicationDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("PublicationDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("StartDate")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -690,8 +690,8 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -713,7 +713,7 @@ namespace Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("GardenerProfileId")
+                    b.Property<long?>("GardenerProfileId")
                         .HasColumnType("bigint");
 
                     b.Property<long?>("IconId")
@@ -963,9 +963,7 @@ namespace Data.Migrations
 
                     b.HasOne("Models.DbEntities.GardenerProfile", "GardenerProfile")
                         .WithMany()
-                        .HasForeignKey("GardenerProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GardenerProfileId");
 
                     b.HasOne("Models.DbEntities.Media", "Icon")
                         .WithMany()

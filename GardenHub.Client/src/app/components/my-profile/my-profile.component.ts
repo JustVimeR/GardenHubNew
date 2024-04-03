@@ -1,27 +1,32 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { OrderStatus } from 'src/app/models/enums/order-status';
 import StorageService from 'src/app/services/storage.service';
 import { UserProfileService } from 'src/app/services/user-profile.service';
 import { OnInit } from '@angular/core';
 import { StorageKey } from 'src/app/models/enums/storage-key';
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
   styleUrls: ['./my-profile.component.scss']
 })
-export class MyProfileComponent extends StorageService implements OnInit, OnDestroy{
+export class MyProfileComponent extends StorageService implements OnInit{
   
   selfUserProfile: any = {};
+  selfFeedback: any = {};
 
   constructor(
-    private userProfileService: UserProfileService) {
+    private userProfileService: UserProfileService,
+    private feedbackService: FeedbackService
+    ) {
     super();
   }
  
 
   ngOnInit() {
     this.getUserProfile();
+    this.getFeedback();
   }
 
   getUserProfile(): void {
@@ -31,6 +36,17 @@ export class MyProfileComponent extends StorageService implements OnInit, OnDest
       this.userProfileService.getSelfUserProfile().subscribe(response => {
         this.selfUserProfile = response;
         this.setDataStorage(StorageKey.userProfile, this.selfUserProfile);
+      });
+    }
+  }
+
+  getFeedback(): void {
+    if (this.hasKeyInStorage(StorageKey.feedback)) {
+      this.selfFeedback = this.getDataStorage(StorageKey.feedback);
+    } else {
+      this.feedbackService.getFeedback().subscribe(response => {
+        this.selfFeedback = response;
+        this.setDataStorage(StorageKey.feedback, this.selfFeedback);
       });
     }
   }
@@ -62,25 +78,4 @@ export class MyProfileComponent extends StorageService implements OnInit, OnDest
     }
   ]
 
-  fakeReviews:any = [
-    {
-      username: 'alexpop',
-      text: 'Чудово виконана робота, рекомендую цього садівника! Всі побажання врахувала, правильно і красиво обрала місця для насаджень дерев. ',
-      reviewRoute: 'Створення фруктового саду',
-      data: '01.07.2023',
-      rate: 5
-    },
-    {
-      username: 'olenaelas',
-      text: 'Дякую за роботу! Усе сподобалось, проте з одним деревом вийшло трохи не те, що очікувалось, тому потрібно чекати поки відросте знову.',
-      reviewRoute: 'Кронування декоративних дерев',
-      data: '31.07.2023',
-      rate: 4
-    }
-  ]
-  ngOnDestroy(): void {
-    if (this.selfUserProfile) {
-      this.selfUserProfile.unsubscribe();
-    }
-  }
 }

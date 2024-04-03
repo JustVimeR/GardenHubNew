@@ -7,4 +7,11 @@
     display: flex;
     justify-content: space-between;
     align-items:baseline;
+    flex-wrap: wrap;
+}
+
+.no-data{
+    margin: 0 auto;
+    font-size: 24px;
+    font-weight: 700;
 }

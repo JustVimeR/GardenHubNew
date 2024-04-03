@@ -3,6 +3,11 @@ export enum StorageKey {
     userToken = 'userToken',
     authToken = 'auth-token',
     city = 'city',
-    userProfile = 'userProfile'
+    userProfile = 'userProfile',
+    feedback = 'feedback',
+    workType = 'worktype',
+    gardenerProfile = 'gardener-profile',
+    project = 'project',
+    homeOwnerProfile = 'home-owner-profile'
   }
   

@@ -25,6 +25,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Services.GardenhubServices.Interfaces;
+using Core.Constants;
 
 namespace Services.IdentityServices;
 
@@ -254,12 +255,15 @@ public class AccountService : IAccountService
             roleClaims.Add(new Claim("roles", roles[i]));
         }
 
+        UserProfile userProfile = await _userProfileService.GetFirstAsync(x => x.IdentityId == user.Id);
+
         var claims = new[]
         {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("uid", user.Id.ToString()),
+                new Claim(Defaults.IdentityIdClaimIdentifier, user.Id.ToString()),
+                new Claim(Defaults.UserProfileIdClaimIdentifier, userProfile.Id.ToString()),
                 new Claim("ip", ipAddress)
             }
         .Union(userClaims)

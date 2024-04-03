@@ -12,6 +12,7 @@ import { StorageKey } from 'src/app/models/enums/storage-key';
 import { City } from 'src/app/models/City';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { SuccessfullOrderComponent } from '../general/successfull-order/successfull-order.component';
+import { ProjectService } from 'src/app/services/project.service';
 
 interface ServiceNode {
   name: string;
@@ -63,6 +64,7 @@ export class MainPageComponent extends StorageService implements OnInit{
   currentPageIndex = 0;
   ordersPerPage = 4;
   visibleOrders: any = [];
+  allProjects: any = {};
 
   activeRole: 'gardener' | 'housekeeper';
 
@@ -91,7 +93,9 @@ export class MainPageComponent extends StorageService implements OnInit{
     private sharedService: SharedService,
     private roleService: RoleService,
     private router: Router,
-    private cityService: CityService) {
+    private cityService: CityService,
+    private projectService: ProjectService
+    ) {
     super();
     this.activeRole = 'gardener';
     this.dataSource.data = TREE_DATA;
@@ -101,63 +105,8 @@ export class MainPageComponent extends StorageService implements OnInit{
     this.roleService.activeRole.subscribe(role => {
       this.activeRole = role;
     });
-    this.loadOrders();
     this.getCities();
-  }
-
-  canLoadMore(): boolean {
-    return this.visibleOrders.length < this.fakeOrders.length;
-  }
-
-  loadOrders() {
-    const start = this.currentPageIndex * this.ordersPerPage;
-    const end = start + this.ordersPerPage;
-    const newOrders = this.fakeOrders.slice(start, Math.min(end, this.fakeOrders.length));
-    this.visibleOrders = [...this.visibleOrders, ...newOrders];
-  }
-
-  onLoadMore() {
-    this.currentPageIndex += 1;
-    this.ordersPerPage = 4;
-    this.loadOrders();
-  }
-
-  getFilteredOrders() {
-    const selectedCategories = this.getSelectedCategories();
-    const selectedLocations = this.getSelectedLocations();
-  
-    return this.fakeOrders.filter((order: Order) => {
-      const matchesCategory = selectedCategories.length === 0 || order.typeOfWork.some((work: string) => selectedCategories.includes(work));
-      const matchesLocation = selectedLocations.length === 0 || selectedLocations.includes(order.location);
-      return matchesCategory && matchesLocation;
-    });
-  }
-
-  getSelectedLocations(): string[] {
-    const selectedLocations: string[] = [];
-    const locationNode = TREE_DATA.find(node => node.name === 'За локацією');
-    if (locationNode && locationNode.children) {
-      locationNode.children.forEach(child => {
-        if (child.selected) {
-          selectedLocations.push(child.name);
-        }
-      });
-    }
-    return selectedLocations;
-  }
-
-  getSelectedCategories(): string[] {
-    const selectedCategories: string[] = [];
-    TREE_DATA.forEach(node => {
-      if (node.children) {
-        node.children.forEach(child => {
-          if (child.selected) {
-            selectedCategories.push(child.name);
-          }
-        });
-      }
-    });
-    return selectedCategories;
+    this.getProjects();
   }
 
   getCities(): void {
@@ -171,26 +120,25 @@ export class MainPageComponent extends StorageService implements OnInit{
     }
   }
 
+
+  getProjects(): void {
+    if (this.hasKeyInStorage(StorageKey.project)) {
+      this.allProjects = this.getDataStorage(StorageKey.project);
+    } else {
+      this.projectService.getProject().subscribe(response => {
+        this.allProjects = response;
+        this.setDataStorage(StorageKey.project, this.allProjects);
+      });
+    }
+  }
+
+  getActiveProjects() {
+    if (!this.allProjects.data) {
+      return [];
+    }
+    return this.allProjects.data.filter((order: any) => order.status === 'Active');
+  }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   toggleFilter() {
     this.isFilterOpen = !this.isFilterOpen;
@@ -244,127 +192,44 @@ export class MainPageComponent extends StorageService implements OnInit{
     },
   ];
 
-  fakeOrders: any = [
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Вишгород, Київська обл.',
-      price: '700',
-      isHeartClicked: true,
-      typeOfWork: [
-       'Догляд за газоном','Догляд за фруктовими деревами','Ландшафтний дизайн'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Обрізка фруктових дерев у саду',
-      location: 'м. Житомир',
-      price: 'Договірна',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за фруктовими деревами','Ландшафтний дизайн','Догляд за газоном','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Діагностика та лікування троянд',
-      location: 'м. Кривий Ріг',
-      price: '450',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за рослинами','Діагностика та лікування захворювань','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Львів',
-      price: '700',
-      isHeartClicked: true,
-      typeOfWork: [
-       'Догляд за фруктовими деревами','Діагностика та лікування захворювань','Догляд за рослинами'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Обухів',
-      price: '700',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за газоном','Догляд за фруктовими деревами','Діагностика та лікування захворювань'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Івано-Франківськ',
-      price: '700',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за рослинами','Ландшафтний дизайн','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.active
-    }, 
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Вишгород, Київська обл.',
-      price: '700',
-      isHeartClicked: true,
-      typeOfWork: [
-       'Догляд за газоном','Догляд за фруктовими деревами','Ландшафтний дизайн'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Обрізка фруктових дерев у саду',
-      location: 'м. Житомир',
-      price: 'Договірна',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за фруктовими деревами','Ландшафтний дизайн','Догляд за газоном','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Діагностика та лікування троянд',
-      location: 'м. Кривий Ріг',
-      price: '450',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за рослинами','Діагностика та лікування захворювань','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Львів',
-      price: '700',
-      isHeartClicked: true,
-      typeOfWork: [
-       'Догляд за фруктовими деревами','Діагностика та лікування захворювань','Догляд за рослинами'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Обухів',
-      price: '700',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за газоном','Догляд за фруктовими деревами','Діагностика та лікування захворювань'
-      ],
-      orderStatus: OrderStatus.active
-    },
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Івано-Франківськ',
-      price: '700',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за рослинами','Ландшафтний дизайн','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.active
-    }
-  ]
+  
+  // getFilteredOrders() {
+  //   const selectedCategories = this.getSelectedCategories();
+  //   const selectedLocations = this.getSelectedLocations();
+  
+  //   return this.fakeOrders.filter((order: Order) => {
+  //     const matchesCategory = selectedCategories.length === 0 || order.typeOfWork.some((work: string) => selectedCategories.includes(work));
+  //     const matchesLocation = selectedLocations.length === 0 || selectedLocations.includes(order.location);
+  //     return matchesCategory && matchesLocation;
+  //   });
+  // }
+
+  // getSelectedLocations(): string[] {
+  //   const selectedLocations: string[] = [];
+  //   const locationNode = TREE_DATA.find(node => node.name === 'За локацією');
+  //   if (locationNode && locationNode.children) {
+  //     locationNode.children.forEach(child => {
+  //       if (child.selected) {
+  //         selectedLocations.push(child.name);
+  //       }
+  //     });
+  //   }
+  //   return selectedLocations;
+  // }
+
+  // getSelectedCategories(): string[] {
+  //   const selectedCategories: string[] = [];
+  //   TREE_DATA.forEach(node => {
+  //     if (node.children) {
+  //       node.children.forEach(child => {
+  //         if (child.selected) {
+  //           selectedCategories.push(child.name);
+  //         }
+  //       });
+  //     }
+  //   });
+  //   return selectedCategories;
+  // }
+
 }
 

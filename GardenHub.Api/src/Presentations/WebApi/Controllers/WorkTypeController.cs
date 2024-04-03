@@ -16,7 +16,7 @@ namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class WorkTypeController : GenericCRUDDController<WorkType, GetWorkTypeDTO, PostWorkTypeDTO, PostWorkTypeDTO>
+public class WorkTypeController : BaseCRUDController<WorkType, GetWorkTypeDTO, PostWorkTypeDTO, PostWorkTypeDTO>
 {
     ILogger<WorkTypeController> _logger;
     public WorkTypeController(
@@ -48,6 +48,7 @@ public class WorkTypeController : GenericCRUDDController<WorkType, GetWorkTypeDT
         return base.DeleteAsync(id, softDelete);
     }
 
+    [NonAction]
     public override Task<ActionResult<ServiceResult<GetWorkTypeDTO>>> PatchAsync([FromRoute, Required] long id, [FromBody] JsonPatchDocument<PostWorkTypeDTO> patchDocument)
     {
         return base.PatchAsync(id, patchDocument);
