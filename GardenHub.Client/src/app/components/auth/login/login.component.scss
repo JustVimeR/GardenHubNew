@@ -1,4 +1,8 @@
-.container{
+.container1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     .login__wrapper{
         position: relative;
         top: 15%;
@@ -39,6 +43,7 @@
         border-radius: 10px;
         border: 1px solid rgba(147, 144, 144, 0.82);
         background: rgba(0, 0, 0, 0.00);
+        background-color: #FFF;
         color: rgba(0, 0, 0, 0.78);
         font-size: 16px;
         font-style: normal;
@@ -67,6 +72,7 @@
             text-align: right;
             font-size: 18px;
             font-weight: 500;
+            cursor: pointer;
         }
     }
     .btn-login{
@@ -96,7 +102,7 @@
         justify-content: center;
         margin-top: 58px;
         margin-bottom: 42px;
-        width: 100%;
+        // width: 100%;
         color: rgba(83, 83, 83, 0.78);
         font-size: 16px;
         font-weight: 400;
@@ -128,6 +134,7 @@
             color: rgba(0, 0, 0, 0.61);
             font-size: 20px;
             font-weight: 700;
+            margin-right: 12px;
         }
     }
 
@@ -136,4 +143,84 @@
       margin: 0 auto;
         
     }
+}
+@media screen and (max-width: 768px){
+    .login__window {
+        background: inherit !important;
+        box-shadow: none !important;
+    }
+    .lined-text:before,
+    .lined-text:after {
+        content: '';
+        background-color: inherit !important; 
+    }
+    .google-auth{
+        background: #FFFFFFCC !important;  
+    }
+
+    .login__window{
+        width: auto !important;
+
+    }
+
+}
+@media screen and (max-width: 500px){
+    .form-control{
+        width: 318px !important;
+        height: 40px !important;
+    }
+    .btn-login{
+        width: 318px !important;
+        padding: 11px !important;
+    }
+    .save-reset{
+        width: 316px !important;
+        justify-content: space-between;
+        margin-top: 19px !important;
+        margin-bottom: 93px !important;
+
+    }
+    .form-check-label{
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        line-height: 17px !important;
+    }
+    .reset-password{
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        line-height: 17px !important;
+    }
+    .register-route{
+        font-size: 14px !important;
+        margin-top: 24px !important;
+    }
+    .subheader{
+        font-size: 15px !important;
+        font-weight: 400 !important;
+        line-height: 18px !important;
+        padding-bottom: 95px !important;
+    }
+    .header{
+        font-size: 25px !important;
+        font-weight: 700 !important;
+        line-height: 30px !important;
+        margin-top: 91px !important;
+    }
+    .ng-untouched{
+        width: auto;
+    }
+    .lined-text:before,
+    .lined-text:after {
+        content: '';
+        display: none;
+    }
+    .lined-text{
+        margin-top: 34px !important;
+        margin-bottom: 16px !important;
+    }
+    .info-icon{
+        width: 20px !important;
+        height: 20px !important;
+    }
+
 }

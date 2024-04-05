@@ -1,0 +1,6 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="container" (click)="$event.stopPropagation()">
+      <p class="text-successful">Ваше замовлення успішно опубліковано</p>    
+      <button class="button-complete" (click)="onClose()">Ок</button>
+  </div>
+</div>

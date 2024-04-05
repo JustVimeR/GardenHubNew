@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderStatus } from 'src/app/models/enums/order-status';
+import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-portfolio',
@@ -8,9 +9,30 @@ import { OrderStatus } from 'src/app/models/enums/order-status';
   styleUrls: ['./portfolio.component.scss']
 })
 export class PortfolioComponent {
+  isPhonePortrait = false;
+  isBigScreen = false;
 
-  constructor(private router: Router){}
+  constructor(private router: Router,
+    private responsive: BreakpointObserver){}
 
+
+  ngOnInit() {
+    this.responsive.observe(Breakpoints.HandsetPortrait)
+      .subscribe(result => {
+
+        this.isPhonePortrait = false; 
+        this.isBigScreen = false;
+
+        if (result.matches) {
+          console.log("screens matches HandsetPortrait");
+          this.isPhonePortrait = true;
+        }
+        else{
+          this.isBigScreen = true;
+        }
+    });
+  } 
+  
   toggleHeart(order: any) {
     order.isHeartClicked = !order.isHeartClicked;
   }
