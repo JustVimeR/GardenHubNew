@@ -1,8 +1,10 @@
-﻿namespace Models.DbEntities;
+﻿using Models.Enums;
+
+namespace Models.DbEntities;
 
 public interface IMedia
 {
     string Url { get; set; }
 
-    string Type { get; set; }
+    MediaType Type { get; set; }
 }

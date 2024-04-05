@@ -40,6 +40,8 @@ public class MappingProfiles : Profile
         CreateMap<PostDerivedWorkTypeDTO, WorkType>().ReverseMap();
         CreateMap<WorkType, PostWorkTypeDTO>();
 
+        CreateMap<ChatMessage, GetChatMessageDTO>();
+
         CreateMap<City, GetCityDTO>();
         CreateMap<Feedback, GetFeedbackDTO>()
             .ForMember(d => d.CustomerName, o => o.MapFrom(s => s.Customer.UserName))

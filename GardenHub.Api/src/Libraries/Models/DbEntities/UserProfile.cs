@@ -34,4 +34,10 @@ public class UserProfile : EntityBase
     public List<WorkType>? WorkTypes { get; set; }
     public List<Project>? GardenerProjects { get; set; }
     public List<Feedback>? GardenerFeedbacks { get; set; }
+
+ 
+    public long NotificationChatId { get; set; }
+    public Chat? NotificationChat { get; set; }
+
+
 }

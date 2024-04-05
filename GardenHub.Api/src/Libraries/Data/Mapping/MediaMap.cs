@@ -10,8 +10,6 @@ public class MediaMap : MappingEntityTypeConfiguration<Media>
     {
         builder.ToTable("Medias");
         builder.HasKey(p => p.Id);
-        builder.Property(p => p.Type)
-         .HasAnnotation("RegularExpression", "^(?i)(Image|Video)$");
 
         base.Configure(builder);
     }
@@ -23,8 +21,6 @@ public class ProjectMediaMap : MappingEntityTypeConfiguration<ProjectMedia>
     {
         builder.ToTable("ProjectMedias");
         builder.HasKey(p => p.Id);
-        builder.Property(p => p.Type)
-         .HasAnnotation("RegularExpression", "^(?i)(Image|Video)$");
 
         base.Configure(builder);
     }

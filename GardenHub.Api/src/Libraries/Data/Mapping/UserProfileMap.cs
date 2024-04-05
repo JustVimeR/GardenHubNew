@@ -14,6 +14,10 @@ public class UserProfileMap : MappingEntityTypeConfiguration<UserProfile>
         builder.Property(p => p.Description).HasMaxLength(1000);
         builder.Property(p => p.DescriptionOfExperience).HasMaxLength(1000);
 
+        builder.HasOne(p => p.NotificationChat)
+            .WithOne(p => p.NotificationOwner)
+            .HasForeignKey<UserProfile>(p => p.NotificationChatId);
+
         builder.HasMany(p => p.GardenerProjects).WithMany(p => p.Gardeners);
 
         builder.HasMany(p => p.CustomerProjects)

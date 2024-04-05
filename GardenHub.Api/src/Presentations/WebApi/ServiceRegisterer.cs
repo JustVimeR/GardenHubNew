@@ -8,6 +8,7 @@ using Data.Repos.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,7 @@ using Services.IdentityServices;
 using Services.IdentityServices.Interfaces;
 using System;
 using System.Text;
+using System.Threading.Tasks;
 using WebApi.Swagger;
 
 namespace WebApi;
@@ -80,6 +82,18 @@ public class ServiceRegisterer
                };
                o.Events = new JwtBearerEvents()
                {
+                   OnMessageReceived = context =>
+                   {
+                       string? access_token = context.Request.Query["access_token"];
+                       if (!string.IsNullOrEmpty(access_token))
+                       {
+                           access_token = access_token?.Trim('"');
+                           context.Token = access_token;
+                       }
+                       
+                       return Task.CompletedTask;
+                   },
+
                    OnChallenge = context =>
                    {
                        context.HandleResponse();
@@ -158,6 +172,8 @@ public class ServiceRegisterer
 
         services.AddSingleton<ILoggerFactory, LoggerFactory>();
         services.AddSingleton(typeof(ILoggerProvider<>), typeof(LoggerProvider<>));
+        services.AddSingleton<IUserConnectionManager, UserConnectionManager>();
+        services.AddSingleton<IUserIdProvider, UserIdProvider>();
 
         services.AddHttpContextAccessor();
 
@@ -189,6 +205,11 @@ public class ServiceRegisterer
 
         services.AddScoped<IFeedbackRepository, FeedbackRepository>();
         services.AddScoped<IFeedbackService, FeedbackService>();
+
+        services.AddScoped<IChatRepository, ChatRepository>();
+        services.AddScoped<IChatService, ChatService>();
+
+        services.AddScoped<IChatMessageRepository, ChatMessageRepository>();
 
         services.AddScoped<FilterService>();
 

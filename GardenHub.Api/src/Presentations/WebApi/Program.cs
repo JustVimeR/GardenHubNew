@@ -20,7 +20,10 @@ builder.Services.AddCors(co =>
 {
     co.AddPolicy("Policy", builder =>
     {
-        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        builder
+        .WithOrigins("http://localhost:4200")
+        .WithOrigins("https://localhost:4200")
+        .AllowAnyMethod().AllowAnyHeader().AllowCredentials();
     });
 });
 
@@ -49,6 +52,8 @@ builder.Services.AddControllers(options =>
     c.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
+builder.Services.AddSignalR();
+
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 
@@ -74,6 +79,8 @@ app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Service A
 
 
 app.MapControllers();
+app.MapHub<NotificationHub>("/hubs/notifications");
+app.MapHub<ChatHub>("/hubs/chats");
 
 
 app.MapHealthChecks("/health", new HealthCheckOptions()

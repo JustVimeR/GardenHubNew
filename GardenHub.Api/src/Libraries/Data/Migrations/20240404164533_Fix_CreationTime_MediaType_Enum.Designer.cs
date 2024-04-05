@@ -4,6 +4,7 @@ using Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240404164533_Fix_CreationTime_MediaType_Enum")]
+    partial class Fix_CreationTime_MediaType_Enum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,6 +262,9 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("ChannelOwnerId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -271,9 +277,6 @@ namespace Data.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("NotificationOwnerId")
-                        .HasColumnType("bigint");
 
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
@@ -328,9 +331,7 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("PublicationDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValueSql("GetUtcDate()");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
@@ -955,7 +956,7 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Models.DbEntities.Chat", "NotificationChat")
-                        .WithOne("NotificationOwner")
+                        .WithOne("ChannelOwner")
                         .HasForeignKey("Models.DbEntities.UserProfile", "NotificationChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1033,9 +1034,9 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Models.DbEntities.Chat", b =>
                 {
-                    b.Navigation("ChatMessages");
+                    b.Navigation("ChannelOwner");
 
-                    b.Navigation("NotificationOwner");
+                    b.Navigation("ChatMessages");
                 });
 
             modelBuilder.Entity("Models.DbEntities.Project", b =>
