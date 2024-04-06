@@ -9,8 +9,11 @@ using Models.DTOs.GetDTOs;
 using Models.DTOs.PostDTOs;
 using Services;
 using Services.GardenhubServices.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -33,7 +36,7 @@ public class UserProfileController
     {
         _userProfileService = userProfileService;
         _mapper = mapper;
-         _userProfileService = userProfileService;
+        _userProfileService = userProfileService;
         _userAccessor = userAccessor;
     }
 
@@ -66,24 +69,30 @@ public class UserProfileController
     [HttpGet("gardeners")]
     public async Task<ActionResult<ServiceResult<List<GetUserProfileDTO>>>> GetGardeners()
     {
-        ServiceResult<List<GetUserProfileDTO>> serviceResult = new ServiceResult<List<GetUserProfileDTO>>();
+        ServiceResult<List<GetUserProfileDTO>> serviceResult = 
+            new(_mapper.Map<List<GetUserProfileDTO>>(await _userProfileService.GetGardenerProfiles()));
 
-        List<UserProfile> userProfiles = await _userProfileService.GetGardenerProfiles();
-
-        serviceResult.Data = _mapper.Map<List<GetUserProfileDTO>>(userProfiles);
-
-        return serviceResult;
+        return Ok(serviceResult);
     }
 
     [Authorize]
     [HttpGet("getself")]
     public async Task<ActionResult<ServiceResult<GetUserProfileDTO>>> GetSelfAsync()
     {
-        ServiceResult<GetUserProfileDTO> serviceResult = new ServiceResult<GetUserProfileDTO>();
+        ServiceResult<GetUserProfileDTO> serviceResult = new();
 
         UserProfile userProfile = await _userProfileService.GetUserProfileFromToken();
 
         serviceResult.Data = _mapper.Map<GetUserProfileDTO>(userProfile);
+
+        return Ok(serviceResult);
+    }
+
+    [HttpGet("top7gardeners")]
+    public async Task<ActionResult<ServiceResult<List<GetUserProfileDTO>>>> GetTopGardeners()
+    {
+        ServiceResult<List<GetUserProfileDTO>> serviceResult =
+            new(_mapper.Map<List<GetUserProfileDTO>>(await _userProfileService.GetTopGardeners()));
 
         return Ok(serviceResult);
     }
