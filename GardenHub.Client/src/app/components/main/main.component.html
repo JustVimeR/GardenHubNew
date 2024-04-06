@@ -50,10 +50,10 @@
           <a href="" class="sidebar-nav-link" routerLinkActive="active"
           [routerLink]="['/api/orders']">Мої замовлення</a>
         </li>
-        <!-- <li class="sidebar-nav-item">
+        <li class="sidebar-nav-item">
           <a href="" class="sidebar-nav-link" routerLinkActive="active"
-            >Чати</a>
-        </li> -->
+          [routerLink]="['/api/chat']">Чати</a>
+        </li>
         <li class="sidebar-nav-item" *ngIf="activeTab === 'gardener'">
           <a href="" class="sidebar-nav-link" routerLinkActive="active"
           [routerLink]="['/api/profile']">Мій профіль</a>
