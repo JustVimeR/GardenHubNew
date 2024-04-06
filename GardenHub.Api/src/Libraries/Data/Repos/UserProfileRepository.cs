@@ -19,7 +19,9 @@ public class UserProfileRepository : Repository<UserProfile>, IUserProfileReposi
             .Include(x => x.Cities)
             .Include(x => x.WorkTypes)
             .Include(x=>x.GardenerProjects)
+                .ThenInclude(x=>x.WorkTypes)
             .Include(x=>x.CustomerProjects)
+                .ThenInclude(x => x.WorkTypes)
             .Include(x => x.GardenerFeedbacks)!
                 .ThenInclude(x => x!.Customer);
     }
