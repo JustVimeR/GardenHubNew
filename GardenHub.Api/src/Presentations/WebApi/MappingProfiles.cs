@@ -52,6 +52,7 @@ public class MappingProfiles : Profile
         CreateMap<Media, GetMediaDTO>();
         CreateMap<Project, GetProjectDTO>()
             .ForMember(d => d.CustomerName, o => o.MapFrom(s => s.Customer.UserName));
+
         CreateMap<UserProfile, GetUserProfileDTO>();
         CreateMap<WorkType, GetWorkTypeDTO>();
         CreateMap<WorkType, GetDerivedWorkTypeDTO>();

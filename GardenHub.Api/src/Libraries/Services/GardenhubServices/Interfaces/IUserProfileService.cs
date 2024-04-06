@@ -1,5 +1,6 @@
 ﻿using Data.IdentityModels;
 using Models.DbEntities;
+using Models.DTOs.GetDTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ public interface IUserProfileService : IService<UserProfile>
 
     Task<List<UserProfile>> GetGardenerProfiles();
 
-    Task<List<UserProfile>> GetTopGardeners();
+    Task<List<GetGardenerMiniProfile>> GetTopGardeners();
 
     Task<UserProfile> GetUserProfileFromToken();
 }

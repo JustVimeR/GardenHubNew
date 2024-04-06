@@ -12,6 +12,7 @@ using Core.Extensions;
 using System.Threading.Tasks;
 using Models.DTOs.PostDTOs;
 using Microsoft.EntityFrameworkCore;
+using Models.DTOs.GetDTOs;
 
 namespace Services.GardenhubServices;
 
@@ -152,10 +153,20 @@ public class UserProfileService : Service<UserProfile>, IUserProfileService
         return base.GetWhereAsync(x => x.IsGardener);
     }
 
-    public async Task<List<UserProfile>> GetTopGardeners()
+    public async Task<List<GetGardenerMiniProfile>> GetTopGardeners()
     {
         return await _repository.GetWhere(x => x.IsGardener && x.GardenerFeedbacks.Count() != 0)
-            .OrderByDescending(g => g.GardenerFeedbacks.Sum(f => f.Rating) / g.GardenerFeedbacks.Count())
-            .Take(7).ToListAsync();
+            .Select(x =>
+            new GetGardenerMiniProfile
+            {
+                Id = x.Id,
+                Icon = _mapper.Map<GetMediaDTO>(x.Icon),
+                Name = x.Name,
+                UserName = x.UserName,
+                AvgRating = x.GardenerFeedbacks.Sum(f => f.Rating) / x.GardenerFeedbacks.Count()
+            })
+            .Take(7)
+            .OrderByDescending(g => g.AvgRating)
+            .ToListAsync();
     }
 }
