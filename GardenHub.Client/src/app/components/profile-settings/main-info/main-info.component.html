@@ -10,48 +10,39 @@
         </div>
         <form class="form-wrapper" (ngSubmit)="userProfile(user)" [formGroup]="user">
             <div class="form-group">
-                <div class="input_header">Ім’я</div>
+                <div class="input_header">Ім’я: {{selfUserProfile.data.name}}</div>
                 <input type="text"
                        class="form-control"
-                       placeholder="Введи ім'я"
-                       formControlName="firstName"
+                       placeholder="Введіть нове ім'я"
+                       formControlName="name"
                 >
                 <div
                   class="invalid-feedback d-block"
-                  *ngIf="(user.get('firstName')?.hasError('minlength')) && user.get('firstName')?.touched">
+                  *ngIf="(user.get('name')?.hasError('minlength')) && user.get('name')?.touched">
                   Введіть коректне ім'я
                 </div>
-                <div
-                  class=" invalid-feedback d-block"
-                  *ngIf="user.get('firstName')?.hasError('required') && user.get('firstName')?.touched">
-                  Ім'я є обов'язковим для заповнення
-                </div>
               </div>
 
               <div class="form-group">
-                <div class="input_header">Прізвище</div>
+                <div class="input_header">Прізвище: {{selfUserProfile.data.surname}}</div>
                 <input type="text"
                        class="form-control"
-                       placeholder="Введи прізвище"
-                       formControlName="lastName"
+                       placeholder="Введіть нове прізвище"
+                       formControlName="surname"
                 >
                 <div
                   class="invalid-feedback d-block"
-                  *ngIf="(user.get('lastName')?.hasError('minlength')) && user.get('lastName')?.touched">
+                  *ngIf="(user.get('surname')?.hasError('minlength')) && user.get('surname')?.touched">
                   Введіть коректне прізвище
                 </div>
-                <div
-                  class=" invalid-feedback d-block"
-                  *ngIf="user.get('lastName')?.hasError('required') && user.get('lastName')?.touched">
-                  Прізвище є обов'язковим для заповнення
-                </div>
+               
               </div>
 
               <div class="form-group">
-                <div class="input_header">Ім’я користувача</div>
+                <div class="input_header">Ім’я користувача: {{selfUserProfile.data.userName}}</div>
                 <input type="text"
                        class="form-control"
-                       placeholder="Введи username"
+                       placeholder="Введіть новий username"
                        formControlName="userName"
                 >
                 <div
@@ -59,18 +50,14 @@
                   *ngIf="(user.get('userName')?.hasError('minlength')) && user.get('userName')?.touched">
                   Введіть коректний username
                 </div>
-                <div
-                  class=" invalid-feedback d-block"
-                  *ngIf="user.get('userName')?.hasError('required') && user.get('userName')?.touched">
-                  Username є обов'язковим для заповнення
-                </div>
+               
               </div>
 
               <div class="form-group">
-                <div class="input_header">Email</div>
+                <div class="input_header">Email: {{selfUserProfile.data.email}}</div>
                 <input type="email"
                        class="form-control"
-                       placeholder="Введи email"
+                       placeholder="Введіть новий email"
                        formControlName="email"     
                 >
                 <div
@@ -78,38 +65,30 @@
                   *ngIf="(user.get('email')?.hasError('minlength')) && user.get('email')?.touched">
                   Введіть коректний email
                 </div>
-                <div
-                  class=" invalid-feedback d-block"
-                  *ngIf="user.get('email')?.hasError('required') && user.get('email')?.touched">
-                  Email є обов'язковим для заповнення
-                </div>
+                
               </div>
 
             <div class="form-group">
-                <div class="input_header">Номер телефону</div>
+                <div class="input_header">Номер телефону: {{selfUserProfile.data.phoneNumber}}</div>
                 <input type="text"
                        class="form-control"
-                       placeholder="Введи телефон"
-                       formControlName="phone"
+                       placeholder="Введіть новий номер телефону"
+                       formControlName="phoneNumber"
                        phoneMask
                 >
                 <div
                   class="invalid-feedback d-block"
-                  *ngIf="(user.get('phone')?.hasError('minlength')) && user.get('phone')?.touched">
+                  *ngIf="(user.get('phoneNumber')?.hasError('minlength')) && user.get('phoneNumber')?.touched">
                   Введіть коректрий номер телефону, формат 380XXXXXXXXX
                 </div>
-                <div
-                  class=" invalid-feedback d-block"
-                  *ngIf="user.get('phone')?.hasError('required') && user.get('phone')?.touched">
-                  Телефон є обов'язковим для заповнення
-                </div>
+                
               </div>
 
               <div class="form-group">
-                <div class="input_header">Дата народження:</div>
+                <div class="input_header">Дата народження: {{selfUserProfile.data.birthDate}}</div>
                 <mat-form-field appearance="fill">
-                  <mat-label>Виберіть дату</mat-label>
-                  <input matInput [matDatepicker]="picker" class="datepicker-input">
+                  <mat-label>Виберіть нову дату</mat-label>
+                  <input matInput [matDatepicker]="picker" class="datepicker-input" formControlName="birthDate">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -148,13 +127,8 @@
                   class="form-control" 
                   placeholder="Введіть ваш коментар тут..." 
                   style=" height: 412px;  resize: none;" 
-                  formControlName="commentText">
+                  formControlName="descriptionOfExperience">
                 </textarea>
-                <div
-                  class=" invalid-feedback d-block"
-                  *ngIf="user.get('commentText')?.hasError('required') && user.get('commentText')?.touched">
-                  Коментар не може бути порожнім
-                </div>
               </div>
               <div class="btn-container">
             <button type="submit" class="btn-comfirm" >Зберегти зміни</button>
@@ -162,5 +136,9 @@
           </div>
           </form>
         </div>
+        <app-successfull-update-profile
+          *ngIf="isProfileUpdatedSuccessfully" 
+          (close)="isProfileUpdatedSuccessfully = false"
+        ></app-successfull-update-profile>
     </div>
 </div>
