@@ -142,12 +142,15 @@
 
     .order {
 
-        width: 100% !important;
+        width: 100%;
     }
 
     .order_title {
         width: auto !important;
 
+    }
+    .order-title_wrapper{
+        width: 100% !important;
     }
     .heart_btn{
         margin-left: 0 !important;
