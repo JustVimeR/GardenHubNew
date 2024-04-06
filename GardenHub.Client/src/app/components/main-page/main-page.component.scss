@@ -30,6 +30,7 @@
                 font-weight: 400;
                 padding-right: 70px;
                 padding-left: 27px;
+                outline: none;
 
                 &::placeholder {
                     color: white;
@@ -173,7 +174,7 @@
 
 .load-more {
     display: flex;
-    width: 230px;
+    width: 245px;
     height: 66px;
     margin: 33px auto;
     margin-bottom: 39px;
@@ -186,9 +187,14 @@
     border: 3px solid #000;
     color: #000;
     background-color: #FFF;
-
     font-size: 25px;
     font-weight: 600;
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+.load-more:hover {
+    background-color: #000;
+    color: #FFF;
 }
 
 .how-work_wrapper {
@@ -233,6 +239,12 @@
                     color: #000;
                     font-size: 18px;
                     font-weight: 600;
+                    transition: color 0.3s ease;
+                    transition: background-color 0.3s ease;
+                }
+                .create_order:hover{
+                    background-color: #000;
+                    color: #FFF;
                 }
 
                 .step_descr {

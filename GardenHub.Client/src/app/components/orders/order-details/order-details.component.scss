@@ -10,6 +10,9 @@
         font-weight: 400;
         cursor: pointer;
     }
+    .back_btn:hover{
+        color: #2cb335;
+    }
 
     .details_title {
         color: #000;
@@ -40,15 +43,15 @@
             font-weight: 500;
         }
 
-        .details_status.active {
+        .details_status.Active {
             color: #83DF89;
         }
 
-        .details_status.work {
+        .details_status.InProggress {
             color: #F0A1A1;
         }
 
-        .details_status.completed {
+        .details_status.Completed {
             color: #A5A5A5;
         }
     }
@@ -150,10 +153,13 @@
             font-weight: 400;
 
             span {
-                color: #83DF89;
+                color: #83DF89;color: #83DF89;
                 font-size: 23px;
                 font-weight: 500;
                 text-decoration-line: underline;
+            }
+            span:hover {
+                color: #2cb335;
             }
         }
 
@@ -218,6 +224,22 @@
             }
         }
 
+        .accept_btn{
+            button {
+                width: 309px;
+                height: 70px;
+                padding: 20px;
+                border-radius: 18px;
+                background: #83DF89;
+                font-size: 25px;
+                font-weight: 600;
+                line-height: 30px;
+                border: none;
+            }
+            button:hover {
+                background: #63d96b;
+            }
+        }
         .delete_btn {
             button {
                 width: 309px;
@@ -229,6 +251,9 @@
                 font-weight: 600;
                 line-height: 30px;
                 border: none;
+            }
+            button:hover {
+                background: #ef7979;
             }
         }
 
@@ -243,6 +268,9 @@
                 font-weight: 600;
                 line-height: 30px;
                 border: none;
+            }
+            button:hover {
+                background: #63d96b;
             }
         }
     }
