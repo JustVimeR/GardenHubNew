@@ -356,6 +356,12 @@ mat-tree {
 }
 
 @media screen and (max-width: 763px) {
+    .list_wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column !important;
+        align-items: normal !important;
+    }
     .main_header {
         font-size: 40px !important;
         font-weight: 600 !important;

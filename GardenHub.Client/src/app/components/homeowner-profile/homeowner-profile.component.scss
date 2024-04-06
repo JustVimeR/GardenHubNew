@@ -84,4 +84,25 @@
         }
     }
 }
-
+@media screen and (max-width: 768px) {
+    .container{
+        .header_wrapper{
+            .img_wrapper{
+                .profile_img{}
+            }
+            .data_wrapper{
+                .profile_username{}
+                .profile_fullname{}
+                .order_subtitle{
+                    span{}
+                }
+                .profile_message{}
+            }
+        }
+        .projects_wrapper{
+            .projects_title{}
+            .list_wrapper{}
+        }
+    }
+    
+}
