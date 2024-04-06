@@ -21,9 +21,9 @@ export class OrdersInWorkComponent {
   }
 
   getProggressProjects() {
-    if (!this.allProjects.data) {
+    if (!this.allProjects.data.customerProjects) {
       return [];
     }
-    return this.allProjects.data.filter((order: any) => order.status === 'InProggress');
+    return this.allProjects.data.customerProjects.filter((order: any) => order.status === 'InProggress');
   }
 }

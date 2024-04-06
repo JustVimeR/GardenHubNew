@@ -14,10 +14,10 @@ export class OrdersComplitedComponent {
   }
 
   getCompletedProjects() {
-    if (!this.allProjects.data) {
+    if (!this.allProjects.data.customerProjects) {
       return [];
     }
-    return this.allProjects.data.filter((order: any) => order.status === 'Completed');
+    return this.allProjects.data.customerProjects.filter((order: any) => order.status === 'Completed');
   }
 
 }

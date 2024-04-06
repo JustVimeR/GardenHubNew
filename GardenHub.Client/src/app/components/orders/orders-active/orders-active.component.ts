@@ -14,9 +14,9 @@ export class OrdersActiveComponent {
   }
 
   getActiveProjects() {
-    if (!this.allProjects.data) {
+    if (!this.allProjects.data.customerProjects) {
       return [];
     }
-    return this.allProjects.data.filter((order: any) => order.status === 'Active');
+    return this.allProjects.data.customerProjects.filter((order: any) => order.status === 'Active');
   }
 }

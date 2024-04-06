@@ -5,6 +5,7 @@ import { Page } from '../models/page';
 import { RoleService } from 'src/app/services/role.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { StorageKey } from 'src/app/models/enums/storage-key';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 @Component({
   selector: 'app-orders',
@@ -19,7 +20,8 @@ export class OrdersComponent extends StorageService implements OnInit{
   constructor(
     private router: Router, 
     private roleService: RoleService,
-    private projectService: ProjectService) {
+    private projectService: ProjectService,
+    private userProfileService: UserProfileService) {
     super();
     this.activeRole = 'gardener';
   }
@@ -40,12 +42,12 @@ export class OrdersComponent extends StorageService implements OnInit{
   }
 
   getProjects(): void {
-    if (this.hasKeyInStorage(StorageKey.project)) {
-      this.allProjects = this.getDataStorage(StorageKey.project);
+    if (this.hasKeyInStorage(StorageKey.userProfile)) {
+      this.allProjects = this.getDataStorage(StorageKey.userProfile);
     } else {
-      this.projectService.getProject().subscribe(response => {
+      this.userProfileService.getSelfUserProfile().subscribe(response => {
         this.allProjects = response;
-        this.setDataStorage(StorageKey.project, this.allProjects);
+        this.setDataStorage(StorageKey.userProfile, this.allProjects);
       });
     }
   }
