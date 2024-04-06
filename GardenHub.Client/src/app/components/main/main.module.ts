@@ -49,6 +49,11 @@ const mainRoutes: Routes = [
           loadChildren: () => import('../homeowner-profile/homeowner-profile.module').then(m => m.HomeOwnerProfileModule),
           canActivate: [StopRouteGuard]
         },
+        {
+          path: Path.userChat,
+          loadChildren: () => import('../user-chat/user-chat.module').then(m => m.UserChatModule),
+          canActivate: [StopRouteGuard]
+        },
         { path: 'order-details/:id', component: OrderDetailsComponent },
         {path: Path.error, component: ErrorPageComponent},
         {path: '**', redirectTo: Path.mainPage}

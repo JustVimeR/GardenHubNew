@@ -51,4 +51,8 @@ export class UserProfileService extends StorageService {
   patchUserProfile(id: string, patchData: any): Observable<any> {
     return this.http.patch(`${this.API_URL}/userprofile/${id}`, patchData);
   }
+
+  getTopGardeners(): Observable<any> {
+    return this.http.get(`${this.API_URL}/userprofile/top7gardeners`, {});
+  }
 }
