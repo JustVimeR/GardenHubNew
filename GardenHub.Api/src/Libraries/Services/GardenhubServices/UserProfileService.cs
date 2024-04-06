@@ -54,11 +54,10 @@ public class UserProfileService : Service<UserProfile>, IUserProfileService
         }
 
         UserProfile userProfile = await GetUserProfileFromToken();
+        _mapper.SelectiveMap<UserProfile, PostUserProfileDTO>(updateUserProfile, userProfile);
 
         if (updateUserProfile.IsGardener)
         {
-            _mapper.SelectiveMap<UserProfile,PostUserProfileDTO>(updateUserProfile, userProfile);
-
             await LinkCitiesOfGardenerProfile(userProfile);
 
             await LinkWorkTypesOfGardenerProfile(userProfile);
