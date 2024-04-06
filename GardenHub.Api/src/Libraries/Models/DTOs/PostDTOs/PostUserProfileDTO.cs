@@ -19,7 +19,10 @@ public class PostUserProfileDTO
     public string? Description { get; set; }
 
     public DateOnly BirthDate { get; set; }
+}
 
+public class PostGardenerProfileDTO : PostUserProfileDTO
+{
     //Gardener
 
     public string? DescriptionOfExperience { get; set; }
