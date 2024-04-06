@@ -38,6 +38,4 @@ public class UserProfile : EntityBase
  
     public long NotificationChatId { get; set; }
     public Chat? NotificationChat { get; set; }
-
-
 }

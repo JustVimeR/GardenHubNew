@@ -9,7 +9,7 @@ public class PostUserProfileDTO
 
     //Customer
 
-    //public PostMediaDTO? Icon { get; set; }
+    public PostMediaDTO? Icon { get; set; }
     public required string Name { get; set; }
     public string? Surname { get; set; }
 

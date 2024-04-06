@@ -26,7 +26,7 @@ public class Project : EntityBase
     public UserProfile? Customer { get; set; }
 
     public List<WorkType>? WorkTypes { get; set; }
-    public List<ProjectMedia>? Medias { get; set; }
+    public List<Media>? Medias { get; set; }
     public List<UserProfile>? Gardeners { get; set; }
 }
 

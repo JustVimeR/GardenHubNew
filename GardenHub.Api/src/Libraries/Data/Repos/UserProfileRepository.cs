@@ -16,11 +16,12 @@ public class UserProfileRepository : Repository<UserProfile>, IUserProfileReposi
     protected override IQueryable<UserProfile> PrepareDbSet()
     {
         return base.PrepareDbSet()
+            .Include(x => x.Icon)
             .Include(x => x.Cities)
             .Include(x => x.WorkTypes)
-            .Include(x=>x.GardenerProjects)
-                .ThenInclude(x=>x.WorkTypes)
-            .Include(x=>x.CustomerProjects)
+            .Include(x => x.GardenerProjects)!
+                .ThenInclude(x => x.WorkTypes)
+            .Include(x => x.CustomerProjects)!
                 .ThenInclude(x => x.WorkTypes)
             .Include(x => x.GardenerFeedbacks)!
                 .ThenInclude(x => x!.Customer);

@@ -14,14 +14,3 @@ public class MediaMap : MappingEntityTypeConfiguration<Media>
         base.Configure(builder);
     }
 }
-
-public class ProjectMediaMap : MappingEntityTypeConfiguration<ProjectMedia>
-{
-    public override void Configure(EntityTypeBuilder<ProjectMedia> builder)
-    {
-        builder.ToTable("ProjectMedias");
-        builder.HasKey(p => p.Id);
-
-        base.Configure(builder);
-    }
-}
