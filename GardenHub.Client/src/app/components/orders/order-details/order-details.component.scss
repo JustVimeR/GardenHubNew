@@ -10,7 +10,8 @@
         font-weight: 400;
         cursor: pointer;
     }
-    .back_btn:hover{
+
+    .back_btn:hover {
         color: #2cb335;
     }
 
@@ -153,11 +154,13 @@
             font-weight: 400;
 
             span {
-                color: #83DF89;color: #83DF89;
+                color: #83DF89;
+                color: #83DF89;
                 font-size: 23px;
                 font-weight: 500;
                 text-decoration-line: underline;
             }
+
             span:hover {
                 color: #2cb335;
             }
@@ -178,10 +181,10 @@
 
                 position: relative;
             }
-            
 
-            .custom-checkbox::before{
-                content:'';
+
+            .custom-checkbox::before {
+                content: '';
                 display: inline-block;
                 width: 20px;
                 height: 20px;
@@ -204,14 +207,15 @@
                 cursor: pointer;
             }
 
-            .real-checkbox:focus + .custom-checkbox {
+            .real-checkbox:focus+.custom-checkbox {
                 box-shadow: 0px 0px 0px 1px #83DF89, 0px 0px 10px #83DF89;
             }
 
-            .real-checkbox:checked + .custom-checkbox::before {
+            .real-checkbox:checked+.custom-checkbox::before {
                 transform: translate(-50%, -50%) scale(1);
             }
-            .real-checkbox:checked + .custom-checkbox{
+
+            .real-checkbox:checked+.custom-checkbox {
                 background-color: #83DF89;
                 transform: scale(1);
             }
@@ -224,7 +228,7 @@
             }
         }
 
-        .accept_btn{
+        .accept_btn {
             button {
                 width: 309px;
                 height: 70px;
@@ -237,10 +241,12 @@
                 border: none;
                 transition: background-color 0.3s ease;
             }
+
             button:hover {
                 background: #63d96b;
             }
         }
+
         .delete_btn {
             button {
                 width: 309px;
@@ -253,6 +259,7 @@
                 line-height: 30px;
                 border: none;
             }
+
             button:hover {
                 background: #ef7979;
             }
@@ -270,8 +277,179 @@
                 line-height: 30px;
                 border: none;
             }
+
             button:hover {
                 background: #63d96b;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .details_header {
+        width: 100%;
+        gap: 0;
+        justify-content: space-between;
+
+        .back_btn {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        // .back_btn:hover {}
+
+        .details_title {
+            font-size: 16px;
+        }
+    }
+
+    .details_body {
+        .details_subheader {
+            .details_subheader-title {
+                font-size: 14px;
+            }
+
+            .details_status {
+
+                font-size: 14px;
+            }
+
+            // .details_status.Active {}
+
+            // .details_status.InProggress {}
+
+            // .details_status.Completed {}
+        }
+
+        .type-of-work_list {
+            margin-top: 13px;
+
+            .type-of-work {
+                font-size: 11px;
+            }
+        }
+
+        .profile_location {
+            font-size: 12px;
+            margin-top: 5px;
+            .order_point {
+                width: 15px;
+                height: 15px;
+            }
+
+            // span {}
+        }
+
+        .order_price {
+            font-size: 12px;
+            margin-top: 13px;
+            .order_point {
+                width: 15px;
+                height: 15px;
+            }
+            // span {}
+        }
+
+        .details_descr {
+            font-size: 12px;
+            margin-top: 13px;
+        }
+
+        .details_photo-title {
+            font-size: 14px;
+            margin-top: 13px;
+        }
+
+        .details-photo_wrapper {
+            gap: 27px;
+
+            .details_photo {
+                width: 100px;
+                height: 100px;
+
+            }
+        }
+
+        .details {
+            .details_published {
+                font-size: 12px;
+            }
+
+            .details_author {
+                font-size: 12px;
+
+                span {
+                    font-size: 12px;
+                }
+
+                // span:hover {}
+            }
+
+            // .add-to-portfolio {
+            //     .custom-checkbox {}
+
+            //     .custom-checkbox::before {}
+
+            //     .real-checkbox {}
+
+            //     .real-checkbox:focus+.custom-checkbox {}
+
+            //     .real-checkbox:checked+.custom-checkbox::before {}
+
+            //     .real-checkbox:checked+.custom-checkbox {}
+
+            //     label {}
+            // }
+
+            .accept_btn {
+                button {
+                    font-size: 14px;
+                    font-weight: 600;
+                    line-height: 0px;
+
+                    width: 133px;
+                    height: 40px;
+                    border-radius: 18px;
+                    background: #83DF89;
+                    border: none;
+                    transition: background-color 0.3s ease;
+                }
+
+                // button:hover {}
+            }
+
+            .delete_btn {
+                button {
+                    font-size: 14px;
+                    font-weight: 600;
+                    line-height: 0px;
+
+                    width: 133px;
+                    height: 40px;
+                    border-radius: 18px;
+                    background: #F0A1A1;
+                    border: none;
+                    transition: background-color 0.3s ease;
+                }
+
+                // button:hover {}
+            }
+
+            .complite_btn {
+                button {
+                    font-size: 14px;
+                    font-weight: 600;
+                    line-height: 0px;
+
+                    width: 133px;
+                    height: 40px;
+                    border-radius: 18px;
+                    background: #83DF89;
+                    border: none;
+                    transition: background-color 0.3s ease;
+                }
+
+                // button:hover {}
             }
         }
     }
