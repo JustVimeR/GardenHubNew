@@ -4,6 +4,9 @@ import {RouterModule} from "@angular/router";
 import {SharedModule} from "../../shared.module";
 import { IonicModule } from '@ionic/angular';
 import { UserChatComponent } from './user-chat.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { ChatInListComponent } from './chat-in-list/chat-in-list.component';
 
 const userChatRoutes = [
   {path: '', component: UserChatComponent},
@@ -12,13 +15,16 @@ const userChatRoutes = [
 
 @NgModule({
   declarations: [
-    UserChatComponent
+    UserChatComponent,
+    ChatInListComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(userChatRoutes),
     SharedModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    MatButtonModule,
+    MatChipsModule,
   ]
 })
 export class UserChatModule { }

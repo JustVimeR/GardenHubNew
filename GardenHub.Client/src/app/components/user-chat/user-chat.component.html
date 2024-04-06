@@ -1,1 +1,65 @@
-<p>user-chat works!</p>
+<div class="messanger-container">
+    <div class="container">
+        <div class="chats-list__container">
+                <div class="chats-list__search">
+                    <div class="list-label">
+                        <h2>Чати</h2>
+                        <label class="chip">{{unreadMessages}}</label>
+                    </div>
+                    <div class="list-actions">
+                        <input placeholder="Пошук" class="search-input"/>
+                        <button mat-icon-button class="chats-list__action">
+                            <img src="../../../../assets/search.svg" alt="New chat"/>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <div class="chats-list__chats">
+                        <div class="chats">
+                            <app-chat-in-list class="user-chat"></app-chat-in-list>
+                        </div>
+                    </div>
+                </div>
+        </div> 
+        <div class="chat-container">
+            <div class="inner-chat-container">
+                <div class="main-chat-container">
+                    <div class="chat-header">
+                        <div class="chat-header-img-wrapper">
+                            <div class="chat-header-img">
+                                <img src="../../../assets/user-chat.svg" alt="user" />
+                            </div>
+                            <div class="chat-header-username">User name</div>
+                        </div>
+                        <hr style="border: 2px solid #83DF89;">
+                    </div>
+                    <div class="main-chat-and-submit">
+                        <div class="chat-main"> 
+                            <div class="chat-text-left-wrapper">
+                                <div class="chat-text-left"> 
+                                    dfsghdfg sdrhrt hrt hrth rt hrth rthrt hrt hrt
+                                </div>
+                                <div class="chat-time">
+                                    22:02
+                                </div>
+                            </div>
+                            <div class="chat-text-right-wrapper">
+                                <div class="chat-text-left"> 
+                                    dfsghdfg sdrhrt hrt hrth rt hrth rthrt hrt hrt
+                                </div>
+                                <div class="chat-time">
+                                    22:02
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="chat-footer">
+                            <input class="chat-footer__input" placeholder="Напишіть повідомлення"/>
+                            <button class="chat-footer__btn">></button>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
