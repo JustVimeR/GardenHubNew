@@ -11,5 +11,7 @@ public interface IUserProfileService : IService<UserProfile>
 
     Task<List<UserProfile>> GetGardenerProfiles();
 
+    Task<List<UserProfile>> GetTopGardeners();
+
     Task<UserProfile> GetUserProfileFromToken();
 }

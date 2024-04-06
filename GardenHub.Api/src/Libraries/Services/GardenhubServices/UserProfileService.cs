@@ -11,6 +11,7 @@ using System.Net;
 using Core.Extensions;
 using System.Threading.Tasks;
 using Models.DTOs.PostDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services.GardenhubServices;
 
@@ -33,7 +34,7 @@ public class UserProfileService : Service<UserProfile>, IUserProfileService
 
     public Task<UserProfile> GetUserProfileFromToken()
     {
-        long identityUserId = _userAccessor.IdentityUserId; 
+        long identityUserId = _userAccessor.IdentityUserId;
 
         return base.GetFirstAsync(x => x.IdentityId == identityUserId);
     }
@@ -147,5 +148,12 @@ public class UserProfileService : Service<UserProfile>, IUserProfileService
     public Task<List<UserProfile>> GetGardenerProfiles()
     {
         return base.GetWhereAsync(x => x.IsGardener);
+    }
+
+    public async Task<List<UserProfile>> GetTopGardeners()
+    {
+        return await _repository.GetWhere(x => x.IsGardener && x.GardenerFeedbacks.Count() != 0)
+            .OrderByDescending(g => g.GardenerFeedbacks.Sum(f => f.Rating) / g.GardenerFeedbacks.Count())
+            .Take(7).ToListAsync();
     }
 }
