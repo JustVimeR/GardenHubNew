@@ -1,4 +1,5 @@
-﻿using Models.Enums;
+﻿using Models.DbEntities;
+using Models.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -24,6 +25,7 @@ public class GetProjectDTO
 
     public List<GetWorkTypeDTO> WorkTypes { get; set; } = new();
     public List<GetMediaDTO> Medias { get; set; } = new();
+    public List<GetUserProfileDTO>? Gardeners { get; set; }
 
     public long CustomerId { get; set; }
     public string? CustomerName { get; set; }

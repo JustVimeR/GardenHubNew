@@ -3,11 +3,12 @@
     <div class="container">
         <div class="list_wrapper">
             <app-order 
-                *ngFor="let order of fakeOrders" 
+                *ngFor="let order of getProggressProjects()"  
                 [order]="order"
                 (heartToggle)="toggleHeart($event)"
-                (viewDetails)="viewOrderDetails($event)"
             ></app-order>
+
+            <p class="no-data" *ngIf="getProggressProjects().length === 0">Немає замовлень</p>
         </div>
     </div>
 </section>

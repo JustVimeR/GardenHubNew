@@ -4,9 +4,9 @@
         <div class="service_header" *ngIf="activeRole === 'gardener'">Новий проект</div>
         <div class="header-input_wrapper">
             <div  class="header-title">Заголовок</div>
-            <input type="text" class="header-input" placeholder="Введіть заголовок, який коротко описує суть завдання...">
+            <input type="text" class="header-input" [(ngModel)]="projectTitle" placeholder="Введіть заголовок, який коротко описує суть завдання...">
         </div>
-        <div class="service_category-header">Нове замовлення</div>
+        <div class="service_category-header">Категорії проекту</div>
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
 
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="service-child_wrapper">
@@ -16,7 +16,7 @@
             type="checkbox" 
             [id]="node.name" 
             [(ngModel)]="node.selected"
-            (change)="updateTypeOfWork(node.name, node.selected)"
+            (change)="updateTypeOfWork(node.name, node.selected, node.id)"
           >
           <span class="custom-checkbox"></span>  
           <label class="service-child-name" for="{{node.name}}">{{node.name}}</label>
@@ -41,35 +41,41 @@
         </div>
         <div class="type-of-work_list" >
           <div class="type-of-work" *ngFor="let type of typeOfWork">{{type}}</div>
-      </div>
+        </div>
       </section>
 
         <div class="location-input_wrapper">
             <div  class="location-title">Локація</div>
-            <input type="text" class="location-input" placeholder="Введіть локацію...">
+            <input type="text" class="location-input" [(ngModel)]="projectLocation" placeholder="Введіть локацію...">
         </div>
 
         <div class="project-price-input_wrapper">
             <div  class="project-price-title">Вартість проекту</div>
-            <input type="text" class="project-price-input" placeholder="Введіть вартість у грн...">
+            <input type="number" class="project-price-input" [(ngModel)]="projectBudget" placeholder="Введіть вартість у грн...">
         </div>
 
         <div class="textarea_wrapper">
             <div class="textarea_title">Опис</div>
-            <textarea class="textarea_desrc" placeholder="Опишіть детальніше ваш проект..."></textarea>
+            <textarea class="textarea_desrc" [(ngModel)]="projectDescription" placeholder="Опишіть детальніше ваш проект..."></textarea>
         </div>
 
-        <div class="photo-input_wrapper">
+        <!-- <div class="photo-input_wrapper">
             <div  class="photo-title">Фото</div>
             <input type="file" id="fileInput" style="display: none;" multiple (change)="onFileSelected($event)" />
             <button class="photo-input" (click)="triggerInput()">Додати фото</button>
             <div class="photo-input-count" *ngIf="selectedFilesCount > 0">
                 Вибрано файлів: {{ selectedFilesCount }}
             </div>
-        </div>
+        </div> -->
       <div class='service-btn_wrapper'>
-        <button class="service-btn">Створити замовлення</button>
+        <button class="service-btn" (click)="createProject()">Створити замовлення</button>
       </div>
     </div>
+
+    <app-successfull-create-order 
+      *ngIf="isProjectCreatedSuccessfully" 
+      (close)="isProjectCreatedSuccessfully = false"
+    ></app-successfull-create-order>
+
   </div>
   

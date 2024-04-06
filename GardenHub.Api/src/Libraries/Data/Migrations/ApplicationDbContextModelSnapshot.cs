@@ -251,6 +251,112 @@ namespace Data.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Models.DbEntities.Chat", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetUtcDate()");
+
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("Anonymous creation");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("NotificationOwnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("RecordStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetUtcDate()");
+
+                    b.Property<string>("UpdatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("Anonymous creation");
+
+                    b.Property<long?>("User1Id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("User2Id")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("User1Id");
+
+                    b.HasIndex("User2Id");
+
+                    b.ToTable("Chats", (string)null);
+                });
+
+            modelBuilder.Entity("Models.DbEntities.ChatMessage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ChatId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetUtcDate()");
+
+                    b.Property<string>("CreatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("Anonymous creation");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("PublicationDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("GetUtcDate()");
+
+                    b.Property<int?>("RecordStatus")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("SenderUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GetUtcDate()");
+
+                    b.Property<string>("UpdatedBy")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(50)")
+                        .HasDefaultValue("Anonymous creation");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatId");
+
+                    b.HasIndex("SenderUserId");
+
+                    b.ToTable("ChatMessage", (string)null);
+                });
+
             modelBuilder.Entity("Models.DbEntities.City", b =>
                 {
                     b.Property<long>("Id")
@@ -267,7 +373,7 @@ namespace Data.Migrations
                     b.Property<string>("CreatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -284,7 +390,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.HasKey("Id");
 
@@ -307,7 +413,7 @@ namespace Data.Migrations
                     b.Property<string>("CreatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<long?>("CustomerId")
                         .HasColumnType("bigint");
@@ -341,7 +447,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.HasKey("Id");
 
@@ -370,15 +476,13 @@ namespace Data.Migrations
                     b.Property<string>("CreatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasAnnotation("RegularExpression", "^(?i)(Image|Video)$");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -388,7 +492,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -397,62 +501,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Medias", (string)null);
-                });
-
-            modelBuilder.Entity("Models.DbEntities.Note", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GetUtcDate()");
-
-                    b.Property<string>("CreatedBy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("OwnerEmail")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int?>("RecordStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GetUtcDate()");
-
-                    b.Property<string>("UpdatedBy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notes", (string)null);
                 });
 
             modelBuilder.Entity("Models.DbEntities.Project", b =>
@@ -474,7 +522,7 @@ namespace Data.Migrations
                     b.Property<string>("CreatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
@@ -519,7 +567,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.HasKey("Id");
 
@@ -544,7 +592,7 @@ namespace Data.Migrations
                     b.Property<string>("CreatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<long>("ProjectId")
                         .HasColumnType("bigint");
@@ -552,10 +600,8 @@ namespace Data.Migrations
                     b.Property<int?>("RecordStatus")
                         .HasColumnType("int");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasAnnotation("RegularExpression", "^(?i)(Image|Video)$");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -565,7 +611,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -597,7 +643,7 @@ namespace Data.Migrations
                     b.Property<string>("CreatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
@@ -623,6 +669,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("NotificationChatId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -640,7 +689,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
@@ -650,6 +699,9 @@ namespace Data.Migrations
                     b.HasIndex("IconId");
 
                     b.HasIndex("IdentityId")
+                        .IsUnique();
+
+                    b.HasIndex("NotificationChatId")
                         .IsUnique();
 
                     b.ToTable("UserProfiles", (string)null);
@@ -671,7 +723,7 @@ namespace Data.Migrations
                     b.Property<string>("CreatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -691,7 +743,7 @@ namespace Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(50)")
-                        .HasDefaultValue("'Anonymous creation'");
+                        .HasDefaultValue("Anonymous creation");
 
                     b.HasKey("Id");
 
@@ -815,6 +867,36 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Models.DbEntities.Chat", b =>
+                {
+                    b.HasOne("Models.DbEntities.UserProfile", "User1")
+                        .WithMany()
+                        .HasForeignKey("User1Id");
+
+                    b.HasOne("Models.DbEntities.UserProfile", "User2")
+                        .WithMany()
+                        .HasForeignKey("User2Id");
+
+                    b.Navigation("User1");
+
+                    b.Navigation("User2");
+                });
+
+            modelBuilder.Entity("Models.DbEntities.ChatMessage", b =>
+                {
+                    b.HasOne("Models.DbEntities.Chat", null)
+                        .WithMany("ChatMessages")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.DbEntities.UserProfile", "SenderUser")
+                        .WithMany()
+                        .HasForeignKey("SenderUserId");
+
+                    b.Navigation("SenderUser");
+                });
+
             modelBuilder.Entity("Models.DbEntities.Feedback", b =>
                 {
                     b.HasOne("Models.DbEntities.UserProfile", "Customer")
@@ -872,7 +954,15 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Models.DbEntities.Chat", "NotificationChat")
+                        .WithOne("NotificationOwner")
+                        .HasForeignKey("Models.DbEntities.UserProfile", "NotificationChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Icon");
+
+                    b.Navigation("NotificationChat");
                 });
 
             modelBuilder.Entity("Models.DbEntities.WorkType", b =>
@@ -939,6 +1029,13 @@ namespace Data.Migrations
                     b.Navigation("UserProfile");
 
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Models.DbEntities.Chat", b =>
+                {
+                    b.Navigation("ChatMessages");
+
+                    b.Navigation("NotificationOwner");
                 });
 
             modelBuilder.Entity("Models.DbEntities.Project", b =>

@@ -1,7 +1,7 @@
 <div class="order">
     <div class="order-title_wrapper">
         <div class="order_title">{{order.title}}</div>
-        <div class="order_status">{{order.isComplited ? OrderStatus.complited : OrderStatus.active}}</div>
+        <div class="order_status">{{translateStatus(order.status)}}</div>
     </div>
     <div class="order_subtitle">
         <img src="../../../assets/point.png" alt="point" class="order_point">

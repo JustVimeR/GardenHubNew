@@ -1,8 +1,10 @@
-﻿namespace Models.DbEntities;
+﻿using Models.Enums;
+
+namespace Models.DbEntities;
 
 public class Media : EntityBase, IMedia
 {
     public required string Url { get; set; }
 
-    public required string Type { get; set; }
+    public required MediaType Type { get; set; }
 }

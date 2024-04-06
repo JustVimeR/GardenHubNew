@@ -25,4 +25,6 @@ public class ErrorMessages
     public const string DerivedWorkTypeCantBeParent = "Derived work type can't be parent.";
 
     public const string EntityAlreadyExists = "Entity '{0}' already exists.";
+
+    public const string UnexpectedBehaviour = "Unexpected behaviour";
 }

@@ -1,5 +1,5 @@
 
-<section class="order_wrapper">
+<section [ngClass]="{'phone-portfolio-wrapper' : isPhonePortrait, 'order_wrapper': isBigScreen}">
     <div class="container">
         <div>
             <button class="details_btn" (click)="createOrder()">Додати проект</button>
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="button_wrapper">
-        <button class="btn-confirm" >Переглянути профіль</button>
+        <button class="btn-profile" >Переглянути профіль</button>
         <button type="submit" class="btn-confirm" >Зберегти зміни</button>
     </div>
 </section>

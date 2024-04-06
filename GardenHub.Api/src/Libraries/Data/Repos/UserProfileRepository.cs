@@ -18,7 +18,10 @@ public class UserProfileRepository : Repository<UserProfile>, IUserProfileReposi
         return base.PrepareDbSet()
             .Include(x => x.Cities)
             .Include(x => x.WorkTypes)
-            .Include(x => x.GardenerFeedbacks);
+            .Include(x=>x.GardenerProjects)
+            .Include(x=>x.CustomerProjects)
+            .Include(x => x.GardenerFeedbacks)!
+                .ThenInclude(x => x!.Customer);
     }
 }
 

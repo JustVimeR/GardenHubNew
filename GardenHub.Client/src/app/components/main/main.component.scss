@@ -178,13 +178,14 @@ ion-icon {
 
 @media (max-width: 1199.98px) {
   .slim-sidebar {
-    margin-left: 0px !important;
+    // margin-left: 0px !important;
     z-index: 999;
-    height: 100vh;
+    // height: 100vh;
     left: 0px !important;
 
     &.hide {
-      margin-left: -230px !important;
+      // margin-left: -230px !important;
+      margin-left: 0px !important;
       left: 0px !important;
     }
   }
@@ -258,4 +259,27 @@ ion-icon {
 .footer_wrapper .social-icon:not(:last-of-type),
 .footer_wrapper .social-icon_lust:not(:last-of-type) {
   margin-right: 35px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-pannel{
+    width: auto !important;
+  }
+  .nav-pannel-logo{
+  display: none !important;
+  }
+.nav-pannel-menu-btn{
+  margin-left: 20px;
+}
+.footer_wrapper{
+  height: auto !important;
+  padding: 20px 31px !important
+}
+.switcher-btn {
+  width: auto !important ;
+  font-size: 14px !important;
+}
+.switcher-btn.active {
+  padding: 0px 17px;
+}
 }

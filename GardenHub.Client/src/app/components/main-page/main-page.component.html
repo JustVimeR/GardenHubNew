@@ -78,7 +78,7 @@
        </div>
     <div class="list_wrapper">
         <app-order 
-            *ngFor="let order of allProjects.data"  
+            *ngFor="let order of getActiveProjects()"  
             [order]="order"
             (heartToggle)="toggleHeart($event)"
         ></app-order>
