@@ -144,84 +144,84 @@
       margin: 0 auto;
         
     }
-}
-@media screen and (max-width: 768px){
-    .login__window {
-        background: inherit !important;
-        box-shadow: none !important;
+    @media screen and (max-width: 768px){
+        .login__window {
+            background: inherit;
+            box-shadow: none;
+        }
+        .lined-text:before,
+        .lined-text:after {
+            content: '';
+            background-color: inherit; 
+        }
+        .google-auth{
+            background: #FFFFFFCC;  
+        }
+    
+        .login__window{
+            width: auto;
+    
+        }
+    
     }
-    .lined-text:before,
-    .lined-text:after {
-        content: '';
-        background-color: inherit !important; 
+    @media screen and (max-width: 500px){
+        .form-control{
+            width: 318px;
+            height: 40px;
+        }
+        .btn-login{
+            width: 318px;
+            padding: 11px;
+        }
+        .save-reset{
+            width: 316px;
+            justify-content: space-between;
+            margin-top: 19px;
+            margin-bottom: 93px;
+    
+        }
+        .form-check-label{
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 17px;
+        }
+        .reset-password{
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17px;
+        }
+        .register-route{
+            font-size: 14px;
+            margin-top: 24px;
+        }
+        .subheader{
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 18px;
+            padding-bottom: 95px;
+        }
+        .header{
+            font-size: 25px;
+            font-weight: 700;
+            line-height: 30px;
+            margin-top: 91px;
+        }
+        .ng-untouched{
+            width: auto;
+        }
+        .lined-text:before,
+        .lined-text:after {
+            content: '';
+            display: none;
+        }
+        .lined-text{
+            margin-top: 34px;
+            margin-bottom: 16px;
+        }
+        .info-icon{
+            width: 20px;
+            height: 20px;
+        }
+    
     }
-    .google-auth{
-        background: #FFFFFFCC !important;  
-    }
-
-    .login__window{
-        width: auto !important;
-
-    }
-
-}
-@media screen and (max-width: 500px){
-    .form-control{
-        width: 318px !important;
-        height: 40px !important;
-    }
-    .btn-login{
-        width: 318px !important;
-        padding: 11px !important;
-    }
-    .save-reset{
-        width: 316px !important;
-        justify-content: space-between;
-        margin-top: 19px !important;
-        margin-bottom: 93px !important;
-
-    }
-    .form-check-label{
-        font-size: 14px !important;
-        font-weight: 400 !important;
-        line-height: 17px !important;
-    }
-    .reset-password{
-        font-size: 14px !important;
-        font-weight: 500 !important;
-        line-height: 17px !important;
-    }
-    .register-route{
-        font-size: 14px !important;
-        margin-top: 24px !important;
-    }
-    .subheader{
-        font-size: 15px !important;
-        font-weight: 400 !important;
-        line-height: 18px !important;
-        padding-bottom: 95px !important;
-    }
-    .header{
-        font-size: 25px !important;
-        font-weight: 700 !important;
-        line-height: 30px !important;
-        margin-top: 91px !important;
-    }
-    .ng-untouched{
-        width: auto;
-    }
-    .lined-text:before,
-    .lined-text:after {
-        content: '';
-        display: none;
-    }
-    .lined-text{
-        margin-top: 34px !important;
-        margin-bottom: 16px !important;
-    }
-    .info-icon{
-        width: 20px !important;
-        height: 20px !important;
-    }
-
 }
