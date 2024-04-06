@@ -7,7 +7,9 @@ import { Observable, map, startWith } from 'rxjs';
 import StorageService from 'src/app/services/storage.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { RoleService } from 'src/app/services/role.service';
-import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { UserProfileService } from 'src/app/services/user-profile.service';
+import { StorageKey } from 'src/app/models/enums/storage-key';
 
 @Component({
   selector: 'app-main-info',
@@ -16,10 +18,11 @@ import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/l
 })
 export class MainInfoComponent extends StorageService implements OnInit{
   activeRole: 'gardener' | 'housekeeper';
+  selfUserProfile: any = {};
   separatorKeysCodes: number[] = [ENTER, COMMA];
   cityCtrl = new FormControl('');
   filteredCities: Observable<string[]> | undefined;
-  cities: string[] = ['Київ'];
+  cities: string[] = [];
   allCities: string[] = ['Львів', 'Харків', 'Житомир', 'Івано-Франківськ', 'Рівне'];
   isPhonePortrait = false;
   isBigScreen = false;
@@ -27,26 +30,31 @@ export class MainInfoComponent extends StorageService implements OnInit{
   @ViewChild('fruitInput') cityInput: ElementRef<HTMLInputElement> | undefined;
 
   announcer = inject(LiveAnnouncer);
-
+  isProfileUpdatedSuccessfully = false;
+  
   user = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName:['', Validators.required],
-    userName:['', [Validators.required]],
-    email: ['', [Validators.required]],
-    phone: ['+380', [Validators.required, Validators.minLength(12)]],
-    commentText: new FormControl('', [Validators.required, Validators.minLength(3)])
+    name: [''],
+    surname:[''],
+    userName:[''],
+    email: [''],
+    phoneNumber: [''],
+    birthDate: [''],
+    descriptionOfExperience: new FormControl('')
   });
 
   constructor(
     private fb: FormBuilder,
     private roleService: RoleService, 
-    private responsive: BreakpointObserver){
+    private responsive: BreakpointObserver,
+    private userProfileService: UserProfileService,
+    ){
     super();
     this.activeRole = 'housekeeper';
     this.filteredCities = this.cityCtrl.valueChanges.pipe(
       startWith(null),
       map((city: string | null) => (city ? this._filter(city) : this.allCities.slice())),
     );
+    
   }
 
   ngOnInit() {
@@ -68,10 +76,68 @@ export class MainInfoComponent extends StorageService implements OnInit{
     this.roleService.activeRole.subscribe(role => {
       this.activeRole = role;
     });
+
+    this.getUserProfile();
+  }
+
+  formatDate(date: Date | string): string {
+    if (typeof date === 'string') return date;
+    return new Date(date).toISOString().split('T')[0];
+  }
+
+  updateProfile(): void {
+    const formValue = this.user.value;
+  
+    const citiesForApi = this.cities.map(cityName => ({ name: cityName }));
+    
+    const isGardener = this.activeRole === 'gardener';
+
+    const updateUser = {
+      name: formValue.name || this.selfUserProfile.data.name,
+      surname: formValue.surname || this.selfUserProfile.data.surname,
+      email: formValue.email || this.selfUserProfile.data.email,
+      userName: formValue.userName || this.selfUserProfile.data.userName,
+      phoneNumber: formValue.phoneNumber || this.selfUserProfile.data.phoneNumber,
+      birthDate: formValue.birthDate ? this.formatDate(formValue.birthDate) : this.selfUserProfile.data.birthDate,
+      descriptionOfExperience: formValue.descriptionOfExperience || this.selfUserProfile.data.descriptionOfExperience,
+      cities: citiesForApi.length > 0 ? citiesForApi : this.selfUserProfile.data.cities,
+      isGardener: isGardener,
+      description:this.selfUserProfile.data.description,
+      workTypes: this.selfUserProfile.data.workTypes,
+    };
+  
+    this.userProfileService.updateUserProfile(this.selfUserProfile.data.id, updateUser).subscribe({
+      next: (response) => {
+        console.log('Профіль успішно оновлено', response);
+        this.selfUserProfile = response;
+        this.setDataStorage(StorageKey.userProfile, this.selfUserProfile);
+        this.isProfileUpdatedSuccessfully = true;
+      },
+      error: (error) => {
+        console.error('Помилка', error);
+        this.isProfileUpdatedSuccessfully = false;
+      }
+    });
+  }
+  
+
+  getUserProfile(): void {
+    if (this.hasKeyInStorage(StorageKey.userProfile)) {
+      this.selfUserProfile = this.getDataStorage(StorageKey.userProfile);
+    } else {
+      this.userProfileService.getSelfUserProfile().subscribe(response => {
+        this.selfUserProfile = response;
+        this.setDataStorage(StorageKey.userProfile, this.selfUserProfile);
+      });
+    }
   }
 
   userProfile({value, valid}: { value: any, valid: boolean }) {
-    console.log(valid);
+    if (valid) {
+      this.updateProfile();
+  } else {
+      console.log("Форма має невалідні дані.");
+  }
     
    }
 
