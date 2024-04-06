@@ -13,6 +13,7 @@ import { City } from 'src/app/models/City';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { SuccessfullOrderComponent } from '../general/successfull-order/successfull-order.component';
 import { ProjectService } from 'src/app/services/project.service';
+import { UserProfileService } from 'src/app/services/user-profile.service';
 
 interface ServiceNode {
   name: string;
@@ -65,6 +66,7 @@ export class MainPageComponent extends StorageService implements OnInit{
   ordersPerPage = 4;
   visibleOrders: any = [];
   allProjects: any = {};
+  top7Gardeners: any = {};
 
   activeRole: 'gardener' | 'housekeeper';
 
@@ -94,7 +96,8 @@ export class MainPageComponent extends StorageService implements OnInit{
     private roleService: RoleService,
     private router: Router,
     private cityService: CityService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private userProfileService: UserProfileService
     ) {
     super();
     this.activeRole = 'gardener';
@@ -107,6 +110,18 @@ export class MainPageComponent extends StorageService implements OnInit{
     });
     this.getCities();
     this.getProjects();
+    this.getTop7Gardeners();
+  }
+
+  getTop7Gardeners(): void {
+    if (this.hasKeyInStorage(StorageKey.topGardeners)) {
+      this.top7Gardeners = this.getDataStorage(StorageKey.topGardeners);
+    } else {
+      this.userProfileService.getTopGardeners().subscribe(response => {
+        this.top7Gardeners = response;
+        this.setDataStorage(StorageKey.topGardeners, this.top7Gardeners);
+      });
+    }
   }
 
   getCities(): void {
@@ -119,7 +134,6 @@ export class MainPageComponent extends StorageService implements OnInit{
       });
     }
   }
-
 
   getProjects(): void {
     if (this.hasKeyInStorage(StorageKey.project)) {
