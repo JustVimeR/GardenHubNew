@@ -293,5 +293,9 @@
         margin-bottom: 99px;
         font-size: 25px;
         font-weight: 600;
+        transition: background-color 0.3s ease;
+    }
+    .service-btn:hover {
+        background-color: #63d96b;
     }
 }
