@@ -36,6 +36,12 @@
     border: 3px solid #83DF89;
     margin-left: auto; 
     margin-top: 36px;
+    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+.details_btn:hover {
+    background-color: #83DF89;
+    color: #FFF;
 }
 
 .btn-profile,
@@ -56,8 +62,12 @@
     margin-bottom: 136px;
     margin-left: 124px;
     margin-right: 124px;
+    transition: color 0.2s ease;
 }
-
+.btn-profile:hover,
+.btn-confirm:hover{
+    color: #fff;
+}
 
 
 .phone-portfolio-wrapper{

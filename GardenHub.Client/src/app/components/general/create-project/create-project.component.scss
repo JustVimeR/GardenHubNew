@@ -293,5 +293,181 @@
         margin-bottom: 99px;
         font-size: 25px;
         font-weight: 600;
+        transition: background-color 0.3s ease;
     }
+
+    .service-btn:hover {
+        background-color: #63d96b;
+    }
+}
+
+@media screen and (max-width: 763px) {
+    .container {
+        .service_wrapper {
+            min-height: 1300px;
+            .service_header {
+                font-size: 20px;
+            }
+
+            .header-input_wrapper {
+                width: auto;
+
+                .header-title {
+                    margin-top: 22px;
+                    font-size: 12px;
+                    margin-bottom: 3px;
+                }
+
+                .header-input {
+                    font-size: 12px;
+                    font-weight: 400;
+                    height: 30px;
+                    padding: 8px;
+                    border-radius: 7px;
+                }
+            }
+
+            .service_category-header {
+                margin-top: 7px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            .service-title {
+                width: auto;
+                height: 30px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            .mat-mdc-icon-button {
+                width: auto;
+            }
+
+            .custom-checkbox {
+                width: 15px;
+                height: 15px;
+                border-radius: 3px;
+            }
+
+            .custom-checkbox::before {
+                width: 11px;
+                height: 15px;
+            }
+
+            .real-checkbox {
+                width: 15px;
+                height: 15px;
+            }
+
+            .service-child-name {
+                font-size: 12px;
+                font-weight: 400;
+            }
+
+            .service-child_wrapper {
+                margin: 0 0;
+                height: auto;
+            }
+
+            .choosed-services_wrapper {
+                .choosed-services_header {
+                    font-size: 12px;
+                    font-weight: 400;
+                    margin-top: 13px;
+                    margin-bottom: 0;
+                }
+
+                .type-of-work_list {
+                    .type-of-work {
+                        font-size: 11px;
+                    }
+                }
+            }
+
+            .location-input_wrapper {
+                margin-top: 15px;
+                width: auto;
+                height: auto;
+
+                .location-title {
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+
+                .location-input {
+                    font-size: 12px;
+                    font-weight: 400;
+                    height: 30px;
+                    padding: 8px;
+                    border-radius: 7px;
+                }
+            }
+
+            .project-price-input_wrapper {
+                width: auto;
+                height: auto;
+                margin-top: 14px;
+
+                .project-price-title {
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+
+                .project-price-input {
+                    font-size: 12px;
+                    font-weight: 400;
+                    height: 30px;
+                    padding: 8px;
+                    border-radius: 7px;
+                }
+            }
+
+            .textarea_wrapper {
+                margin-top: 14px;
+                width: auto;
+                min-height: 200px;
+
+                .textarea_title {
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+
+                .textarea_desrc {
+                    font-size: 12px;
+                    font-weight: 400;
+
+                }
+
+
+
+            }
+
+            .photo-input_wrapper {
+                .photo-title {}
+
+                .photo-input {}
+
+                .photo-input-count {}
+            }
+
+            .service-btn_wrapper {
+                margin-top: 70px;
+                margin-right: 0;
+                justify-content: center;
+                margin-bottom: 50px;
+
+                .service-btn {
+                    height: 40px;
+                    padding: 20px;
+                    border-radius: 14px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+
 }

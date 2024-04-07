@@ -1,17 +1,18 @@
-.container{
+.container {
     max-width: 1350px;
     min-height: 100vh;
 
-    .header_wrapper{
+    .header_wrapper {
         margin-top: 34px;
         display: flex;
         justify-content: center;
-        align-items:center;
+        align-items: center;
         gap: 55px;
         margin-bottom: 48px;
-        .img_wrapper{
 
-            .profile_img{
+        .img_wrapper {
+
+            .profile_img {
                 width: 280px;
                 height: 280px;
                 border-radius: 50%;
@@ -20,34 +21,34 @@
             }
         }
 
-        .data_wrapper{
+        .data_wrapper {
 
-            .profile_username{
+            .profile_username {
                 color: #000;
                 font-size: 35px;
                 font-weight: 600;
             }
-    
-            .profile_fullname{
+
+            .profile_fullname {
                 margin-top: 40px;
                 color: #000;
                 font-size: 22px;
                 font-weight: 500;
             }
 
-            .order_subtitle{
+            .order_subtitle {
                 margin-top: 15px;
                 display: flex;
                 color: #000;
                 font-size: 18px;
                 font-weight: 400;
-            
-                span{
+
+                span {
                     margin-left: 9px;
                 }
             }
 
-            .profile_message{
+            .profile_message {
                 margin-top: 40px;
                 display: flex;
                 width: 265px;
@@ -63,13 +64,13 @@
                 font-weight: 700;
             }
         }
-        
+
     }
 
-    .projects_wrapper{
+    .projects_wrapper {
         margin-top: 46px;
-        
-        .projects_title{
+
+        .projects_title {
             margin: 0 auto;
             color: #000;
             font-size: 25px;
@@ -79,12 +80,83 @@
             justify-content: center;
         }
 
-        .list_wrapper{
+        .list_wrapper {
             margin-top: 46px;
             display: flex;
             justify-content: space-between;
-            align-items:baseline;
+            align-items: baseline;
         }
     }
 }
 
+@media screen and (max-width: 768px) {
+    .button_wrapper{
+        display: flex;
+        justify-content: center
+    }
+    .container {
+        .header_wrapper {
+            margin-top: 61px;
+            gap: 0;
+            flex-direction: column;
+            align-items: center;
+
+            .img_wrapper {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+
+                .profile_img {
+                    width: 70%;
+                    height: 70%;
+                }
+            }
+
+            .data_wrapper {
+                width: 100%;
+                .profile_username {
+                    margin-top: 12px;
+                    font-size: 30px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .profile_fullname {
+                    font-size: 24px;
+                    margin-top: 12px;
+                    display:flex;
+                    justify-content: center
+                }
+
+                .order_subtitle {
+                    margin-top: 12px;
+                    justify-content: center;
+                    span {
+                        font-size: 12px;
+                        margin-left: 7px;
+                    }
+                }
+
+                .profile_message {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .projects_wrapper {
+            .projects_title {}
+
+            .list_wrapper {
+                flex-direction: column;
+                align-items: normal;
+            }
+        }
+    }
+
+    .order {
+        width: auto;
+    }
+
+}

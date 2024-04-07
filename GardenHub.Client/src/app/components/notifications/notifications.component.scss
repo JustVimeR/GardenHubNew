@@ -1,7 +1,8 @@
-.notifications_wrapper{
+.notifications_wrapper {
     min-height: 1600px;
-    .container{
-        .notifications_header{
+
+    .container {
+        .notifications_header {
             color: #000;
             font-size: 30px;
             font-weight: 500;
@@ -10,21 +11,23 @@
             margin: 0 auto;
         }
 
-        .notifications-subheader_wrapper{
+        .notifications-subheader_wrapper {
             margin-top: 45px;
             display: flex;
             width: 649px;
             align-items: flex-start;
             gap: 349px;
 
-            .notifications-subheader{
+            .notifications-subheader {
                 color: #545454;
                 font-size: 25px;
                 font-weight: 400;
                 margin: 0 0 46px 35px;
             }
         }
-        .notifications-orders-list_wrapper{
+
+        .notifications-orders-list_wrapper {
+
             display: flex;
             justify-content: space-between;
             flex-direction: column;
@@ -32,13 +35,13 @@
             gap: 40px;
             width: 1300px;
 
-            .notifications-orders_wrapper{
+            .notifications-orders_wrapper {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                width: 100%; 
+                width: 100%;
 
-                .notifications-orders_header{
+                .notifications-orders_header {
                     color: #000;
                     font-size: 25px;
                     font-weight: 500;
@@ -47,7 +50,7 @@
                     flex: 0 0 auto;
                 }
 
-                .notifications-orders_user{
+                .notifications-orders_user {
                     color: #83DF89;
                     text-align: center;
                     font-size: 25px;
@@ -56,11 +59,16 @@
                     flex: 1 1 auto;
                 }
 
-                .notifications-btn_wrapper{
+                .notifications-orders_user:hover {
+                    color: #2cb335;
+                }
+
+                .notifications-btn_wrapper {
                     display: flex;
                     align-items: center;
                     flex: 0 0 auto;
-                    .btn_decline{
+
+                    .btn_decline {
                         display: flex;
                         width: 216px;
                         height: 41px;
@@ -75,9 +83,16 @@
                         border: 3px solid #F0A1A1;
                         background-color: #fff;
                         margin-right: 8px;
+                        transition: color 0.3s ease;
+                        transition: background-color 0.3s ease;
                     }
 
-                    .btn_accept{
+                    .btn_decline:hover {
+                        background-color: #F0A1A1;
+                        color: #FFF;
+                    }
+
+                    .btn_accept {
                         display: flex;
                         width: 216px;
                         height: 41px;
@@ -91,9 +106,85 @@
                         font-size: 25px;
                         font-weight: 600;
                         background-color: #fff;
-                    }   
+                        transition: color 0.3s ease;
+                        transition: background-color 0.3s ease;
+                    }
+
+                    .btn_accept:hover {
+                        background-color: #83DF89;
+                        color: #FFF;
+                    }
                 }
             }
         }
     }
+}
+
+@media screen and (max-width: 763px) {
+    .notifications_wrapper {
+        min-height: 650px;
+        height: auto;
+        .container {
+            .notifications_header {
+                margin-top: 14px;
+                margin-bottom: 28px;
+                font-size: 18px;
+            }
+
+            .notifications-subheader_wrapper {
+                display: none;
+
+                .notifications-subheader {}
+            }
+
+            .notifications-orders-list_wrapper {
+                margin-bottom: 50px;
+                width: auto;
+                .notifications-orders_wrapper {
+                    flex-direction: column;
+                    position: relative;
+
+                    .notifications-orders_header {
+                        font-size: 12px;
+                        font-weight: 500;
+                        width: auto;
+                    }
+
+                    .notifications-orders_user {
+                        font-size: 12px;
+                        font-weight: 500;
+                        margin-top: 13px;
+                        display: flex;
+                        width: 100%;
+                    }
+
+                    .notifications-btn_wrapper {
+                        position: absolute;
+                        top: 27px;
+                        right: 0;
+
+                        .btn_decline {
+                            font-size: 10px;
+                            font-weight: 600;
+                            padding: 7px 10px 7px 10px;
+                            height: 26px;
+                            border-radius: 14px;
+                            width: auto;
+                        }
+
+                        .btn_accept {
+                            font-size: 10px;
+                            font-weight: 600;
+                            padding: 7px 10px 7px 10px;
+                            height: 26px;
+                            border-radius: 14px;
+                            width: auto;
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+
 }
