@@ -129,7 +129,7 @@ ion-icon {
 }
 
 .nav-pannel-logo{
-  margin-left: 37px;
+  margin-left: 25px;
   color: #000;
   font-family: Lexend Deca;
   font-size: 32px;
@@ -153,7 +153,7 @@ ion-icon {
   background-color: transparent;
   font-size: 27px;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
   cursor: pointer;
   outline: none;
 }
@@ -168,12 +168,19 @@ ion-icon {
   color: #000;
   font-size: 27px;
   font-weight: 600;
+
 }
 
 .switcher-btn:not(.active) {
   color: #AFAFAF;
   font-size: 27px;
   font-weight: 600;
+}
+.nav-pannel-menu-btn{
+  cursor: pointer;
+  width: 42px;
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 1199.98px) {
@@ -281,5 +288,20 @@ ion-icon {
 }
 .switcher-btn.active {
   padding: 0px 17px;
+}
+.slim-sidebar{
+  width: 212px;
+  height: 284px;
+  min-height: 0;
+  border-radius: 0 10px 10px 0px;
+}
+.sidebar-nav-role{
+  font-size: 18px;
+}
+.sidebar-nav-link span{
+  font-size: 18px;
+}
+.sidebar-nav-link{
+  font-size: 16px;
 }
 }

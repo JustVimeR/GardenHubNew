@@ -11,8 +11,9 @@
                     'Active': order?.data?.status === 'Active',
                     'InProggress': order?.data?.status === 'InProggress',
                     'Completed': order?.data?.status === 'Completed'
-                }">{{ order?.data?.status }}</div>
+                }">{{ order?.data?.status === 'Active' ? 'Активно' : order?.data?.status === 'InProggress' ? 'В роботі' : 'Завершено' }}</div>
             </div>
+            
 
             <div class="type-of-work_list">
                 <div 
@@ -68,6 +69,11 @@
                             <input type="checkbox" id="check" name="addToPortfolio" class="real-checkbox">
                             <span class="custom-checkbox"></span>   
                             <label for="check">Додати в профіль</label>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="order?.data?.status === 'Active'">
+                        <div class="accept_btn">
+                            <button>Відгукнутись</button>
                         </div>
                     </ng-container>
                 </ng-container>

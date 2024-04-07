@@ -35,10 +35,15 @@
         border-radius: 18px;
         border: 3px solid #83DF89;
         background-color: #fff;
-
         color: #83DF89;
         font-size: 25px;
         font-weight: 600;
+        transition: color 0.3s ease;
+        transition: background-color 0.3s ease;
+    }
+    .user-photo-change_btn:hover{
+        background-color: #83DF89;
+        color: #fff;
     }
 }
 
@@ -81,7 +86,10 @@
     color: #000;
     font-size: 25px;
     font-weight: 600;
-
+    transition: color 0.2s ease;
+}
+.btn-comfirm:hover{
+    color: #fff; 
 }
 
 .example-chip-list {
@@ -101,6 +109,10 @@
     color: #000;
     font-size: 25px;
     font-weight: 600;
+    transition: color 0.2s ease;
+}
+.btn-lookprofile:hover{
+    color: #fff;
 }
 
 .phone-wrapper{
@@ -149,6 +161,7 @@
         line-height: 17px ;
         margin-bottom: 82px ;
     }
+
     
     .btn-lookprofile {
         margin: 0 ;
