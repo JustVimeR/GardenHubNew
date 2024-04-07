@@ -1,9 +1,9 @@
-.nav-sidebar{
+.nav-sidebar {
   display: flex;
   flex-direction: column;
 }
 
-.sidebar-nav-link{
+.sidebar-nav-link {
   margin-top: 10px;
   text-decoration: none;
   color: #000;
@@ -14,7 +14,7 @@
     text-decoration: underline;
   }
 
-  span{
+  span {
     color: #000;
     font-size: 27px;
     font-weight: 600;
@@ -22,7 +22,7 @@
 
 }
 
-.sidebar-nav-link-bold{
+.sidebar-nav-link-bold {
   padding: 0;
   margin: 0;
   color: #000;
@@ -30,14 +30,14 @@
   font-weight: 600;
 }
 
-.sidebar-nav-role{
+.sidebar-nav-role {
   color: #000;
   font-size: 27px;
   font-weight: 400;
   margin-bottom: -10px;
 }
 
-.direct{
+.direct {
   margin: 10px 0;
 }
 
@@ -53,12 +53,12 @@
   border-radius: 10px;
   border: 1px solid #B9B9B9;
   background: rgba(255, 255, 255, 0.88);
-  position: fixed; 
-  top: 0;           
-  left: 0;        
-  z-index: 1000;  
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
   transform: translateX(-100%);
-  transition: transform 0.3s ease-out; 
+  transition: transform 0.3s ease-out;
 }
 
 .slim-sidebar.hide {
@@ -112,23 +112,23 @@ ion-icon {
 }
 
 
-.nav-pannel{
+.nav-pannel {
   display: flex;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
   width: 1440px;
   height: 80px;
   margin: 0 auto;
 }
 
-.nav-pannel-left{
+.nav-pannel-left {
   display: flex;
   justify-content: center;
-  align-items:center;
-  
+  align-items: center;
+
 }
 
-.nav-pannel-logo{
+.nav-pannel-logo {
   margin-left: 25px;
   color: #000;
   font-family: Lexend Deca;
@@ -176,7 +176,8 @@ ion-icon {
   font-size: 27px;
   font-weight: 600;
 }
-.nav-pannel-menu-btn{
+
+.nav-pannel-menu-btn {
   cursor: pointer;
   width: 42px;
   display: flex;
@@ -196,15 +197,17 @@ ion-icon {
       left: 0px !important;
     }
   }
+
   .menu-toggler {
     left: 220px;
+
     .menu-hidden {
       left: 15px;
     }
   }
 }
 
-.footer_wrapper{
+.footer_wrapper {
   height: 238px;
   padding: 59px 179px;
   background: #545454;
@@ -214,16 +217,17 @@ ion-icon {
   // width: 100%; 
   // z-index: 100;  
 
-  .help_wrapper{
+  .help_wrapper {
     display: flex;
     flex-direction: column;
-    .header{
+
+    .header {
       color: #FFF;
       font-size: 23px;
       font-weight: 500;
     }
 
-    .subheader{
+    .subheader {
       margin-top: 25px;
       color: #FFF;
       font-size: 18px;
@@ -231,16 +235,17 @@ ion-icon {
     }
   }
 
-  .about_wrapper{
+  .about_wrapper {
     display: flex;
     flex-direction: column;
-    .header{
+
+    .header {
       color: #FFF;
       font-size: 23px;
       font-weight: 500;
     }
 
-    .subheader{
+    .subheader {
       margin-top: 25px;
       color: #FFF;
       font-size: 18px;
@@ -258,9 +263,9 @@ ion-icon {
 
 .footer_wrapper .social_wrapper {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  height: 100%; 
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .footer_wrapper .social-icon:not(:last-of-type),
@@ -269,39 +274,63 @@ ion-icon {
 }
 
 @media screen and (max-width: 768px) {
-  .nav-pannel{
+  .subheader {
+    margin-top: 15px !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+  }
+
+  .nav-pannel {
     width: auto !important;
   }
-  .nav-pannel-logo{
-  display: none !important;
+
+  .nav-pannel-logo {
+    display: none !important;
   }
-.nav-pannel-menu-btn{
-  margin-left: 20px;
-}
-.footer_wrapper{
-  height: auto !important;
-  padding: 20px 31px !important
-}
-.switcher-btn {
-  width: auto !important ;
-  font-size: 14px !important;
-}
-.switcher-btn.active {
-  padding: 0px 17px;
-}
-.slim-sidebar{
-  width: 213px;
-  height: auto;
-  min-height: 0;
-  border-radius: 0 10px 10px 0px;
-}
-.sidebar-nav-role{
-  font-size: 18px;
-}
-.sidebar-nav-link span{
-  font-size: 18px;
-}
-.sidebar-nav-link{
-  font-size: 16px;
-}
+
+  .nav-pannel-menu-btn {
+    margin-left: 20px;
+  }
+
+  .footer_wrapper {
+    height: auto !important;
+    padding: 35px 31px !important
+  }
+
+  .switcher-btn {
+    width: auto !important;
+    font-size: 14px !important;
+  }
+
+  .switcher-btn.active {
+    padding: 0px 17px;
+  }
+
+  .slim-sidebar {
+    width: 213px;
+    height: auto;
+    min-height: 0;
+    border-radius: 0 10px 10px 0px;
+  }
+
+  .sidebar-nav-role {
+    font-size: 18px;
+  }
+
+  .sidebar-nav-link span {
+    font-size: 18px;
+  }
+
+  .sidebar-nav-link {
+    font-size: 16px;
+  }
+
+  .footer_wrapper .social_wrapper {
+    margin-top: 25px;
+  }
+
+  .header {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
 }
