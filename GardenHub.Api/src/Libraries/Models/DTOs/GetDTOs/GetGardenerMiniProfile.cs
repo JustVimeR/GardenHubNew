@@ -1,6 +1,6 @@
 ﻿namespace Models.DTOs.GetDTOs;
 
-public class GetGardenerMiniProfile
+public class GetUserMiniProfile
 {
     public long Id { get; set; }
 
