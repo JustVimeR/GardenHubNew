@@ -23,7 +23,7 @@ export class MainInfoComponent extends StorageService implements OnInit{
   cityCtrl = new FormControl('');
   filteredCities: Observable<string[]> | undefined;
   cities: string[] = [];
-  allCities: string[] = ['Львів', 'Харків', 'Житомир', 'Івано-Франківськ', 'Рівне'];
+  allCities: string[] = ['Львів', 'Харків', 'Житомир', 'Івано-Франківськ', 'Рівне', 'Київ', 'Одеса', 'Кривий ріг', 'Полтава', 'Вінниця', 'Луцьк', 'Тернопіль'];
   isPhonePortrait = false;
   isBigScreen = false;
 
@@ -39,7 +39,7 @@ export class MainInfoComponent extends StorageService implements OnInit{
     email: [''],
     phoneNumber: [''],
     birthDate: [''],
-    descriptionOfExperience: new FormControl('')
+    description: new FormControl('')
   });
 
   constructor(
@@ -99,10 +99,11 @@ export class MainInfoComponent extends StorageService implements OnInit{
       userName: formValue.userName || this.selfUserProfile.data.userName,
       phoneNumber: formValue.phoneNumber || this.selfUserProfile.data.phoneNumber,
       birthDate: formValue.birthDate ? this.formatDate(formValue.birthDate) : this.selfUserProfile.data.birthDate,
-      descriptionOfExperience: formValue.descriptionOfExperience || this.selfUserProfile.data.descriptionOfExperience,
+      description: formValue.description || this.selfUserProfile.data.description,
       cities: citiesForApi.length > 0 ? citiesForApi : this.selfUserProfile.data.cities,
       isGardener: isGardener,
-      description:this.selfUserProfile.data.description,
+      icon: this.selfUserProfile.data.icon,
+      descriptionOfExperience: this.selfUserProfile.data.descriptionOfExperience,
       workTypes: this.selfUserProfile.data.workTypes,
     };
   

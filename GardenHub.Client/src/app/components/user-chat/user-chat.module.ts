@@ -8,10 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { ChatInListComponent } from './chat-in-list/chat-in-list.component';
 import { ChatComponent } from './chat/chat.component';
+import { FormsModule } from '@angular/forms';
 
 const userChatRoutes = [
   {path: '', component: UserChatComponent},
-  { path: 'chat/:id', component: ChatComponent },
 ]
 
 @NgModule({
@@ -27,6 +27,7 @@ const userChatRoutes = [
     IonicModule.forRoot(),
     MatButtonModule,
     MatChipsModule,
+    FormsModule
   ]
 })
 export class UserChatModule { }

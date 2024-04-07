@@ -21,11 +21,13 @@
         <div class="worker_text">ТОП-садівники</div>
        </div>
     <div class="top-worker_slider_wrapper" >
-       <div class="top-worker-slider" *ngFor="let data of fakeData">
-            <img src={{data.workerPhoto}} alt="photo" class="worker_photo">
-            <div class="worker_username">{{data.username}}</div>
+       <div class="top-worker-slider" *ngFor="let data of top7Gardeners?.data">
+            <div class="top-worker-img-wraper">
+                <img src={{data?.icon?.url}} alt="photo" class="worker_photo">
+            </div>    
+            <div class="worker_username">{{data?.userName}}</div>
             <div class="worker_raiting">
-                <div class="raiting">{{data.raiting}}</div>
+                <div class="raiting">{{data?.avgRating}}</div>
               <img src="../../../assets/star.png" alt="star" class="star">  
             </div>
        </div> 

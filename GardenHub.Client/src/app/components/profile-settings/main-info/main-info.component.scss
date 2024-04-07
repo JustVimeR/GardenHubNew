@@ -22,6 +22,9 @@
     .user-photo {
         width: 208px;
         height: 208px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
     }
 
     .user-photo-change_btn {
