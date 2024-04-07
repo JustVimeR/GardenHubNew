@@ -89,8 +89,8 @@ public class UserProfileController
     }
 
     [HttpGet("top7gardeners")]
-    public async Task<ActionResult<ServiceResult<List<GetGardenerMiniProfile>>>> GetTopGardeners()
+    public async Task<ActionResult<ServiceResult<List<GetUserMiniProfile>>>> GetTopGardeners()
     {
-        return Ok(new ServiceResult<List<GetGardenerMiniProfile>>(await _userProfileService.GetTopGardeners()));
+        return Ok(new ServiceResult<List<GetUserMiniProfile>>(await _userProfileService.GetTopGardeners()));
     }
 }

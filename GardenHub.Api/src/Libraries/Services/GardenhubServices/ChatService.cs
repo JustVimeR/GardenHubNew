@@ -69,31 +69,48 @@ public class ChatService : Service<Chat>, IChatService
         await _messageRepository.SaveChangesAsync();
     }
 
-    public async Task<List<GetChatDTO>> GetUserChats()
+    public async Task<List<GetMiniChatDTO>> GetUserChats()
     {
+        long userId = _userAccessor.UserProfileId;
+
         return await _repository.GetWhere(
-            x => x.User1Id == _userAccessor.UserProfileId ||
-                x.User2Id == _userAccessor.UserProfileId,
+            x => x.User1Id == userId ||
+                x.User2Id == userId,
                     y => y.Include(z => z.User1)
-                          .Include(z => z.User2))
-                          .Select(z => new GetChatDTO
+                                .ThenInclude(z=>z!.Icon)
+                          .Include(z => z.User2)
+                                .ThenInclude(z=>z!.Icon)!)
+                          .Select(z => new GetMiniChatDTO
                           {
                               Id = z.Id,
 
-                              ChatMessages = _mapper.Map<List<GetChatMessageDTO>>(z.ChatMessages
+                              LastChatMessage = _mapper.Map<GetChatMessageDTO>(z.ChatMessages!
                                               .OrderByDescending(m => m.PublicationDate)
-                                              .Take(100).ToList()),
+                                              .FirstOrDefault()),
 
-                              InterlocutorProfile = _mapper.Map<GetUserProfileDTO>(z.User1 ?? z.User2)
+                              InterlocutorProfile = _mapper.Map<GetUserMiniProfile>(z.User1 ?? z.User2)
                           }).ToListAsync();
     }
+
+    public async Task<Chat> GetUserChat(long chatId)
+    {
+        long userId = _userAccessor.UserProfileId;
+
+        return await _repository.GetFirstAsync(
+            x => x.User1Id == userId ||
+                x.User2Id == userId,
+                    y => y.Include(z => z.User1)
+                          .Include(z => z.User2)
+                          .Include(z => z.ChatMessages)!);
+    }
+
 
     public async Task<List<GetChatMessageDTO>> GetUserNotifications()
     {
         Chat notificationChat = await _repository.GetFirstAsync(
                     x => x.NotificationOwnerId == _userAccessor.UserProfileId,
-                    y => y.Include(z => z.ChatMessages)
-                            .ThenInclude(z => z.SenderUser));
+                    y => y.Include(z => z.ChatMessages)!
+                            .ThenInclude(z => z.SenderUser)!);
 
         return _mapper.Map<List<GetChatMessageDTO>>(notificationChat.ChatMessages);
     }

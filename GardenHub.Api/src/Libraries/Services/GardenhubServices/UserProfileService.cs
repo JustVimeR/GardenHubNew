@@ -153,11 +153,11 @@ public class UserProfileService : Service<UserProfile>, IUserProfileService
         return base.GetWhereAsync(x => x.IsGardener);
     }
 
-    public async Task<List<GetGardenerMiniProfile>> GetTopGardeners()
+    public async Task<List<GetUserMiniProfile>> GetTopGardeners()
     {
         return await _repository.GetWhere(x => x.IsGardener && x.GardenerFeedbacks.Count() != 0)
             .Select(x =>
-            new GetGardenerMiniProfile
+            new GetUserMiniProfile
             {
                 Id = x.Id,
                 Icon = _mapper.Map<GetMediaDTO>(x.Icon),

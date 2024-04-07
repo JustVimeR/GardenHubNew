@@ -41,6 +41,7 @@ public class MappingProfiles : Profile
         CreateMap<WorkType, PostWorkTypeDTO>();
 
         CreateMap<ChatMessage, GetChatMessageDTO>();
+        CreateMap<Chat, GetChatDTO>();
 
         CreateMap<City, GetCityDTO>();
         CreateMap<Feedback, GetFeedbackDTO>()
@@ -53,6 +54,7 @@ public class MappingProfiles : Profile
         CreateMap<Project, GetProjectDTO>()
             .ForMember(d => d.CustomerName, o => o.MapFrom(s => s.Customer.UserName));
 
+        CreateMap<UserProfile, GetUserMiniProfile>();
         CreateMap<UserProfile, GetUserProfileDTO>();
         CreateMap<WorkType, GetWorkTypeDTO>();
         CreateMap<WorkType, GetDerivedWorkTypeDTO>();

@@ -12,7 +12,7 @@ public interface IUserProfileService : IService<UserProfile>
 
     Task<List<UserProfile>> GetGardenerProfiles();
 
-    Task<List<GetGardenerMiniProfile>> GetTopGardeners();
+    Task<List<GetUserMiniProfile>> GetTopGardeners();
 
     Task<UserProfile> GetUserProfileFromToken();
 }
