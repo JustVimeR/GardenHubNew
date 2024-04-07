@@ -124,6 +124,8 @@ export class ServiceTypeComponent extends StorageService implements OnInit{
       description: this.selfUserProfile.data.description,
       cities: this.selfUserProfile.data.cities,
       isGardener: true,
+      icon: this.selfUserProfile.data.icon,
+      descriptionOfExperience: this.selfUserProfile.data.descriptionOfExperience,
 
       workTypes:this.selectedWorkTypes.map(id => ({ id })) || this.selfUserProfile.data.workTypes,
     };
