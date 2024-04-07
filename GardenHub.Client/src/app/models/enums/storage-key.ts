@@ -9,6 +9,7 @@ export enum StorageKey {
     gardenerProfile = 'gardener-profile',
     project = 'project',
     homeOwnerProfile = 'home-owner-profile',
-    topGardeners = "top-gardeners"
+    topGardeners = "top-gardeners",
+    chats = "chats"
   }
   
