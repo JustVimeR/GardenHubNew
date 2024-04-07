@@ -9,6 +9,14 @@
     display: flex;
     justify-content: space-between;
 
+    .profile_photo{
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+    }
+
     .profile_info{
         width: 980px;
 

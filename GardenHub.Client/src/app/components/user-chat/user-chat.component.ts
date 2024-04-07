@@ -25,8 +25,11 @@ export class UserChatComponent extends StorageService implements OnInit{
     this.getChats();
   }
 
-  displayChat(chat: any): void {
-    this.selectedChat = chat;
+  selectChat(chatId: string): void {
+    this.chatService.getChatById(chatId).subscribe(response => {
+      this.selectedChat = response.data;
+      this.setDataStorage(StorageKey.chatMessages, this.selectedChat);
+    });
   }
 
   getChats(): void {

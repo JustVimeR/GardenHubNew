@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component,Input } from '@angular/core';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-chat-in-list',
@@ -7,11 +7,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./chat-in-list.component.scss']
 })
 export class ChatInListComponent {
-  @Input() chats: any;
+  @Input() chat: any;
 
-  constructor(private router: Router) {}
+  constructor() {}
   
-  goToChat(id: number) {
-    this.router.navigate(['/chat', id]);
-  }
+  
 }
