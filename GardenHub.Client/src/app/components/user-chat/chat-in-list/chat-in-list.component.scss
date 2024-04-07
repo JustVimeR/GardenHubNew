@@ -34,9 +34,12 @@
     justify-content: center;
     align-items: center;
     margin-left: 10px;
-    img{
-        width: 30px;
-        height: 30px;      
+
+    .img-user{ 
+      border-radius: 50%;
+        height: 50px;
+        width: 50px;  
+        object-fit: cover;
     }
   }
   

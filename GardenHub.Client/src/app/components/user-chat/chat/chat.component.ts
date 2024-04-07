@@ -12,8 +12,10 @@ import StorageService from 'src/app/services/storage.service';
 })
 export class ChatComponent extends StorageService implements OnInit{
   @Input() selectedChat: any;
+  @Input() chat: any;
   messageText: string = '';
-
+  fakeImg='../../../../assets/user-chat.svg';
+  
   constructor(
     private storageService: StorageService,
     private signalRService: SignalRService

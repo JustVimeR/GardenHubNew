@@ -8,6 +8,15 @@ import { ChatService } from 'src/app/services/chat.service';
 })
 export class ChatInListComponent {
   @Input() chat: any;
+  fakeImg='../../../../assets/user-chat.svg';
+
+  imageHandler () {
+    if(!this.chat.interlocutorProfile.icon.url){
+      return this.fakeImg;
+    } 
+    return this.chat.interlocutorProfile.icon.url;
+    
+  } 
 
   constructor() {}
   
