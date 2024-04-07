@@ -8,8 +8,9 @@ import StorageService from "./storage.service";
 })
 export class SharedService extends StorageService {
 
-  // API_URL = 'http://xivapar697-001-site1.htempurl.com/api';
-  API_URL = 'https://localhost:5001/api';
+  DOMAIN_URL = 'https://localhost:5001';
+  API_URL = this.DOMAIN_URL + '/api';
+  
   constructor(
     private location: Location
   ) {
