@@ -1,7 +1,11 @@
 <div class="card">
-    <div class="img"><img src="../../../../assets/user-chat.svg" alt="user"/></div>
+    <div class="img">
+      <img class="img-user" src={{imageHandler()}} alt="user"/>
+    </div>
       <div class="textContent">
-        <p class="h1">{{chat.id}}</p>
+        <p class="h1">{{chat.interlocutorProfile.userName}}</p>
         <p class="p">{{chat.lastChatMessage.message}}</p>
       </div> 
 </div>
+
+<!-- "../../../../assets/user-chat.svg" -->

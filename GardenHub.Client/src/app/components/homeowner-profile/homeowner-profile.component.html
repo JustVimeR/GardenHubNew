@@ -5,13 +5,15 @@
                 <img src={{homeOwnerUserProfile?.data?.icon?.url}} alt="photo" class="profile_img">
             </div>
             <div class="data_wrapper">
-                <div class="profile_username">@{{homeOwnerUserProfile?.data?.userName}}</div>
+                <div class="profile_username">{{homeOwnerUserProfile?.data?.userName}}</div>
                 <div class="profile_fullname">{{homeOwnerUserProfile?.data?.name}} {{homeOwnerUserProfile?.data?.surname}}</div>
                 <div class="order_subtitle">
                     <img src="../../../assets/point.png" alt="point" class="order_point">
                     <span *ngFor="let city of homeOwnerUserProfile?.data?.cities">{{ city?.name ? city.name : 'Міста не додані'}}, </span>
                 </div>
+                <div class="button_wrapper">
                 <button class="profile_message">Написати повідомлення</button>
+                </div>
             </div>
         </div>
         <hr/>

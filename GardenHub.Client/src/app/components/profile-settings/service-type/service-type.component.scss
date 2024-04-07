@@ -87,6 +87,10 @@ input[type="checkbox"]:checked {
 
         font-size: 25px;
         font-weight: 600;
+        transition: color 0.2s ease;
+    }
+    .service-btn:hover{
+        color: #fff;
     }
 }
 

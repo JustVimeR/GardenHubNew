@@ -46,9 +46,14 @@
             border: 3px solid #000;
             background-color: #FFBDBD;
             color: #000;
-
+            transition: background-color 0.3s ease;
             font-size: 18px;
             font-weight: 600;
+        }
+        .profile_route:hover{
+            background-color: #ffb2b2;
+
+
         }
     }
 }
