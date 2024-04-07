@@ -35,6 +35,7 @@ public class MappingProfiles : Profile
         CreateMap<PostMediaDTO, Media>().ReverseMap();
         CreateMap<PostProjectDTO, Project>().ReverseMap();
         CreateMap<PostUserProfileDTO, UserProfile>().ReverseMap();
+        CreateMap<PostGardenerProfileDTO, UserProfile>().ReverseMap();
 
         CreateMap<PostWorkTypeDTO, WorkType>().ReverseMap();
         CreateMap<PostDerivedWorkTypeDTO, WorkType>().ReverseMap();

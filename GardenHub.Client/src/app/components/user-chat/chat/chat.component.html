@@ -1,0 +1,40 @@
+<div class="chat-container">
+    <div class="inner-chat-container">
+        <div class="main-chat-container">
+            <div class="chat-header">
+                <div class="chat-header-img-wrapper">
+                    <div class="chat-header-img">
+                        <img src="../../../assets/user-chat.svg" alt="user" />
+                    </div>
+                    <div class="chat-header-username">{{messages.data.id}}</div>
+                </div>
+                <hr style="border: 2px solid #83DF89;">
+            </div>
+            <div class="main-chat-and-submit">
+                <div class="chat-main"> 
+                    <div class="chat-text-left-wrapper" *ngFor="let message of messages.data.chatMessages">
+                        <div class="chat-text-left"> 
+                            {{message.message}}
+                        </div>
+                        <div class="chat-time">
+                            {{message.publicationDate | date:'short'}}
+                        </div>
+                    </div>
+                    <div class="chat-text-right-wrapper">
+                        <div class="chat-text-left"> 
+                            dfsghdfg sdrhrt hrt hrth rt hrth rthrt hrt hrt
+                        </div>
+                        <div class="chat-time">
+                            22:02
+                        </div>
+                    </div>
+
+                </div>
+                <div class="chat-footer">
+                    <input class="chat-footer__input" placeholder="Напишіть повідомлення"/>
+                    <button class="chat-footer__btn">></button>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
