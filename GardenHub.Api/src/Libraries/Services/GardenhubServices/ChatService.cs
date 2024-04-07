@@ -93,15 +93,31 @@ public class ChatService : Service<Chat>, IChatService
                           }).ToListAsync();
     }
 
-    public async Task<Chat> GetUserChat(long chatId)
+    public async Task<GetChatDTO> GetUserChat(long chatId)
     {
         long userId = _userAccessor.UserProfileId;
 
-        return await _repository.GetFirstAsync(
+        Chat chat = await _repository.GetFirstAsync(
             x => x.Id == chatId,
-                    y => y.Include(z => z.ChatMessages.OrderByDescending(x =>x.PublicationDate)!.Take(50)));
-    }
+                    y => y.Include(z => z.ChatMessages!.OrderByDescending(x => x.PublicationDate)!.Take(50))
+                    .Include(z => z.User1)
+                        .ThenInclude(z => z!.Icon)
+                    .Include(z => z.User2)
+                        .ThenInclude(z => z!.Icon)!);
 
+        GetChatDTO chatDto = _mapper.Map<GetChatDTO>(chat);
+
+        if (chat.User1Id != userId)
+        {
+            chatDto.InterlocutorProfile = _mapper.Map<GetUserMiniProfile>(chat.User1);
+        }
+        else
+        {
+            chatDto.InterlocutorProfile = _mapper.Map<GetUserMiniProfile>(chat.User2);
+        }
+
+        return chatDto;
+    }
 
     public async Task<List<GetChatMessageDTO>> GetUserNotifications()
     {

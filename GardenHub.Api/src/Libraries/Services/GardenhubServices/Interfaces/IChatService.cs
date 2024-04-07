@@ -13,7 +13,7 @@ public interface IChatService : IService<Chat>
 
     public Task<List<GetMiniChatDTO>> GetUserChats();
 
-    public Task<Chat> GetUserChat(long chatId);
+    public Task<GetChatDTO> GetUserChat(long chatId);
 
     public Task<List<GetChatMessageDTO>> GetUserNotifications();
 }

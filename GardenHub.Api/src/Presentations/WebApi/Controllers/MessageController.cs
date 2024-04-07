@@ -39,9 +39,7 @@ public class MessageController : ControllerBase
     [HttpGet("chats/{chatId:long}")]
     public async Task<ActionResult<ServiceResult<List<GetChatDTO>>>> GetUserChat(long chatId)
     {
-        Chat chat = await _chatService.GetUserChat(chatId);
-
-        return Ok(new ServiceResult<GetChatDTO>(_mapper.Map<GetChatDTO>(chat)));
+        return Ok(new ServiceResult<GetChatDTO>(await _chatService.GetUserChat(chatId)));
     }
 
     [HttpGet("notifications")]
