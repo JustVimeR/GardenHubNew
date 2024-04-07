@@ -74,8 +74,8 @@ public class ChatService : Service<Chat>, IChatService
         long userId = _userAccessor.UserProfileId;
 
         return await _repository.GetWhere(
-            x => x.User1Id == userId ||
-                x.User2Id == userId,
+            x => x.User1Id == userId && x.User2 != null ||
+                x.User2Id == userId && x.User1 != null,
                     y => y.Include(z => z.User1)
                                 .ThenInclude(z=>z!.Icon)
                           .Include(z => z.User2)
@@ -88,7 +88,8 @@ public class ChatService : Service<Chat>, IChatService
                                               .OrderByDescending(m => m.PublicationDate)
                                               .FirstOrDefault()),
 
-                              InterlocutorProfile = _mapper.Map<GetUserMiniProfile>(z.User1 ?? z.User2)
+                              InterlocutorProfile =
+                              _mapper.Map<GetUserMiniProfile>(z.User1!.Id == userId ? z.User2 : z.User1 )
                           }).ToListAsync();
     }
 
@@ -97,11 +98,8 @@ public class ChatService : Service<Chat>, IChatService
         long userId = _userAccessor.UserProfileId;
 
         return await _repository.GetFirstAsync(
-            x => x.User1Id == userId ||
-                x.User2Id == userId,
-                    y => y.Include(z => z.User1)
-                          .Include(z => z.User2)
-                          .Include(z => z.ChatMessages)!);
+            x => x.Id == chatId,
+                    y => y.Include(z => z.ChatMessages.OrderByDescending(x =>x.PublicationDate)!.Take(50)));
     }
 
 

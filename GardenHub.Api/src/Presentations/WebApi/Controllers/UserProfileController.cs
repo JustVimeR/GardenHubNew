@@ -9,11 +9,8 @@ using Models.DTOs.GetDTOs;
 using Models.DTOs.PostDTOs;
 using Services;
 using Services.GardenhubServices.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -22,7 +19,7 @@ namespace WebApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class UserProfileController
-    : BaseCRUDController<UserProfile, GetUserProfileDTO, PostUserProfileDTO, PostUserProfileDTO>
+    : BaseCRUDController<UserProfile, GetUserProfileDTO, PostGardenerProfileDTO, PostGardenerProfileDTO>
 {
     private readonly IUserProfileService _userProfileService;
     private readonly IMapper _mapper;
@@ -47,14 +44,14 @@ public class UserProfileController
     }
 
     [NonAction]
-    public override Task<ActionResult<ServiceResult<GetUserProfileDTO>>> PostAsync(PostUserProfileDTO addDto)
+    public override Task<ActionResult<ServiceResult<GetUserProfileDTO>>> PostAsync(PostGardenerProfileDTO addDto)
     {
         return base.PostAsync(addDto);
     }
 
     [Authorize]
     public override async Task<ActionResult<ServiceResult<GetUserProfileDTO>>> PutAsync(
-        [FromRoute, Required] long id, PostUserProfileDTO updateUserProfile)
+        [FromRoute, Required] long id, PostGardenerProfileDTO updateUserProfile)
     {
         if (_userAccessor.UserProfileId != id)
         {
