@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { SharedService } from './shared.service';
 import StorageService  from './storage.service';
@@ -11,6 +11,8 @@ import { StorageKey } from '../models/enums/storage-key';
 })
 export class SignalRService {
 
+  public messageReceived = new EventEmitter<any>();
+
   static readonly AvailableActions = {
     ProjectApply: 'SendProjectApply',
     ChatMessage: 'SendMessage'
@@ -20,7 +22,9 @@ export class SignalRService {
   private notificationsConnection: signalR.HubConnection;
   private hubsUrl: string;
 
-  constructor(private sharedService: SharedService, private storageService: StorageService) {
+  constructor(
+    private sharedService: SharedService, 
+    private storageService: StorageService) {
     this.hubsUrl = sharedService.DOMAIN_URL + '/hubs';
     let token = storageService.getStringStorage(StorageKey.authToken);
 
@@ -42,7 +46,8 @@ export class SignalRService {
   });
 
     this.chatsConnection.on("ReceiveMessage", (userId: string, message: string) => {
-    console.log(`Received message from user ${userId}: ${message}`);
+      this.messageReceived.emit({ userId, message });
+      console.log(`Received message from user ${userId}: ${message}`);
   });
   }
 

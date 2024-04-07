@@ -17,14 +17,15 @@
                     <div class="chats-list__chats">
                         <div class="chats">
                             <app-chat-in-list 
-                            *ngFor="let chat of chats.data" 
-                            class="user-chat" 
-                            [chats]="chats"
-                        ></app-chat-in-list>
+                                *ngFor="let chat of chats.data" 
+                                class="user-chat" 
+                                [chat]="chat"
+                                (click)="selectChat(chat.id)"
+                            ></app-chat-in-list>
                         </div>
                     </div>
                 </div>
         </div> 
-       <app-chat class="chat-container" [messages]="selectedChat"></app-chat>
+       <app-chat [selectedChat]="selectedChat" class="chat-container"></app-chat>
     </div>
 </div>

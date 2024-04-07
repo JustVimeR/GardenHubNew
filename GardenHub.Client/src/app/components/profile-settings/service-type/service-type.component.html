@@ -1,16 +1,17 @@
 <div class="container">
     <div [ngClass]="{'phone-service-wrapper' : isPhonePortrait, 'service_wrapper': isBigScreen}">
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
-        
+
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="service-child_wrapper">
           <button mat-icon-button disabled></button>
           <input 
-            class='service-name-checkbox' 
+            class="real-checkbox"
             type="checkbox" 
             [id]="node.name" 
             [(ngModel)]="node.selected"
-            (change)="updateTypeOfWork(node.name, node.selected)"
+            (change)="updateTypeOfWork(node.name, node.selected, node.id)"
           >
+          <span class="custom-checkbox"></span>  
           <label class="service-child-name" for="{{node.name}}">{{node.name}}</label>
         </mat-tree-node>
       
@@ -37,7 +38,7 @@
       </section>
       <div class='service-btn_wrapper'>
         <button class="service-btn" (click)="goToProfile()">Переглянути профіль</button>
-        <button class="service-btn">Зберегти зміни</button>
+        <button class="service-btn" (click)="updateProfile();">Зберегти зміни</button>
       </div>
     </div>
   </div>

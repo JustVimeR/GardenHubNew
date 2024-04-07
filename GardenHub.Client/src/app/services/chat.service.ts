@@ -25,6 +25,10 @@ export class ChatService extends StorageService {
     return this.http.get(`${this.API_URL}/message/chats`, {});
   }
 
+  getChatById(chatId: string): Observable<any> {
+    return this.http.get(`${this.API_URL}/message/chats/${chatId}`);
+  }
+
   getNotifications(): Observable<any> {
     return this.http.get(`${this.API_URL}/message/notifications`, {});
   }
