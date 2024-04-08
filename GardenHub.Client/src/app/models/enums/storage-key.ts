@@ -11,6 +11,7 @@ export enum StorageKey {
     homeOwnerProfile = 'home-owner-profile',
     topGardeners = "top-gardeners",
     chats = "chats",
-    chatMessages = "chatMessages"
+    chatMessages = "chatMessages",
+    notifications = "notifications"
   }
   

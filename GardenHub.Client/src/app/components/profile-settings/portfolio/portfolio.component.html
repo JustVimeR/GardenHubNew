@@ -6,11 +6,12 @@
         </div>
         <div class="list_wrapper">
             <app-order 
-                *ngFor="let order of fakeOrders" 
+                *ngFor="let order of getCompletedProjects()"  
                 [order]="order"
                 (heartToggle)="toggleHeart($event)"
-                (viewDetails)="viewOrderDetails($event)"
             ></app-order>
+
+            <p class="no-data" *ngIf="getCompletedProjects().length === 0">Портфоліо не має проектів</p>
         </div>
     </div>
     <div class="button_wrapper">

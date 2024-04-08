@@ -61,28 +61,5 @@ export class MyProfileComponent extends StorageService implements OnInit{
     }
     return this.selfUserProfile.data.gardenerProjects.filter((order: any) => order.status === 'Completed');
   }
-
-  fakeOrders:any = [
-    {
-      title: 'Покосити газон на прибудинковій території',
-      location: 'м. Вишгород, Київська обл.',
-      price: '700',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за газоном','Догляд за фруктовими деревами','Ландшафтний дизайн'
-      ],
-      orderStatus: OrderStatus.complited
-    },
-    {
-      title: 'Обрізка фруктових дерев у саду',
-      location: 'м. Житомир',
-      price: 'Договірна',
-      isHeartClicked: false,
-      typeOfWork: [
-       'Догляд за фруктовими деревами','Ландшафтний дизайн','Догляд за газоном','Догляд за газоном'
-      ],
-      orderStatus: OrderStatus.complited
-    }
-  ]
-
+  
 }

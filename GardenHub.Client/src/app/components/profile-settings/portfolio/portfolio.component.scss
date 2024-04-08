@@ -9,6 +9,12 @@
     display: flex;
     justify-content: space-between;
     align-items:baseline;
+
+    .no-data{
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0 auto;
+    }
 }
 .app-order {
     margin-bottom: 20px; 
