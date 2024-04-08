@@ -23,7 +23,7 @@
     <div class="top-worker_slider_wrapper" >
        <div class="top-worker-slider" *ngFor="let data of top7Gardeners?.data">
             <div class="top-worker-img-wraper">
-                <img src={{data?.icon?.url}} alt="photo" class="worker_photo">
+                <img [src]="data?.icon?.url ? data.icon.url : '../../../usernonephoto.png'" alt="photo" class="worker_photo">
             </div>    
             <div class="worker_username">{{data?.userName}}</div>
             <div class="worker_raiting">

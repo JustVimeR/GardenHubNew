@@ -30,17 +30,14 @@
             align-items: center;
 
             .chat-header-img{
-                border-radius: 40px;
+                border-radius: 50%;
+                object-fit: cover;
                 background-color: #FFFFFF;
                 height: 50px;
                 width: 50px;
                 display:flex;
                 justify-content: center;
                 align-items: center;
-                img {
-                    width: 30px;
-                    height: 30px;  
-                }
             }
 
             .chat-header-username{

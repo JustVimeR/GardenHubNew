@@ -3,10 +3,10 @@
         <div class="main-chat-container">
             <div class="chat-header">
                 <div class="chat-header-img-wrapper">
-                    <div class="chat-header-img">
-                        <img src="../../../assets/user-chat.svg" alt="user" />
+                    <div class="chat-header-img-wrapper">
+                        <img src={{imageHandler()}} alt="user" class='chat-header-img'/>
                     </div>
-                    <div class="chat-header-username">User name</div>
+                    <div class="chat-header-username">{{selectedChat?.interlocutorProfile?.userName}}</div>
                 </div>
                 <hr style="border: 2px solid #83DF89;">
             </div>

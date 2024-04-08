@@ -2,7 +2,7 @@
     <div class="container">
         <div class="profile_header">
             <div class="profile_photo_wrapper">
-                <img src={{selfUserProfile?.data?.icon?.url}} alt="userhoto" class="profile_photo">
+                <img [src]="selfUserProfile?.data?.icon?.url ? selfUserProfile.data.icon.url : '../../../usernonephoto.png'" alt="userhoto" class="profile_photo">
             </div>
             <div class="profile_info">
                 <div class="profile_username">
@@ -35,10 +35,12 @@
             </div>
             <div class="list_wrapper">
                 <app-order 
-                    *ngFor="let order of fakeOrders" 
+                    *ngFor="let order of getCompletedProjects()"  
                     [order]="order"
                     (heartToggle)="toggleHeart($event)"
                 ></app-order>
+
+                <p class="no-data" *ngIf="getCompletedProjects().length === 0">Портфоліо не має проектів</p>
             </div>
         </div>
 

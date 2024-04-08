@@ -11,10 +11,10 @@ export class ChatInListComponent {
   fakeImg='../../../../assets/user-chat.svg';
 
   imageHandler () {
-    if(!this.chat.interlocutorProfile.icon.url){
+    if(!this.chat?.interlocutorProfile?.icon?.url){
       return this.fakeImg;
     } 
-    return this.chat.interlocutorProfile.icon.url;
+    return this.chat?.interlocutorProfile?.icon?.url;
     
   } 
 

@@ -55,6 +55,13 @@ export class MyProfileComponent extends StorageService implements OnInit{
     order.isHeartClicked = !order.isHeartClicked;
   }
 
+  getCompletedProjects() {
+    if (!this.selfUserProfile.data.gardenerProjects) {
+      return [];
+    }
+    return this.selfUserProfile.data.gardenerProjects.filter((order: any) => order.status === 'Completed');
+  }
+
   fakeOrders:any = [
     {
       title: 'Покосити газон на прибудинковій території',

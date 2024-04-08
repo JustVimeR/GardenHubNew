@@ -67,7 +67,6 @@ export class MainPageComponent extends StorageService implements OnInit{
   visibleOrders: any = [];
   allProjects: any = {};
   top7Gardeners: any = {};
-
   activeRole: 'gardener' | 'housekeeper';
 
   private _transformer = (node: ServiceNode, level: number) => {
@@ -168,45 +167,6 @@ export class MainPageComponent extends StorageService implements OnInit{
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  fakeData: any = [
-    {
-      workerPhoto: "../../../assets/photo1.png",
-      username: "juli.gardener",
-      raiting: '5.0'
-    },
-    {
-      workerPhoto: "../../../assets/photo2.png",
-      username: "anna.wodj",
-      raiting: '5.0'
-    },
-    {
-      workerPhoto: "../../../assets/photo3.png",
-      username: "anton__one",
-      raiting: '4.9'
-    },
-    {
-      workerPhoto: "../../../assets/photo4.png",
-      username: "vlad.taran",
-      raiting: '4.8'
-    },
-    {
-      workerPhoto: "../../../assets/photo5.png",
-      username: "emiliartp",
-      raiting: '4.8'
-    },
-    {
-      workerPhoto: "../../../assets/photo6.png",
-      username: "_sergart_",
-      raiting: '4.7'
-    },
-    {
-      workerPhoto: "../../../assets/photo7.png",
-      username: "oleg_vnek",
-      raiting: '4.6'
-    },
-  ];
-
-  
   // getFilteredOrders() {
   //   const selectedCategories = this.getSelectedCategories();
   //   const selectedLocations = this.getSelectedLocations();

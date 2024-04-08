@@ -14,7 +14,7 @@ export class ChatComponent extends StorageService implements OnInit{
   @Input() selectedChat: any;
   @Input() chat: any;
   messageText: string = '';
-  fakeImg='../../../../assets/user-chat.svg';
+  fakeImg='../../../../../assets/user-chat.svg';
   
   constructor(
     private storageService: StorageService,
@@ -24,7 +24,9 @@ export class ChatComponent extends StorageService implements OnInit{
   }
 
   ngOnInit(){
-    
+    this.signalRService.messageReceived.subscribe((message: any) => {
+      console.log("Received message:", message);
+    });
   }
 
   isCurrentUser(senderUserId: number): boolean {
@@ -34,14 +36,35 @@ export class ChatComponent extends StorageService implements OnInit{
 
   sendMessage(): void {
     if (!this.messageText.trim()) return;
-
-    const receiverId = 1; // тут мінять ІД
+  
+    const receiverId = this.selectedChat?.interlocutorProfile?.id;
     if (receiverId) {
       this.signalRService.sendChatMessage(this.messageText, receiverId.toString());
+      
+      const fakeMessage = {
+        message: this.messageText,
+        senderUserId: this.storageService.getDataStorage(StorageKey.userProfile).data?.id,
+        publicationDate: new Date().toISOString()
+      };
+  
+      if (!this.selectedChat.chatMessages) {
+        this.selectedChat.chatMessages = [];
+      }
+      this.selectedChat.chatMessages.push(fakeMessage);
+  
       this.messageText = '';
     } else {
       console.error('Receiver ID is not defined.'); 
     }
   }
+  
+
+  imageHandler () {
+    if(!this.selectedChat?.interlocutorProfile?.icon?.url){
+      return this.fakeImg;
+    } 
+    return this.selectedChat?.interlocutorProfile?.icon?.url;
+    
+  } 
 
 }

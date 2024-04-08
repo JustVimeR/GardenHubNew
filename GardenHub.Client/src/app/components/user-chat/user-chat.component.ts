@@ -28,9 +28,13 @@ export class UserChatComponent extends StorageService implements OnInit{
   selectChat(chatId: string): void {
     this.chatService.getChatById(chatId).subscribe(response => {
       this.selectedChat = response.data;
+      if (this.selectedChat && this.selectedChat.chatMessages) {
+        this.selectedChat.chatMessages = this.selectedChat.chatMessages.reverse();
+      }
       this.setDataStorage(StorageKey.chatMessages, this.selectedChat);
     });
   }
+  
 
   getChats(): void {
     if (this.hasKeyInStorage(StorageKey.chats)) {

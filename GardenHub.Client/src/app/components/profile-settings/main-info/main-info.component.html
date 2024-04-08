@@ -2,7 +2,7 @@
     <div class="container1">
         <div   class="main-page_info_wrapper" >
         <div class="user-photo_wrapper">
-            <img src={{selfUserProfile.data.icon.url}} alt="photo" class="user-photo">
+            <img [src]="selfUserProfile?.data?.icon?.url ? selfUserProfile.data.icon.url : '../../../../usernonephoto.png'" alt="photo" class="user-photo">
             <button class="user-photo-change_btn">
                 Змінити
             </button>
