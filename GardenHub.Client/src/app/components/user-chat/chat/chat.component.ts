@@ -5,6 +5,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { SignalRService } from 'src/app/services/signalR.service';
 import StorageService from 'src/app/services/storage.service';
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -15,7 +16,7 @@ export class ChatComponent extends StorageService implements OnInit{
   @Input() chat: any;
   messageText: string = '';
   fakeImg='../../../../../assets/user-chat.svg';
-  
+
   constructor(
     private storageService: StorageService,
     private signalRService: SignalRService
@@ -25,7 +26,12 @@ export class ChatComponent extends StorageService implements OnInit{
 
   ngOnInit(){
     this.signalRService.messageReceived.subscribe((message: any) => {
-      console.log("Received message:", message);
+      // console.log(`Received from user ${message.userId}: ${message.message}`);
+      this.selectedChat.chatMessages.push({
+        message: message.message,
+        senderUserId: message.userId,
+        publicationDate: new Date().toISOString()
+    });
     });
   }
 

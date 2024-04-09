@@ -1,0 +1,15 @@
+<div class="modal-backdrop" (click)="onClose()">
+    <div class="container" (click)="$event.stopPropagation()">
+        <p class="text-successful">Відправка повідомлення користувачу {{userProfile.data.userName}}</p>    
+        <textarea 
+            class="send-textarea" 
+            placeholder="Напишіть повідомлення" 
+            [(ngModel)]="messageText" 
+        ></textarea>
+        <div class="btn-container">
+            <button class="button-close" (click)="onClose()">Скасувати</button>
+            <button class="button-send" (click)="onSend()">Відправити</button>
+        </div>
+    </div>
+</div>
+

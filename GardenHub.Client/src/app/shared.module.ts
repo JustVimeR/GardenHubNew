@@ -13,6 +13,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { SuccessfullOrderComponent } from "./components/general/successfull-order/successfull-order.component";
 import { SuccessfullCreateOrderComponent } from "./components/general/successfull-create-order/successfull-create-order.component";
 import { SuccessfullUpdateProfileComponent } from "./components/general/successfull-update-profile/successfull-update-profile.component";
+import { SendMessageWindowComponent } from "./components/general/send-message-window/send-message-window.component";
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { SuccessfullUpdateProfileComponent } from "./components/general/successf
       SuccessfullOrderComponent,
       SuccessfullCreateOrderComponent,
       SuccessfullUpdateProfileComponent,
+      SendMessageWindowComponent
       // DIRECTIVES
     
       // PIPES
@@ -36,6 +38,7 @@ import { SuccessfullUpdateProfileComponent } from "./components/general/successf
       SuccessfullOrderComponent,
       SuccessfullCreateOrderComponent,
       SuccessfullUpdateProfileComponent,
+      SendMessageWindowComponent,
       // DIRECTIVES
   
       // PIPES

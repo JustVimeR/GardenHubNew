@@ -5,13 +5,12 @@ import StorageService  from './storage.service';
 import { StorageKey } from '../models/enums/storage-key';
 
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class SignalRService {
 
-  public messageReceived = new EventEmitter<any>();
+  public messageReceived = new EventEmitter<{ userId: string, message: string }>();
 
   static readonly AvailableActions = {
     ProjectApply: 'SendProjectApply',
@@ -42,7 +41,7 @@ export class SignalRService {
     this.startConnection(this.notificationsConnection);
 
     this.notificationsConnection.on("ReceiveMessage", (userId: string, message: string) => {
-      console.log(`Received message from user ${userId}: ${message}`);
+      console.log(`Received notification from user ${userId}: ${message}`);
   });
 
     this.chatsConnection.on("ReceiveMessage", (userId: string, message: string) => {
