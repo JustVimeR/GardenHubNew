@@ -20,8 +20,17 @@
                       </ng-container>
                 </div>
                 <div class="chat-footer">
-                    <input class="chat-footer__input" [(ngModel)]="messageText" placeholder="Напишіть повідомлення"/>
-                    <button class="chat-footer__btn" (click)="sendMessage()">></button>
+                    <input class="chat-footer__input" 
+                        [(ngModel)]="messageText" 
+                        placeholder="Напишіть повідомлення" 
+                        (keyup.enter)="sendMessage()"
+                    />
+                    <button 
+                        class="chat-footer__btn" 
+                        (click)="sendMessage()"
+                    >
+                        <img src="../../../../assets/send-message.png" alt="send" class="send-icon"/>
+                    </button>
                   </div>
             </div>  
         </div>
