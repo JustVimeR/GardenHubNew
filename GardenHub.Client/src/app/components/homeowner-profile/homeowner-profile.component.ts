@@ -57,6 +57,8 @@ export class HomeownerProfileComponent extends StorageService implements OnInit{
       this.signalRService.sendChatMessage(this.messageText, receiverId.toString());
 
       this.messageText = '';
+
+      this.cancelSend = false;
     } else {
       console.error('Receiver ID is not defined.'); 
     }
