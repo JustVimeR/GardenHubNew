@@ -27,13 +27,13 @@ jobs:
       with:
         context: .
         push: true
-        tags: gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/gardenhub-repo:latest
+        tags: gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/gardenhub-img:latest
 
     - name: Deploy to Google Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0.3.0
       with:
         service: your-service-name
-        image: gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/gardenhub-repo:latest
+        image: gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/gardenhub-img:latest
         credentials: ${{ secrets.GCR_JSON_KEY }}
         region: us-central1
         allowUnauthenticated: true
