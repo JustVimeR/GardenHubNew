@@ -27,7 +27,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/gardenhub-repo/gardenhub-img:latest
+        tags: europe-central2-docker.pkg.dev/${{ secrets.GCLOUD_PROJECT_ID }}/gardenhub-repo/gardenhub-img:latest
 
     - name: Deploy to Google Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0.3.0
