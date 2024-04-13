@@ -72,6 +72,7 @@ public class ProjectController : BaseCRUDController<Project, GetProjectDTO, Post
     }
 
     [HttpGet("acceptApply")]
+    [Authorize]
     public async Task<ActionResult<ServiceResult<bool>>> AcceptProjectApply(long gardenerId, long projectId)
     {
         long customerId = _userAccessor.UserProfileId; //customer

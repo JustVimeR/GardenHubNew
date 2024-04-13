@@ -113,7 +113,7 @@ public class ProjectService : Service<Project>, IProjectService
         List<ChatMessage> customerNotifications = await _chatService.GetUserNotifications(customerId);
 
         ChatMessage? apply = customerNotifications.FirstOrDefault(x => x.SenderUserId == gardenerId &&
-                                                         x.Message.Contains(projectId.ToString()));
+                                                         x.Message!.Contains(string.Format(Defaults.ApplyNotificationPrefix, projectId)));
 
         if (apply != null)
         {
