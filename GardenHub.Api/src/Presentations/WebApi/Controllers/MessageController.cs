@@ -19,32 +19,41 @@ public class MessageController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly IChatService _chatService;
+    private readonly IUserAccessor _userAccessor;
     private readonly FilterService _filterService;
 
     public MessageController(
     IChatService chatService,
-    FilterService filterService, IMapper mapper)
+    FilterService filterService, IMapper mapper, IUserAccessor userAccessor)
     {
         _mapper = mapper;
         _chatService = chatService;
         _filterService = filterService;
+        _userAccessor = userAccessor;
     }
 
     [HttpGet("chats")]
     public async Task<ActionResult<ServiceResult<List<GetMiniChatDTO>>>> GetUserChats()
     {
-        return Ok(new ServiceResult<List<GetMiniChatDTO>>(await _chatService.GetUserChats()));
+        long userId = _userAccessor.UserProfileId;
+
+        return Ok(new ServiceResult<List<GetMiniChatDTO>>(await _chatService.GetUserChats(userId)));
     }
 
     [HttpGet("chats/{chatId:long}")]
     public async Task<ActionResult<ServiceResult<List<GetChatDTO>>>> GetUserChat(long chatId)
     {
-        return Ok(new ServiceResult<GetChatDTO>(await _chatService.GetUserChat(chatId)));
+        long userId = _userAccessor.UserProfileId;
+
+        return Ok(new ServiceResult<GetChatDTO>(await _chatService.GetUserChat(chatId, userId)));
     }
 
     [HttpGet("notifications")]
     public async Task<ActionResult<ServiceResult<List<GetChatMessageDTO>>>> GetUserNotifications()
     {
-        return Ok(new ServiceResult<List<GetChatMessageDTO>>(await _chatService.GetUserNotifications()));
+        long userId = _userAccessor.UserProfileId;
+
+        return Ok(new ServiceResult<List<GetChatMessageDTO>>(_mapper.Map<List<GetChatMessageDTO>>(
+            await _chatService.GetUserNotifications(userId))));
     }
 }

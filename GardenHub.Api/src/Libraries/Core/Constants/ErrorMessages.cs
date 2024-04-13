@@ -22,6 +22,9 @@ public class ErrorMessages
     public const string GardenerNotRelatedToProject = "Gardener with id {0} is not related" +
         " to project with id {1}.";
 
+    public const string GardenerNotAppliedToProject = "Gardener with id {0} did not apply " +
+        "to project with id {1}.";
+
     public const string DerivedWorkTypeCantBeParent = "Derived work type can't be parent.";
 
     public const string EntityAlreadyExists = "Entity '{0}' already exists.";

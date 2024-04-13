@@ -38,7 +38,7 @@ public class ChatHub : Hub
     {
         string userId = Context.UserIdentifier!;
 
-        AvailabeleConnections connections = _userConnectionManager.GetConnectionsForUser(receiverId);
+        AvailableConnections connections = _userConnectionManager.GetConnectionsForUser(receiverId);
 
         if (connections.ChatsConnection != null)
             await Clients.Client(connections.ChatsConnection).SendAsync("ReceiveMessage", userId, message);

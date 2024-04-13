@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class AvailabeleConnections
+public class AvailableConnections
 {
     public string? ChatsConnection;
 
@@ -9,7 +9,7 @@ public class AvailabeleConnections
 
 public class UserConnectionManager : IUserConnectionManager
 {
-    private readonly Dictionary<string, AvailabeleConnections> _userConnections = new Dictionary<string, AvailabeleConnections>();
+    private readonly Dictionary<string, AvailableConnections> _userConnections = new Dictionary<string, AvailableConnections>();
 
     private readonly object _lock = new object();
 
@@ -79,7 +79,7 @@ public class UserConnectionManager : IUserConnectionManager
         }
     }
 
-    public AvailabeleConnections GetConnectionsForUser(string userId)
+    public AvailableConnections GetConnectionsForUser(string userId)
     {
         return _userConnections.GetValueOrDefault(userId) ?? new();
     }
@@ -91,5 +91,5 @@ public interface IUserConnectionManager
     public void AddNotificationsConnection(string userId, string connectionId);
     public void RemoveChatsConnection(string userId);
     public void RemoveNotificationsConnection(string userId);
-    public AvailabeleConnections GetConnectionsForUser(string userId);
+    public AvailableConnections GetConnectionsForUser(string userId);
 }
