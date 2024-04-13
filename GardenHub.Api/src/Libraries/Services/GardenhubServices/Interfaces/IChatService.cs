@@ -11,9 +11,9 @@ public interface IChatService : IService<Chat>
 
     public Task SaveNotificationMessage(long receiverId, long senderId, string message);
 
-    public Task<List<GetMiniChatDTO>> GetUserChats();
+    public Task<List<GetMiniChatDTO>> GetUserChats(long userId);
 
-    public Task<GetChatDTO> GetUserChat(long chatId);
+    public Task<GetChatDTO> GetUserChat(long chatId, long userId);
 
-    public Task<List<GetChatMessageDTO>> GetUserNotifications();
+    public Task<List<ChatMessage>> GetUserNotifications(long userId);
 }

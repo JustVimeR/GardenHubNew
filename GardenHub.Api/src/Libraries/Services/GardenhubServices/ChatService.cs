@@ -13,15 +13,12 @@ namespace Services.GardenhubServices;
 public class ChatService : Service<Chat>, IChatService
 {
     private readonly IMapper _mapper;
-    private readonly IUserAccessor _userAccessor;
     private readonly IChatMessageRepository _messageRepository;
 
-    public ChatService(IChatRepository chatRepository, IChatMessageRepository messageRepository,
-        IUserAccessor userAccessor, IMapper mapper)
+    public ChatService(IChatRepository chatRepository, IChatMessageRepository messageRepository, IMapper mapper)
         : base(chatRepository)
     {
         _mapper = mapper;
-        _userAccessor = userAccessor;
         _messageRepository = messageRepository;
     }
 
@@ -69,10 +66,8 @@ public class ChatService : Service<Chat>, IChatService
         await _messageRepository.SaveChangesAsync();
     }
 
-    public async Task<List<GetMiniChatDTO>> GetUserChats()
+    public async Task<List<GetMiniChatDTO>> GetUserChats(long userId)
     {
-        long userId = _userAccessor.UserProfileId;
-
         return await _repository.GetWhere(
             x => x.User1Id == userId && x.User2 != null ||
                 x.User2Id == userId && x.User1 != null,
@@ -93,10 +88,8 @@ public class ChatService : Service<Chat>, IChatService
                           }).ToListAsync();
     }
 
-    public async Task<GetChatDTO> GetUserChat(long chatId)
+    public async Task<GetChatDTO> GetUserChat(long chatId, long userId)
     {
-        long userId = _userAccessor.UserProfileId;
-
         Chat chat = await _repository.GetFirstAsync(
             x => x.Id == chatId,
                     y => y.Include(z => z.ChatMessages!.OrderByDescending(x => x.PublicationDate)!.Take(50))
@@ -119,14 +112,14 @@ public class ChatService : Service<Chat>, IChatService
         return chatDto;
     }
 
-    public async Task<List<GetChatMessageDTO>> GetUserNotifications()
+    public async Task<List<ChatMessage>> GetUserNotifications(long userId)
     {
         Chat notificationChat = await _repository.GetFirstAsync(
-                    x => x.NotificationOwnerId == _userAccessor.UserProfileId,
+                    x => x.NotificationOwnerId == userId,
                     y => y.Include(z => z.ChatMessages)!
                             .ThenInclude(z => z.SenderUser)!);
 
-        return _mapper.Map<List<GetChatMessageDTO>>(notificationChat.ChatMessages);
+        return notificationChat.ChatMessages!;
     }
 
 }

@@ -7,4 +7,6 @@ public class Defaults
     public const string UserProfileIdClaimIdentifier = "profile_id";
 
     public const string IdentityIdClaimIdentifier = "uid";
+
+    public const string ApplyNotificationPrefix = "projectId: {0}";
 }

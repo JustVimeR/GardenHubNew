@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Core.Constants;
+using Microsoft.AspNetCore.SignalR;
+using MimeKit;
 using Models.DbEntities;
+using Models.DTOs.GetDTOs;
 using Services.GardenhubServices.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 public class NotificationHub : Hub
@@ -45,11 +49,13 @@ public class NotificationHub : Hub
 
         long receiverId = project.CustomerId;
 
-        AvailabeleConnections connections = _userConnectionManager.GetConnectionsForUser(receiverId.ToString());
+        AvailableConnections connections = _userConnectionManager.GetConnectionsForUser(receiverId.ToString());
 
         if (connections.NotificationsConnection != null)
             await Clients.Client(connections.NotificationsConnection).SendAsync("ReceiveMessage", userId, message);
 
+        message = string.Format(Defaults.ApplyNotificationPrefix, project)
+            + Environment.NewLine + message;
         await _chatService.SaveNotificationMessage(receiverId, long.Parse(userId), message);
     }
 }

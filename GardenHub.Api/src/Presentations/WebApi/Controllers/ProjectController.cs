@@ -8,6 +8,7 @@ using Models.DbEntities;
 using Models.DTOs.GetDTOs;
 using Models.DTOs.PostDTOs;
 using Services;
+using Services.GardenhubServices;
 using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,13 +21,19 @@ namespace WebApi.Controllers;
 public class ProjectController : BaseCRUDController<Project, GetProjectDTO, PostProjectDTO, PostProjectDTO>
 {
     ILogger<ProjectController> _logger;
+    private readonly IUserAccessor _userAccessor;
+    private readonly IProjectService _projectService;
+
     public ProjectController(
     IProjectService service,
+    IUserAccessor userAccessor,
     IMapper mapper, FilterService filterService,
     ILogger<ProjectController> logger)
     : base(service, mapper, filterService)
     {
+        _projectService = service;
         _logger = logger;
+        _userAccessor = userAccessor;
     }
 
     public override async Task<ActionResult<ServiceResult<List<GetProjectDTO>>>> Get([FromQuery] PaginationQuery paginationQuery, [FromQuery] SortQuery sortQuery)
@@ -62,5 +69,15 @@ public class ProjectController : BaseCRUDController<Project, GetProjectDTO, Post
     public override Task<ActionResult<ServiceResult<GetProjectDTO>>> PatchAsync([FromRoute, Required] long id, [FromBody] JsonPatchDocument<PostProjectDTO> patchDocument)
     {
         return base.PatchAsync(id, patchDocument);
+    }
+
+    [HttpGet("acceptApply")]
+    public async Task<ActionResult<ServiceResult<bool>>> AcceptProjectApply(long gardenerId, long projectId)
+    {
+        long customerId = _userAccessor.UserProfileId; //customer
+
+        await _projectService.AcceptProjectApply(customerId, projectId, gardenerId);
+
+        return Ok(new ServiceResult<bool>());
     }
 }
