@@ -39,14 +39,13 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
   }
 
   applyToProject() {
-    if (this.order && this.order.data) {
-      const message = "Я хочу взяться";
-      const projectId = this.order.data.id;
-  
-      this.signalRService.sendProjectApplyNotification(message, projectId);
-      console.log("Запит на проект відправлено:", message, "до", projectId);
+    const projectId = this.order?.data?.id;
+    const message = `Заявка на проект #${projectId} від користувача`;
+    if (projectId) {
+      this.signalRService.sendProjectApplyNotification(message, projectId.toString());
+      console.error('Send');
     } else {
-      console.error("Інформація про проект недоступна");
+      console.error('Project ID is missing');
     }
   }
   

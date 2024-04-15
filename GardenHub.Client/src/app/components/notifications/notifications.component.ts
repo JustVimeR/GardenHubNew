@@ -23,6 +23,16 @@ export class NotificationsComponent extends StorageService implements OnInit{
 
   ngOnInit(): void {
     this.getNotifications();
+    // this.listenForProjectApplications();
+
+    this.signalRService.projectApplyReceived.subscribe(({ userId, projectId, message }) => {
+      console.log(`Received from user ${userId}: ${message}`);
+      const newNotification = {
+        message: `Нова заявка на проект #${projectId}: ${message}`,
+        senderUserId: userId
+      };
+      this.notifications.push(newNotification);
+    });
   }
 
   getNotifications(): void {
@@ -36,19 +46,13 @@ export class NotificationsComponent extends StorageService implements OnInit{
     }
   }
 
-
-  fakeNotifications = [
-    {
-      title: 'Покосити газон на прибудинковій території та обробити від бур’янів',
-      username: 'anton___one'
-    },
-    {
-      title: 'Діагностика та лікування троянд',
-      username: 'olexandr_shevchenko'
-    },
-    {
-      title: 'Діагностика та лікування троянд',
-      username: 'kateryna.lero'
-    }
-  ]
+  // listenForProjectApplications(): void {
+  //   this.signalRService.projectApplyReceived.subscribe(({ userId, projectId, message }) => {
+  //     const newNotification = {
+  //       message: `Нова заявка на проект #${projectId}: ${message}`,
+  //       senderUserId: userId
+  //     };
+  //     this.notifications.push(newNotification);
+  //   });
+  // }
 }
