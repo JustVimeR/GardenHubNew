@@ -52,7 +52,8 @@ public class NotificationHub : Hub
         AvailableConnections connections = _userConnectionManager.GetConnectionsForUser(receiverId.ToString());
 
         if (connections.NotificationsConnection != null)
-            await Clients.Client(connections.NotificationsConnection).SendAsync("ReceiveMessage", userId, message);
+            await Clients.Client(connections.NotificationsConnection).SendAsync("ReceiveProjectApply", userId,
+                projectId, message);
 
         message = string.Format(Defaults.ApplyNotificationPrefix, project)
             + Environment.NewLine + message;
