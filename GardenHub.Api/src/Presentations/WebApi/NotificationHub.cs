@@ -55,7 +55,7 @@ public class NotificationHub : Hub
             await Clients.Client(connections.NotificationsConnection).SendAsync("ReceiveProjectApply", userId,
                 projectId, message);
 
-        message = string.Format(Defaults.ApplyNotificationPrefix, project)
+        message = string.Format(Defaults.ApplyNotificationPrefix, project.Id)
             + Environment.NewLine + message;
         await _chatService.SaveNotificationMessage(receiverId, long.Parse(userId), message);
     }
