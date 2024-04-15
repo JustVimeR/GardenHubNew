@@ -6,6 +6,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import StorageService from 'src/app/services/storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { StorageKey } from 'src/app/models/enums/storage-key';
+import { SignalRService } from 'src/app/services/signalR.service';
 
 @Component({
   selector: 'app-order-details',
@@ -27,12 +28,30 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
     private route: ActivatedRoute,
     private storageService: StorageService,
     private projectService: ProjectService,
-    private location: Location
+    private location: Location,
+    private signalRService: SignalRService
     ){
     super();  
   }
 
   ngOnInit(){
+    this.getOrderId();
+  }
+
+  applyToProject() {
+    if (this.order && this.order.data) {
+      const message = "Я хочу взяться";
+      const projectId = this.order.data.id;
+  
+      this.signalRService.sendProjectApplyNotification(message, projectId);
+      console.log("Запит на проект відправлено:", message, "до", projectId);
+    } else {
+      console.error("Інформація про проект недоступна");
+    }
+  }
+  
+
+  getOrderId(){
     const orderId = this.route.snapshot.paramMap.get('id');
     if (orderId) {
       this.projectService.getProjectById(orderId).subscribe(order => {
@@ -74,13 +93,9 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
     }
   }
   
-  
-  
-
   back() {
     this.location.back();
   }
-
 
   viewAuthor() {
     const customerId = this.order?.data?.customerId;

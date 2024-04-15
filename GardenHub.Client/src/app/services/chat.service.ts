@@ -33,5 +33,9 @@ export class ChatService extends StorageService {
     return this.http.get(`${this.API_URL}/message/notifications`, {});
   }
 
+  getProjectAccept(): Observable<any> {
+    return this.http.get(`${this.API_URL}/project/acceptapply`, {});
+  }
+
 
 }

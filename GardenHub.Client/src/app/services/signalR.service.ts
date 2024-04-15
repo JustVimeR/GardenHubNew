@@ -11,6 +11,7 @@ import { StorageKey } from '../models/enums/storage-key';
 export class SignalRService {
 
   public messageReceived = new EventEmitter<{ userId: string, message: string }>();
+  public projectApplyReceived = new EventEmitter<{ userId: string, projectId: number, message: string }>();
 
   static readonly AvailableActions = {
     ProjectApply: 'SendProjectApply',
@@ -40,9 +41,10 @@ export class SignalRService {
     this.startConnection(this.chatsConnection);
     this.startConnection(this.notificationsConnection);
 
-    this.notificationsConnection.on("ReceiveMessage", (userId: string, message: string) => {
-      console.log(`Received notification from user ${userId}: ${message}`);
-  });
+    this.notificationsConnection.on("ReceiveProjectApply", (userId: string, projectId: number, message: string) => {
+      this.projectApplyReceived.emit({ userId, projectId, message });
+      console.log(`Received project application from user ${userId} for project ${projectId}: ${message}`);
+    });
 
     this.chatsConnection.on("ReceiveMessage", (userId: string, message: string) => {
       this.messageReceived.emit({ userId, message });
@@ -68,8 +70,8 @@ export class SignalRService {
     }
   }
 
-  sendProjectApplyNotification(message: string,  receiverId: string) {
-    this.sendMessage(this.notificationsConnection, SignalRService.AvailableActions.ProjectApply, message, receiverId);
+  sendProjectApplyNotification(message: string,  projectId: string) {
+    this.sendMessage(this.notificationsConnection, SignalRService.AvailableActions.ProjectApply, message, projectId);
   }
 
   sendChatMessage(message: string,  receiverId: string) {

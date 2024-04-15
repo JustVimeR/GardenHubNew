@@ -73,7 +73,7 @@
                     </ng-container>
                     <ng-container *ngIf="order?.data?.status === 'Active'">
                         <div class="accept_btn">
-                            <button>Відгукнутись</button>
+                            <button (click)="applyToProject()">Відгукнутись</button>
                         </div>
                     </ng-container>
                 </ng-container>
