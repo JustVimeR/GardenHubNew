@@ -72,14 +72,14 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="order?.data?.status === 'Active'">
-                        <div class="accept_btn">
-                            <button (click)="applyToProject()">Відгукнутись</button>
+                        <div class="accept_btn" (click)="applyToProject()">
+                            <button>Відгукнутись</button>
                         </div>
                     </ng-container>
                 </ng-container>
 
                 <ng-template #housekeeperBlock>
-                    <ng-container *ngIf="order?.data?.status === 'Active'">
+                    <ng-container *ngIf="isMyProject()">
                         <div class="delete_btn" (click)="deleteOrder()">
                             <button>Видалити</button>
                         </div>

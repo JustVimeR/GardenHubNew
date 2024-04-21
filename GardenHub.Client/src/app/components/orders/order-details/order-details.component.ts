@@ -39,13 +39,14 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
   }
 
   applyToProject() {
-    const projectId = this.order?.data?.id;
-    const message = `Заявка на проект #${projectId} від користувача`;
-    if (projectId) {
+    if (this.order && this.order.data) {
+      const message = this.order.data.title;
+      const projectId = this.order.data.id;
+  
       this.signalRService.sendProjectApplyNotification(message, projectId.toString());
-      console.error('Send');
+      console.log("Запит на проект відправлено:", message, "до", projectId);
     } else {
-      console.error('Project ID is missing');
+      console.error("Інформація про проект недоступна");
     }
   }
   
@@ -89,6 +90,15 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
       projectObject.data = projectObject.data.filter((project: any) => project.id !== projectId);
 
       this.storageService.setDataStorage(projectKey, projectObject);
+    }
+  }
+
+  isMyProject(){
+    const userProfileObject = this.storageService.getDataStorage(StorageKey.userProfile);
+    if(this.order?.data?.customerId == userProfileObject?.data?.id){
+      return true;
+    }else{
+      return false;
     }
   }
   
