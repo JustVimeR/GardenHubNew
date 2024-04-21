@@ -7,6 +7,7 @@ import StorageService from 'src/app/services/storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { StorageKey } from 'src/app/models/enums/storage-key';
 import { SignalRService } from 'src/app/services/signalR.service';
+import { FeedbackService } from 'src/app/services/feedback.service';
 
 @Component({
   selector: 'app-order-details',
@@ -15,6 +16,8 @@ import { SignalRService } from 'src/app/services/signalR.service';
 })
 export class OrderDetailsComponent extends StorageService implements OnInit{
   color: string = '';
+  showSuccessfulOrder = false;
+  showSuccessfulTakeOrder = false;
   fakeData = {
     status: OrderStatus.complited
   }
@@ -29,13 +32,18 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
     private storageService: StorageService,
     private projectService: ProjectService,
     private location: Location,
-    private signalRService: SignalRService
+    private signalRService: SignalRService,
+    private feedbackService: FeedbackService
     ){
     super();  
   }
 
   ngOnInit(){
     this.getOrderId();
+  }
+
+  closeSuccessOverlay() {
+    this.showSuccessfulOrder = false;
   }
 
   applyToProject() {
@@ -45,6 +53,7 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
   
       this.signalRService.sendProjectApplyNotification(message, projectId.toString());
       console.log("Запит на проект відправлено:", message, "до", projectId);
+      this.showSuccessfulTakeOrder=true;
     } else {
       console.error("Інформація про проект недоступна");
     }
@@ -116,8 +125,65 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
   }
   
   viewPerformer() {
-    this.router.navigateByUrl(`api/orders/gardener-profile`);
+    if (this.order?.data?.gardeners?.length > 0) {
+      const gardenerUserName = this.order.data.gardeners[0].id;
+      this.router.navigateByUrl(`/api/homeowner-profile/${gardenerUserName}`);
+    } else {
+      console.error('No gardeners found or invalid order structure');
+    }
   }
 
+  onComplete(): void {
+    const projectId = this.order?.data?.id;
+    if (!projectId) return;
+
+    this.projectService.getProjectById(projectId).subscribe(project => {
+      const updatedProject = {
+        title: project.data.title,
+        location: project.data.location,
+        budget: project.data.budget,
+        description: project.data.description,
+        numberOfRequriedGardeners: project.data.numberOfRequriedGardeners,
+        status: 2,
+        startDate: project.data.startDate,
+        endDate: project.data.endDate,
+        workTypes: project.data.workTypes
+      };
+
+      this.projectService.updateProject(projectId, updatedProject).subscribe(
+        response => {
+          console.log('Project updated successfully:', response);
+            this.showSuccessfulOrder = true;
+        },
+        error => {
+          console.error('Error updating project:', error);
+        }
+      );
+    });
+  }
+
+  handleFeedback(feedback: any){
+    if (this.order && this.order.data) {
+      const fullFeedback = {
+        rating: feedback.rating,
+        text: feedback.text,
+        gardenerId: this.order.data.gardeners[0].id,
+        projectId: this.order.data.id
+      };
+      this.feedbackService.createFeedback(fullFeedback).subscribe({
+        next: (response) => {
+          console.log('Feedback submitted successfully', response);
+          this.showSuccessfulOrder = false;
+        },
+        error: (error) => {
+          console.error('Error submitting feedback', error);
+          this.showSuccessfulOrder = false;
+        }
+      });
+    } else {
+      console.error('Order details are missing, cannot submit feedback');
+      this.showSuccessfulOrder = false;
+    }
+  }
 
 }

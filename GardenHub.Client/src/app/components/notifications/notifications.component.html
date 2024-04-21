@@ -8,10 +8,12 @@
       <div class="notifications-orders-list_wrapper">
         <div class="notifications-orders_wrapper" *ngFor="let notification of notifications">
           <div class="notifications-orders_header">{{notification.message}}</div>
-          <div class="notifications-orders_user">{{notification.senderUserId}}</div>
+          <div class="notifications-orders_user" (click)="viewAuthor(notification.senderUserId)">
+            {{userProfiles[notification.senderUserId] || 'Loading...'}}
+          </div>
           <div class="notifications-btn_wrapper">
-            <button class="btn_decline">Відхилити</button>
-            <button class="btn_accept" (click)="confirmProject(notification)">Підтвердити</button>        
+            <button class="btn_decline" (click)="deleteNotification(notification.id)">Відхилити</button>
+            <button class="btn_accept" (click)="onConfirm(notification)">Підтвердити</button>        
           </div>
         </div>
       </div>

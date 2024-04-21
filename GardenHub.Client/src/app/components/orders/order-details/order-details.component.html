@@ -52,12 +52,12 @@
                     <ng-container *ngIf="savedRole === 'housekeeper'">
                         <ng-container *ngIf="order?.data?.status === 'InProggress'">
                             <div class="details_author">Працює:
-                                <span (click)="viewPerformer()">emiliart</span>
+                                <span (click)="viewPerformer()">{{order?.data?.gardeners[0].userName}}</span>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="order?.data?.status === 'Completed'">
                             <div class="details_author">Виконавець:
-                                <span (click)="viewPerformer()">emiliart</span>
+                                <span (click)="viewPerformer()">{{order?.data?.gardeners[0].userName}}</span>
                             </div>
                         </ng-container>
                     </ng-container>
@@ -85,7 +85,7 @@
                         </div>
                     </ng-container>
                     <ng-container *ngIf="order?.data?.status === 'InProggress'">
-                        <div class="complite_btn">
+                        <div class="complite_btn" (click)="onComplete()">
                             <button>Виконано</button>
                         </div>
                     </ng-container>
@@ -95,3 +95,17 @@
         </div>
     </div>
 </div>
+
+<div *ngIf="showSuccessfulOrder" (click)="closeSuccessOverlay()" class="success-overlay">
+    <app-successfull-order
+    (click)="$event.stopPropagation()"
+        (feedbackSubmitted)="handleFeedback($event)"
+    ></app-successfull-order>
+</div>
+
+<app-successfull-take-order  
+*ngIf="showSuccessfulTakeOrder"
+(close)="showSuccessfulTakeOrder = false"
+>
+
+</app-successfull-take-order>
