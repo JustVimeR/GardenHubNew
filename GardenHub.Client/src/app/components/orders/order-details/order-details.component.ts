@@ -40,10 +40,10 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
 
   applyToProject() {
     if (this.order && this.order.data) {
-      const message = "Я хочу взяться";
+      const message = this.order.data.title;
       const projectId = this.order.data.id;
   
-      this.signalRService.sendProjectApplyNotification(message, projectId);
+      this.signalRService.sendProjectApplyNotification(message, projectId.toString());
       console.log("Запит на проект відправлено:", message, "до", projectId);
     } else {
       console.error("Інформація про проект недоступна");
@@ -90,6 +90,15 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
       projectObject.data = projectObject.data.filter((project: any) => project.id !== projectId);
 
       this.storageService.setDataStorage(projectKey, projectObject);
+    }
+  }
+
+  isMyProject(){
+    const userProfileObject = this.storageService.getDataStorage(StorageKey.userProfile);
+    if(this.order?.data?.customerId == userProfileObject?.data?.id){
+      return true;
+    }else{
+      return false;
     }
   }
   

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, switchMap} from "rxjs";
 import {SharedService} from "./shared.service";
 import StorageService from "./storage.service";
 
@@ -44,5 +44,15 @@ export class ProjectService extends StorageService {
   deleteProject(id: string): Observable<any> {
     return this.http.delete(`${this.API_URL}/project/${id}`);
   }
+
+  updateProject(projectId: string, newStatus: string): Observable<any> {
+    return this.getProjectById(projectId).pipe(
+      switchMap(project => {
+        project.data.status = newStatus; 
+        return this.http.put(`${this.API_URL}/project/${projectId}`, project);
+      })
+    );
+  }
+  
 
 }
