@@ -14,6 +14,7 @@ import { SuccessfullOrderComponent } from "./components/general/successfull-orde
 import { SuccessfullCreateOrderComponent } from "./components/general/successfull-create-order/successfull-create-order.component";
 import { SuccessfullUpdateProfileComponent } from "./components/general/successfull-update-profile/successfull-update-profile.component";
 import { SendMessageWindowComponent } from "./components/general/send-message-window/send-message-window.component";
+import { SuccessfullTakeOrderComponent } from "./components/general/successfull-take-order/successfull-take-order.component";
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { SendMessageWindowComponent } from "./components/general/send-message-wi
       SuccessfullOrderComponent,
       SuccessfullCreateOrderComponent,
       SuccessfullUpdateProfileComponent,
-      SendMessageWindowComponent
+      SendMessageWindowComponent,
+      SuccessfullTakeOrderComponent
       // DIRECTIVES
     
       // PIPES
@@ -39,6 +41,7 @@ import { SendMessageWindowComponent } from "./components/general/send-message-wi
       SuccessfullCreateOrderComponent,
       SuccessfullUpdateProfileComponent,
       SendMessageWindowComponent,
+      SuccessfullTakeOrderComponent,
       // DIRECTIVES
   
       // PIPES

@@ -102,3 +102,10 @@
         (feedbackSubmitted)="handleFeedback($event)"
     ></app-successfull-order>
 </div>
+
+<app-successfull-take-order  
+*ngIf="showSuccessfulTakeOrder"
+(close)="showSuccessfulTakeOrder = false"
+>
+
+</app-successfull-take-order>

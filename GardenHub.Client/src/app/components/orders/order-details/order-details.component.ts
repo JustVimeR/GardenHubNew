@@ -17,6 +17,7 @@ import { FeedbackService } from 'src/app/services/feedback.service';
 export class OrderDetailsComponent extends StorageService implements OnInit{
   color: string = '';
   showSuccessfulOrder = false;
+  showSuccessfulTakeOrder = false;
   fakeData = {
     status: OrderStatus.complited
   }
@@ -52,6 +53,7 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
   
       this.signalRService.sendProjectApplyNotification(message, projectId.toString());
       console.log("Запит на проект відправлено:", message, "до", projectId);
+      this.showSuccessfulTakeOrder=true;
     } else {
       console.error("Інформація про проект недоступна");
     }
