@@ -3,6 +3,7 @@ using Core.Exceptions;
 using Data.Repos.Interfaces;
 using Models.DbEntities;
 using Services.GardenhubServices.Interfaces;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ public class FeedbackService : Service<Feedback>, IFeedbackService
         }
 
         addFeedback.CustomerId = userProfile.Id;
+        addFeedback.PublicationDate = DateTime.UtcNow;
 
         return await base.PostAsync(addFeedback);
     }
