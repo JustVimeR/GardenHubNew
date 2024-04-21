@@ -5,6 +5,7 @@ namespace Models.DbEntities;
 public class ChatMessage : EntityBase
 {
     public long ChatId { get; set; }
+    public Chat? Chat { get; set; }
 
     public long? SenderUserId { get; set; }
     public UserProfile? SenderUser { get; set; }

@@ -16,4 +16,6 @@ public interface IChatService : IService<Chat>
     public Task<GetChatDTO> GetUserChat(long chatId, long userId);
 
     public Task<List<ChatMessage>> GetUserNotifications(long userId);
+
+    public Task DeleteMessage(long messageId, long receiverId);
 }
