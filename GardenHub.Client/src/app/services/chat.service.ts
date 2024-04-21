@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {SharedService} from "./shared.service";
 import StorageService from "./storage.service";
@@ -33,8 +33,8 @@ export class ChatService extends StorageService {
     return this.http.get(`${this.API_URL}/message/notifications`, {});
   }
 
-  getProjectAccept(): Observable<any> {
-    return this.http.get(`${this.API_URL}/project/acceptapply`, {});
+  getProjectAccept(params: HttpParams): Observable<any> {
+    return this.http.get(`${this.API_URL}/project/acceptapply`, { params });
   }
 
 

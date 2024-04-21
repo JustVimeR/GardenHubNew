@@ -119,7 +119,12 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
   }
   
   viewPerformer() {
-    this.router.navigateByUrl(`api/orders/gardener-profile`);
+    if (this.order?.data?.gardeners?.length > 0) {
+      const gardenerUserName = this.order.data.gardeners[0].id;
+      this.router.navigateByUrl(`/api/homeowner-profile/${gardenerUserName}`);
+    } else {
+      console.error('No gardeners found or invalid order structure');
+    }
   }
 
   onComplete(): void {

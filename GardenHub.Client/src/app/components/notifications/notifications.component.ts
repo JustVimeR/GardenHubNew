@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageKey } from 'src/app/models/enums/storage-key';
@@ -66,31 +67,54 @@ export class NotificationsComponent extends StorageService implements OnInit{
 
   onConfirm(notification: any): void {
     const projectId = this.extractProjectId(notification.message);
+    const gardenerId = notification.senderUserId; 
+
     if (!projectId) return;
 
-    this.projectService.getProjectById(projectId).subscribe(project => {
-      const updatedProject = {
-        title: project.data.title,
-        location: project.data.location,
-        budget: project.data.budget,
-        description: project.data.description,
-        numberOfRequriedGardeners: 1,
-        status: 1,
-        startDate: project.data.startDate,
-        endDate: project.data.endDate,
-        workTypes: project.data.workTypes
-      };
+    this.projectService.getProjectById(projectId).subscribe({
+      next: project => {
+        const updatedProject = {
+          title: project.data.title,
+          location: project.data.location,
+          budget: project.data.budget,
+          description: project.data.description,
+          numberOfRequriedGardeners: 1,
+          status: 1,
+          startDate: project.data.startDate,
+          endDate: project.data.endDate,
+          workTypes: project.data.workTypes
+        };
 
-      this.projectService.updateProject(projectId, updatedProject).subscribe(
-        response => {
-          console.log('Project updated successfully:', response);
-        },
-        error => {
-          console.error('Error updating project:', error);
-        }
-      );
+        this.projectService.updateProject(projectId, updatedProject).subscribe({
+          next: response => {
+            console.log('Project updated successfully:', response);
+            this.getProjectAccept(projectId, gardenerId);
+          },
+          error: error => {
+            console.error('Error updating project:', error);
+          }
+        });
+      },
+      error: error => {
+        console.error('Error retrieving project:', error);
+      }
     });
-  }
+}
+
+private getProjectAccept(projectId: string, gardenerId: string): void {
+    const params = new HttpParams()
+      .set('projectId', projectId)
+      .set('gardenerId', gardenerId);
+
+    this.chatService.getProjectAccept(params).subscribe({
+      next: (response) => {
+        console.log('Project acceptance retrieved successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error fetching project acceptance:', error);
+      }
+    });
+}
 
   extractProjectId(message: string): string | null {
     const match = message.match(/projectId:\s*(\d+)/);
