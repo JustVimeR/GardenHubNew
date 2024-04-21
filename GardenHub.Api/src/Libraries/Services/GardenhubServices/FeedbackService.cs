@@ -27,7 +27,7 @@ public class FeedbackService : Service<Feedback>, IFeedbackService
 
         Project project = await _projectService.GetFirstAsync(x => x.Id == addFeedback.ProjectId);
 
-        if (addFeedback.CustomerId != userProfile.Id && !userProfile.IsGardener)
+        if (project.CustomerId != userProfile.Id && !userProfile.IsGardener)
         {
             throw new ApiException(
                (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotReferenceNotOwnedEntity,
