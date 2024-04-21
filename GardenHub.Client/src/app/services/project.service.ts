@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable, switchMap} from "rxjs";
+import {BehaviorSubject, Observable, mergeMap, switchMap} from "rxjs";
 import {SharedService} from "./shared.service";
 import StorageService from "./storage.service";
+import { Project } from '../models/Project';
 
 @Injectable({
   providedIn: 'root'
@@ -45,13 +46,8 @@ export class ProjectService extends StorageService {
     return this.http.delete(`${this.API_URL}/project/${id}`);
   }
 
-  updateProject(projectId: string, newStatus: string): Observable<any> {
-    return this.getProjectById(projectId).pipe(
-      switchMap(project => {
-        project.data.status = newStatus; 
-        return this.http.put(`${this.API_URL}/project/${projectId}`, project);
-      })
-    );
+  updateProject(id: string, projectData: any): Observable<any> {
+    return this.http.put(`${this.API_URL}/project/${id}`, projectData);
   }
   
 

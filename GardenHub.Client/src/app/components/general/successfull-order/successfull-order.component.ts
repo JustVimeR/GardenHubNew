@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-successfull-order',
@@ -6,6 +6,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./successfull-order.component.scss']
 })
 export class SuccessfullOrderComponent implements OnInit {
+  @Output() feedbackSubmitted = new EventEmitter<{text: string, rating: number}>();
   starsArray: number[] = [1, 2, 3, 4, 5];
   hoveredStarIndex: number | null = null;
   clickedStarIndex: number | null = null;
@@ -58,8 +59,6 @@ export class SuccessfullOrderComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Review Text:', this.reviewText);
-    console.log('Star Rating:', this.starRating);
-    
+    this.feedbackSubmitted.emit({text: this.reviewText, rating: this.starRating});
   }
 }
