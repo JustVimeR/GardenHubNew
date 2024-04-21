@@ -65,6 +65,19 @@ export class NotificationsComponent extends StorageService implements OnInit{
     }
   }
 
+  deleteNotification(notificationId: string) {
+    this.chatService.deleteNotification(notificationId).subscribe({
+      next: (response) => {
+        console.log('Notification successfully deleted', response);
+        this.notifications = this.notifications.filter(notif => notif.id !== notificationId);
+        this.storageService.setDataStorage(StorageKey.notifications, this.notifications);
+      },
+      error: (error) => {
+        console.error('Failed to delete notification:', error);
+      }
+    });
+  }
+
   onConfirm(notification: any): void {
     const projectId = this.extractProjectId(notification.message);
     const gardenerId = notification.senderUserId; 
@@ -86,9 +99,9 @@ export class NotificationsComponent extends StorageService implements OnInit{
         };
 
         this.projectService.updateProject(projectId, updatedProject).subscribe({
-          next: response => {
-            console.log('Project updated successfully:', response);
+          next: () => {
             this.getProjectAccept(projectId, gardenerId);
+            this.deleteNotification(notification.id);
           },
           error: error => {
             console.error('Error updating project:', error);
@@ -98,7 +111,7 @@ export class NotificationsComponent extends StorageService implements OnInit{
       error: error => {
         console.error('Error retrieving project:', error);
       }
-    });
+    }); 
 }
 
 private getProjectAccept(projectId: string, gardenerId: string): void {

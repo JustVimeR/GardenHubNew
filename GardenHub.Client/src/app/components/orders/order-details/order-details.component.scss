@@ -1,3 +1,16 @@
+.success-overlay {
+    position: fixed; /* Positioned relative to the viewport */
+    top: 0; left: 0; /* Cover the whole screen */
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    display: flex; /* Use flexbox to center the content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 1000; /* Ensure it sits on top */
+}
+
+
 .details_header {
     display: inline-flex;
     align-items: center;

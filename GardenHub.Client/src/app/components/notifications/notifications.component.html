@@ -12,7 +12,7 @@
             {{userProfiles[notification.senderUserId] || 'Loading...'}}
           </div>
           <div class="notifications-btn_wrapper">
-            <button class="btn_decline">Відхилити</button>
+            <button class="btn_decline" (click)="deleteNotification(notification.id)">Відхилити</button>
             <button class="btn_accept" (click)="onConfirm(notification)">Підтвердити</button>        
           </div>
         </div>

@@ -41,6 +41,10 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
     this.getOrderId();
   }
 
+  closeSuccessOverlay() {
+    this.showSuccessfulOrder = false;
+  }
+
   applyToProject() {
     if (this.order && this.order.data) {
       const message = this.order.data.title;
@@ -161,7 +165,7 @@ export class OrderDetailsComponent extends StorageService implements OnInit{
       const fullFeedback = {
         rating: feedback.rating,
         text: feedback.text,
-        gardenerId: this.order.data.gardeners?.id,
+        gardenerId: this.order.data.gardeners[0].id,
         projectId: this.order.data.id
       };
       this.feedbackService.createFeedback(fullFeedback).subscribe({

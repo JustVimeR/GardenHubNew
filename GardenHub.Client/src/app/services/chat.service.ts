@@ -37,5 +37,9 @@ export class ChatService extends StorageService {
     return this.http.get(`${this.API_URL}/project/acceptapply`, { params });
   }
 
+  deleteNotification(id: string): Observable<any>{
+    return this.http.delete(`${this.API_URL}/message/notifications/${id}`);
+  }
+
 
 }

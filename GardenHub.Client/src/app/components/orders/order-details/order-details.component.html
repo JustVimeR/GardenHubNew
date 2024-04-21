@@ -96,7 +96,9 @@
     </div>
 </div>
 
-<app-successfull-order 
-    *ngIf="showSuccessfulOrder" 
-    (feedbackSubmitted)="handleFeedback($event)"
-></app-successfull-order>
+<div *ngIf="showSuccessfulOrder" (click)="closeSuccessOverlay()" class="success-overlay">
+    <app-successfull-order
+    (click)="$event.stopPropagation()"
+        (feedbackSubmitted)="handleFeedback($event)"
+    ></app-successfull-order>
+</div>
