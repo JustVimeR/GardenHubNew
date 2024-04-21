@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Core.Constants;
+using Core.Exceptions;
 using Data.Repos.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models.DbEntities;
@@ -6,6 +8,7 @@ using Models.DTOs.GetDTOs;
 using Services.GardenhubServices.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Services.GardenhubServices;
@@ -122,4 +125,19 @@ public class ChatService : Service<Chat>, IChatService
         return notificationChat.ChatMessages!;
     }
 
+    public async Task DeleteMessage(long messageId, long receiverId)
+    {
+        ChatMessage message = await _messageRepository.GetFirstAsync(x => x.Id == messageId,
+            x=>x.Include(x=>x.Chat!));
+
+        if(receiverId != message.Chat!.NotificationOwnerId &&
+            receiverId != message.Chat.User1Id &&
+            receiverId != message.Chat.User2Id)
+            throw new ApiException(
+               (int)HttpStatusCode.BadRequest, ErrorMessages.CouldNotDeleteNotOwnedEntity,
+                                                                       nameof(ChatMessage), messageId);
+
+        _messageRepository.Delete(message);
+        await _messageRepository.SaveChangesAsync();
+    }
 }

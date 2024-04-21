@@ -56,4 +56,14 @@ public class MessageController : ControllerBase
         return Ok(new ServiceResult<List<GetChatMessageDTO>>(_mapper.Map<List<GetChatMessageDTO>>(
             await _chatService.GetUserNotifications(userId))));
     }
+
+    [HttpDelete("notifications/{messageId:long}")]
+    public async Task<ActionResult<ServiceResult<bool>>> DeleteUserNotification(long messageId)
+    {
+        long userId = _userAccessor.UserProfileId;
+
+        await _chatService.DeleteMessage(messageId, userId);
+
+        return Ok(new ServiceResult<bool>());
+    }
 }
