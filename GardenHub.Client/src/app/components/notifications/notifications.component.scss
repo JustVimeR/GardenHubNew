@@ -1,6 +1,12 @@
 .notifications_wrapper {
     min-height: 1600px;
 
+    .notifications-empty{
+        text-align: center;
+        font-size: 24px;
+        font-weight: 500;
+    }
+
     .container {
         .notifications_header {
             color: #000;
@@ -10,6 +16,8 @@
             text-align: center;
             margin: 0 auto;
         }
+
+        
 
         .notifications-subheader_wrapper {
             margin-top: 45px;
