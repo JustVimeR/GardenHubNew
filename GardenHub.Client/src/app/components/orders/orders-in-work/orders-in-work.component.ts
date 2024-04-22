@@ -41,16 +41,16 @@ export class OrdersInWorkComponent implements OnInit{
   }
 
   getCustomerProggressProjects() {
-    if (!this.allProjects.data.customerProjects) {
+    if (!this.allProjects?.data?.customerProjects) {
       return [];
     }
-    return this.allProjects.data.customerProjects.filter((order: any) => order.status === 'InProggress');
+    return this.allProjects?.data?.customerProjects.filter((order: any) => order.status === 'InProggress');
   }
 
   getGardenerProggressProjects() {
-    if (!this.allProjects.data.gardenerProjects) {
+    if (!this.allProjects?.data?.gardenerProjects) {
       return [];
     }
-    return this.allProjects.data.gardenerProjects.filter((order: any) => order.status === 'InProggress');
+    return this.allProjects?.data?.gardenerProjects.filter((order: any) => order.status === 'InProggress');
   }
 }

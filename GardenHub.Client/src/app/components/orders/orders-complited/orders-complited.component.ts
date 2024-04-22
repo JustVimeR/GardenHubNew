@@ -35,17 +35,17 @@ export class OrdersComplitedComponent implements OnInit{
   }
 
   getCustomerCompletedProjects() {
-    if (!this.allProjects.data.customerProjects) {
+    if (!this.allProjects?.data?.customerProjects) {
       return [];
     }
-    return this.allProjects.data.customerProjects.filter((order: any) => order.status === 'Completed');
+    return this.allProjects?.data?.customerProjects.filter((order: any) => order.status === 'Completed');
   }
 
   getGardenerCompletedProjects() {
-    if (!this.allProjects.data.gardenerProjects) {
+    if (!this.allProjects?.data?.gardenerProjects) {
       return [];
     }
-    return this.allProjects.data.gardenerProjects.filter((order: any) => order.status === 'Completed');
+    return this.allProjects?.data?.gardenerProjects.filter((order: any) => order.status === 'Completed');
   }
 
 }
