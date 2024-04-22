@@ -3,6 +3,54 @@
     min-height: 1700px;
 }
 
+.custom-checkbox {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    border: 1px solid rgb(131, 223, 137);
+    background-color: #83DF89 scale(0);
+    vertical-align: sub;
+
+    position: absolute;
+}
+
+
+.custom-checkbox::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("/assets/info/check-mark.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    margin-top: 3px;
+}
+
+.real-checkbox {
+    position: absolute;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.real-checkbox:focus+.custom-checkbox {
+    box-shadow: 0px 0px 0px 1px #83DF89, 0px 0px 10px #83DF89;
+}
+
+.real-checkbox:checked+.custom-checkbox::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.real-checkbox:checked+.custom-checkbox {
+    background-color: #83DF89;
+    transform: scale(1);
+}
 .service-title {
     width: 1270px; //100%
     height: 67px;
@@ -145,4 +193,90 @@ input[type="checkbox"]:checked {
             font-weight: 600;
         }
     }
+}
+@media screen and (max-width: 763px) {
+    .service_wrapper {
+        min-height: 1300px;
+    }
+.container{
+    margin-top: 20px;
+}
+    .custom-checkbox {
+        width: 15px;
+        height: 15px;
+        border-radius: 3px;
+    }
+    
+    .custom-checkbox::before {
+        width: 11px;
+        height: 15px;
+    }
+    
+    .real-checkbox {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .real-checkbox:focus+.custom-checkbox {}
+    
+    .real-checkbox:checked+.custom-checkbox::before {}
+    
+    .real-checkbox:checked+.custom-checkbox {}
+    
+    .service-title {
+        width: auto;
+        height: 30px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    
+    .service-title-active {}
+    
+    .service-name-checkbox {}
+    
+    input[type="checkbox"]:checked {}
+    
+    .service-child-name {
+        font-size: 12px;
+        font-weight: 400;
+    }
+    
+    .service-child_wrapper {
+        margin: 0 0;
+        height: auto;
+        .mat-mdc-icon-button{
+            width: auto;
+        }
+    }
+    
+    .choosed-services_wrapper {
+        .choosed-services_header {}
+    
+        .type-of-work_list {
+            .type-of-work {}
+        }
+    }
+    
+    .service-btn_wrapper {
+        .service-btn {}
+    }
+    
+    .phone-service-wrapper {
+        .choosed-services_header {}
+    
+        .type-of-work_list {}
+    
+        .service-title {
+            width: auto;
+            height: 30px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    
+        .service-btn_wrapper {
+            .service-btn {}
+        }
+    }
+    
+    
 }
