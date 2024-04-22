@@ -1,0 +1,12 @@
+<div class="modal-backdrop" (click)="onClose()">
+    <div class="container" (click)="$event.stopPropagation()">
+        <p class="text-successful">Вставте силку на картинку</p>    
+        <input 
+        [(ngModel)]="imageUrl"
+        class="input-picture" 
+        placeholder="Силка на картинку..."
+        />
+        <button class="button-complete" (click)="onImageChange()">Ок</button>
+    </div>
+  </div>
+  
