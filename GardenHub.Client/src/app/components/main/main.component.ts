@@ -20,13 +20,6 @@ export class MainComponent extends StorageService implements OnInit{
   activeRole: 'gardener' | 'housekeeper';
   selfUserProfile: any = {};
 
-  ngOnInit() {
-    this.roleService.activeRole.subscribe(role => {
-      this.activeRole = role;
-      this.activeTab = role; 
-    });
-    this.getUserProfile();
-  }
 
   @HostListener('click', ['$event'])
   trackClick(event: any): void {
@@ -71,6 +64,19 @@ export class MainComponent extends StorageService implements OnInit{
     this.activeRole = 'gardener';
   }
 
+
+  ngOnInit() {
+    if (!this.hasKeyInStorage('activeRole')) {
+      this.setStringStorage('activeRole', 'housekeeper');
+    }
+
+    this.roleService.activeRole.subscribe(role => {
+      this.activeRole = role;
+      this.activeTab = role; 
+    }) 
+    this.getUserProfile();
+  }
+
   getUserProfile(): void {
     if (this.hasKeyInStorage(StorageKey.userProfile)) {
       this.selfUserProfile = this.getDataStorage(StorageKey.userProfile);
@@ -80,6 +86,7 @@ export class MainComponent extends StorageService implements OnInit{
         this.setDataStorage(StorageKey.userProfile, this.selfUserProfile);
       });
     }
+    
   }
 
 

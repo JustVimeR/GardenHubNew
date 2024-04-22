@@ -52,12 +52,12 @@
                     <ng-container *ngIf="savedRole === 'housekeeper'">
                         <ng-container *ngIf="order?.data?.status === 'InProggress'">
                             <div class="details_author">Працює:
-                                <span (click)="viewPerformer()">{{order?.data?.gardeners[0].userName}}</span>
+                                <span (click)="viewPerformer()">{{order?.data?.gardeners[0]?.userName}}</span>
                             </div>
                         </ng-container>
                         <ng-container *ngIf="order?.data?.status === 'Completed'">
                             <div class="details_author">Виконавець:
-                                <span (click)="viewPerformer()">{{order?.data?.gardeners[0].userName}}</span>
+                                <span (click)="viewPerformer()">{{order?.data?.gardeners[0]?.userName}}</span>
                             </div>
                         </ng-container>
                     </ng-container>
