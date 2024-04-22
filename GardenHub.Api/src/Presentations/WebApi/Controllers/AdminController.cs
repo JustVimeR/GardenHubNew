@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Core.Constants;
 using Data.IdentityModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs.Account;
+using Models.Enums;
 using Models.ResponseModels;
 using Services.IdentityServices.Interfaces;
 using System.Collections.Generic;
@@ -25,7 +27,7 @@ public class AdminController : ControllerBase
     }
 
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = nameof(Roles.Moderator))]
     [HttpGet("alluser")]
     public async Task<IActionResult> GetAllUser()
     {
@@ -36,7 +38,7 @@ public class AdminController : ControllerBase
         return Ok(new BaseResponse<IReadOnlyList<UserDto>>(data, $"User List"));
     }
 
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = nameof(Roles.Moderator))]
     [HttpGet("alluserwithroles")]
     public async Task<IActionResult> GetAllUserWithRoles()
     {

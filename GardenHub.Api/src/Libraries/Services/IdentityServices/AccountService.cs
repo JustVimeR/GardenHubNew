@@ -206,9 +206,12 @@ public class AccountService : IAccountService
         if (result.Succeeded)
         {
             await _userManager.AddToRoleAsync(newUser, Roles.User.ToString());
-            var verificationUri = await SendVerificationEmail(newUser, uri);
+            //var verificationUri = await SendVerificationEmail(newUser, uri);
 
-            return new BaseResponse<string>(newUser.Id.ToString(), message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
+            //return new BaseResponse<string>(newUser.Id.ToString(), message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            return await ConfirmEmailAsync(newUser.Id.ToString(), code);
         }
         else
         {
