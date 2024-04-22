@@ -401,21 +401,36 @@
                 // span:hover {}
             }
 
-            // .add-to-portfolio {
-            //     .custom-checkbox {}
+            .add-to-portfolio {
+                gap: 6px;
+                .custom-checkbox {
+                    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+                }
 
-            //     .custom-checkbox::before {}
+                .custom-checkbox::before {
+                    width: 12px;
+    height: 17px;
+                }
 
-            //     .real-checkbox {}
+                .real-checkbox {
+                    width: 15px;
+    height: 15px;
+                }
 
-            //     .real-checkbox:focus+.custom-checkbox {}
+                .real-checkbox:focus+.custom-checkbox {}
 
-            //     .real-checkbox:checked+.custom-checkbox::before {}
+                .real-checkbox:checked+.custom-checkbox::before {}
 
-            //     .real-checkbox:checked+.custom-checkbox {}
+                .real-checkbox:checked+.custom-checkbox {}
 
-            //     label {}
-            // }
+                label {
+                    font-size: 12px;
+                    font-weight: 400;
+                    line-height: 14px;
+                }
+            }
 
             .accept_btn {
                 button {
