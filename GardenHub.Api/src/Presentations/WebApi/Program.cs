@@ -22,7 +22,7 @@ builder.Services.AddCors(co =>
     {
         builder
         .WithOrigins("http://localhost:4200")
-        .WithOrigins("https://localhost:4200")
+        .WithOrigins("https://gardenhub.firebaseapp.com")
         .AllowAnyMethod().AllowAnyHeader().AllowCredentials();
     });
 });

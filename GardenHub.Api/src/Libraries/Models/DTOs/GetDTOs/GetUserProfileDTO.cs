@@ -5,6 +5,7 @@ namespace Models.DTOs.GetDTOs;
 public class GetUserProfileDTO : GetBaseProfile
 {
     //Gardener
+    public bool IsGardener { get; set; }
     public string? DescriptionOfExperience { get; set; }
     public List<GetCityDTO>? Cities { get; set; } = new();
 
