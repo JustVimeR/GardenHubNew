@@ -8,7 +8,7 @@ import StorageService from "./storage.service";
 })
 export class SharedService extends StorageService {
 
-  DOMAIN_URL = 'https://localhost:5001';
+  DOMAIN_URL = 'https://gardenhub-api-service-yigeg2aedq-lm.a.run.app';
   API_URL = this.DOMAIN_URL + '/api';
   
   constructor(

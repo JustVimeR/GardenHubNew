@@ -26,6 +26,11 @@ export class MainInfoComponent extends StorageService implements OnInit{
   allCities: string[] = ['Львів', 'Харків', 'Житомир', 'Івано-Франківськ', 'Рівне', 'Київ', 'Одеса', 'Кривий ріг', 'Полтава', 'Вінниця', 'Луцьк', 'Тернопіль'];
   isPhonePortrait = false;
   isBigScreen = false;
+  isImageSuccessfully = false;
+
+  showChangeImageModal() {
+    this.isImageSuccessfully = true;
+  }
 
   @ViewChild('fruitInput') cityInput: ElementRef<HTMLInputElement> | undefined;
 
@@ -39,7 +44,8 @@ export class MainInfoComponent extends StorageService implements OnInit{
     email: [''],
     phoneNumber: [''],
     birthDate: [''],
-    description: new FormControl('')
+    description: new FormControl(''),
+    descriptionOfExperience: new FormControl('')
   });
 
   constructor(
@@ -80,6 +86,17 @@ export class MainInfoComponent extends StorageService implements OnInit{
     this.getUserProfile();
   }
 
+  handleImageChange(newImageUrl: string) {
+    if (this.selfUserProfile && this.selfUserProfile.data) {
+      this.selfUserProfile.data.icon = {
+        type: "Image",
+        url: newImageUrl
+      };
+      this.updateProfile(); 
+    }
+  }
+  
+
   formatDate(date: Date | string): string {
     if (typeof date === 'string') return date;
     return new Date(date).toISOString().split('T')[0];
@@ -103,7 +120,7 @@ export class MainInfoComponent extends StorageService implements OnInit{
       cities: citiesForApi.length > 0 ? citiesForApi : this.selfUserProfile.data.cities,
       isGardener: isGardener,
       icon: this.selfUserProfile.data.icon,
-      descriptionOfExperience: this.selfUserProfile.data.descriptionOfExperience,
+      descriptionOfExperience: formValue.descriptionOfExperience || this.selfUserProfile.data.descriptionOfExperience,
       workTypes: this.selfUserProfile.data.workTypes,
     };
   

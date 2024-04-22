@@ -42,20 +42,17 @@ export class OrdersComponent extends StorageService implements OnInit{
   }
 
   getProjects(): void {
-    if (this.hasKeyInStorage(StorageKey.userProfile)) {
-      this.allProjects = this.getDataStorage(StorageKey.userProfile);
-    } else {
-      this.userProfileService.getSelfUserProfile().subscribe(response => {
-        this.allProjects = response;
-        this.setDataStorage(StorageKey.userProfile, this.allProjects);
-      });
-    }
+    this.userProfileService.getSelfUserProfile().subscribe(response => {
+      this.allProjects = response;
+      this.setDataStorage(StorageKey.userProfile, this.allProjects);
+    });
   }
+  
 
   getActiveProjects() {
     if (!this.allProjects.data) {
       return [];
     }
-    return this.allProjects.data.filter((order: any) => order.status === 'Active');
+    return this.allProjects?.data.filter((order: any) => order?.status === 'Active');
   }
 }
