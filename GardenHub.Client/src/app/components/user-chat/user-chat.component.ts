@@ -37,14 +37,10 @@ export class UserChatComponent extends StorageService implements OnInit{
   
 
   getChats(): void {
-    if (this.hasKeyInStorage(StorageKey.chats)) {
-      this.chats = this.getDataStorage(StorageKey.chats);
-    } else {
-      this.chatService.getChats().subscribe(response => {
-        this.chats = response;
-        this.setDataStorage(StorageKey.chats, this.chats);
-      });
-    }
+    this.chatService.getChats().subscribe(response => {
+      this.chats = response;
+      this.setDataStorage(StorageKey.chats, this.chats);
+    });
   }
 
   // apply()

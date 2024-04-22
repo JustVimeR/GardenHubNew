@@ -19,7 +19,7 @@
         <hr/>
         <div class="projects_wrapper">
             <ng-container *ngIf="homeOwnerUserProfile?.data?.customerProjects.length > 0; else noActiveProjects">
-                <div class="projects_title">Активні проекти користувача</div>
+                <div class="projects_title">Виконані проекти користувача</div>
                 <div class="list_wrapper">
                     <app-order 
                         *ngFor="let order of homeOwnerUserProfile?.data?.customerProjects" 
@@ -29,7 +29,7 @@
                 </div>
             </ng-container>
             <ng-template #noActiveProjects>
-                <div class="projects_title">У користувача немає активних проектів</div>
+                <div class="projects_title">У користувача немає виконаних проектів</div>
             </ng-template>
         </div>
 

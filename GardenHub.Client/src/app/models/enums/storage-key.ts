@@ -12,6 +12,7 @@ export enum StorageKey {
     topGardeners = "top-gardeners",
     chats = "chats",
     chatMessages = "chatMessages",
-    notifications = "notifications"
+    notifications = "notifications",
+    activeRole = 'activeRole'
   }
   

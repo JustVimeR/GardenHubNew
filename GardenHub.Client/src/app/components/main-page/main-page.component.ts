@@ -104,9 +104,11 @@ export class MainPageComponent extends StorageService implements OnInit{
   }
 
   ngOnInit() {
+
     this.roleService.activeRole.subscribe(role => {
       this.activeRole = role;
     });
+
     this.getCities();
     this.getProjects();
     this.getTop7Gardeners();
