@@ -16,7 +16,7 @@ export class MainComponent extends StorageService implements OnInit{
   show$ = this.modalService.showModal;
   statusMenu = false;
   showProfileMenu = false;
-  activeTab: 'gardener' | 'housekeeper' = 'housekeeper';
+  activeTab: 'gardener' | 'housekeeper';
   activeRole: 'gardener' | 'housekeeper';
   selfUserProfile: any = {};
 
@@ -61,13 +61,13 @@ export class MainComponent extends StorageService implements OnInit{
     private userProfileService: UserProfileService
   ) {
     super();
-    this.activeRole = 'gardener';
   }
 
 
   ngOnInit() {
     if (!this.hasKeyInStorage('activeRole')) {
       this.setStringStorage('activeRole', 'housekeeper');
+      this.setActiveTab('housekeeper')
     }
 
     this.roleService.activeRole.subscribe(role => {

@@ -5,6 +5,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     .main-chat-container{
         display: flex;
@@ -53,6 +55,8 @@
             max-height: 62vh;
             display: flex;
             flex-direction: column;
+            padding-bottom: 50px;
+            
 
             .chat-text-left-wrapper{
                 display: inline-block;
@@ -93,7 +97,9 @@
             justify-content: center;
             align-items:center;
             margin-bottom: 25px;
-
+            //position: relative;
+            //bottom: 65px;
+            
             &__input{
                 border-radius: 40px;
                 background-color: #FFFFFF;
